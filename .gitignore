@@ -1,0 +1,32 @@
+# Editor's temp
+.*.swp
+.*.swo
+*.pyc
+*~
+\#*\#
+TAGS
+tags
+
+# build
+build
+build_dbg
+build_opt
+
+# Configuration
+log.property
+
+# CMake
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+
+# VIM
+.syntastic_cpp_config
+.ycm_extra_conf.py
+.ycm_extra_conf.pyc
+
+# doxygen
+doxygen_log.txt

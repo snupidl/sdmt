@@ -1,0 +1,11 @@
+# Set files to create library
+# If you add new source file(s), add file's name to following lines
+SET(SRCS
+    test_checkpoint
+    )
+
+ADD_EXECUTABLE(unit_test ${SRCS})
+TARGET_LINK_LIBRARIES(unit_test sdmt)
+TARGET_LINK_LIBRARIES(unit_test ${TEST_ONLY_LIBS} ${LIBS} gtest_main)
+
+ADD_TEST(unit_test unit_test)
