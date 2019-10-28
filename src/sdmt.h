@@ -23,12 +23,12 @@ class SDMT
 {
   public:
     /**
-     * @breif a chunk of memory 
+     * @brief a chunk of memory 
      *  which is the unit of allocation and management
      */
     struct Segment {
         /**
-         * @brief create a null segment
+         * @brief create a null Segment
          */
         Segment()
             : m_id(-1),
@@ -38,11 +38,12 @@ class SDMT
 
         /**
          * @brief SDMT::Segment constructor
-         * @param int32_t id: id of segment
-         * @param SDMT_VT vt: value type
-         * @param SDMT_DT dt: data type
-         * @param std::vector<int> dim: size of each dimension
-         * @param void* ptr: assigned memory
+         * @param id id of Segment
+         * @param vt value type
+         * @param dt data type
+         * @param dim size of each dimension
+         * @param esize size of an element
+         * @param ptr assigned memory
          */
         Segment(int32_t id,
                 SDMT_VT vt,
@@ -67,7 +68,7 @@ class SDMT
 
         /**
          * @brief SDMT::Segment copy constructor
-         * @param Segment& other: segment to copy
+         * @param other Segment to copy
          */
         Segment(const Segment& other)
             : m_id(other.m_id),
@@ -83,13 +84,26 @@ class SDMT
          */
         ~Segment() {}
 
-        int32_t             m_id;
-        SDMT_VT             m_valuetype;
-        SDMT_DT             m_datatype;
-        std::vector<int>    m_dimension;
-        std::vector<int>    m_strides;
-        int32_t             m_esize;
-        void*               m_ptr;
+        /** @brief id of Segment*/
+        int32_t m_id;
+
+        /** @brief value type of elements in Segment */
+        SDMT_VT m_valuetype;
+
+        /** @brief type of data structure */
+        SDMT_DT m_datatype;
+
+        /** @brief dimension of data */
+        std::vector<int> m_dimension;
+
+        /** @brief byte strides for each index */
+        std::vector<int> m_strides;
+
+        /** @brief byte size of an element in Segment */
+        int32_t m_esize;
+
+        /** @brief memory pointer of data */
+        void* m_ptr;
     };
 
     /**
@@ -101,10 +115,16 @@ class SDMT
          */
         CkptInfo(int id_, int level_) : id(id_), level(level_) {}
 
+        /** @brief checkpoint id */
         int id;
+
+        /** @brief checkpoint level */
         int level;
     };
 
+    /**
+     * @brief hash map that mapping name of Segment and Segment
+     */
     typedef std::unordered_map<std::string, Segment> SegmentMap;
 
     /**
@@ -123,7 +143,7 @@ class SDMT
 
     /**
      * @brief [static]init sdmt(simulation process and data management)
-     * @param std::string config: path of config file
+     * @param config path of config file
      * @return status code
      */
     static SDMT_Code init(std::string config)
@@ -144,11 +164,11 @@ class SDMT
     { return get_manager().finalize_(); }
 
     /**
-     * @brief [static]register a segment to sdmt manager
-     * @param std::string name: name of the segment
-     * @param SDMT_VT vt: value type
-     * @param SDMT_DT dt: data type
-     * @param std::vector<int> dim: size of each dimension
+     * @brief [static]register a Segment to sdmt manager
+     * @param name name of the Segment
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
      * @return status code
      */
     static SDMT_Code register_segment(std::string name,
@@ -158,53 +178,53 @@ class SDMT
     { return get_manager().register_segment_(name, vt, dt, dim); }
     
     /**
-     * @brief [static]create a checkpoint of a segment
+     * @brief [static]create a checkpoint of a Segment
      * @return status code
      */
     static SDMT_Code checkpoint()
     { return get_manager().checkpoint_(); }
 
     /**
-     * @brief [static]recover checkpointed segments
+     * @brief [static]recover checkpointed Segments
      * @return status code
      */
     static SDMT_Code recover()
     { return get_manager().recover_(); }
 
     /**
-     * @brief [static] get segment
-     * @return segment, null if name is incorrect
+     * @brief [static] get Segment
+     * @return Segment, null if name is incorrect
      */
     static Segment get_segment(std::string name)
     { return get_manager().get_segment_(name); }
 
     /**
-     * @brief [static]get memory pointer of registered segment
-     * @param std::string name: name of the segment
+     * @brief [static]get memory pointer of registered Segment
+     * @param name name of the Segment
      * @return integer pointer, null if name is incorrect
      */
     static int* intptr(std::string name)
     { return get_manager().intptr_(name); }
 
     /**
-     * @brief [static]get memory pointer of registered segment
-     * @param std::string name: name of the segment
+     * @brief [static]get memory pointer of registered Segment
+     * @param name name of the Segment
      * @return long integer pointer, null if name is incorrect
      */
     static long* longptr(std::string name)
     { return get_manager().longptr_(name); }
 
     /**
-     * @brief [static]get memory pointer of registered segment
-     * @param std::string name: name of the segment
+     * @brief [static]get memory pointer of registered Segment
+     * @param name name of the Segment
      * @return float pointer, null if name is incorrect
      */
     static float* floatptr(std::string name)
     { return get_manager().floatptr_(name); }
 
     /**
-     * @brief [static]get memory pointer of registered segment
-     * @param std::string name: name of the segment
+     * @brief [static]get memory pointer of registered Segment
+     * @param name name of the Segment
      * @return double pointer, null if name is incorrect
      */
     static double* doubleptr(std::string name)
@@ -214,7 +234,7 @@ class SDMT
 
     /**
      * @brief init sdmt module
-     * @param std::string config: path of config file
+     * @param config path of config file
      * @return status code
      */
     SDMT_Code init_(std::string config);
@@ -232,11 +252,11 @@ class SDMT
     SDMT_Code finalize_();
 
     /**
-     * @brief register a segment to sdmt manager
-     * @param std::string name: name of the segment
-     * @param SDMT_VT vt: value type
-     * @param SDMT_DT dt: data type
-     * @param std::vector<int> dim: size of each dimension
+     * @brief register a Segment to sdmt manager
+     * @param name name of the Segment
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
      * @return status code
      */
     SDMT_Code register_segment_(std::string name,
@@ -245,53 +265,58 @@ class SDMT
                             std::vector<int> dim);
 
     /**
-     * @brief create checkpoints of registered segments
+     * @brief create checkpoints of registered Segment
      * @return status code
      */
     SDMT_Code checkpoint_();
 
     /**
-     * @brief [static]recover checkpointed segments
+     * @brief [static]recover checkpointed Segment
      * @return status code
      */
     SDMT_Code recover_();
 
     /**
-     * @brief get segment
-     * @return segment, null if name is incorrect
+     * @brief get Segment
+     * @return Segment, null if name is incorrect
      */
     Segment get_segment_(std::string name);
 
     /**
-     * @brief get memory pointer of registered segment
-     * @param std::string name: name of the segment
+     * @brief get memory pointer of registered Segment
+     * @param name name of the Segment
      * @return integer pointer, null if name is incorrect
      */
     int* intptr_(std::string name);
 
     /**
-     * @brief get memory pointer of registered segment
-     * @param std::string name: name of the segment
+     * @brief get memory pointer of registered Segment
+     * @param name name of the Segment
      * @return long integer pointer, null if name is incorrect
      */
     long* longptr_(std::string name);
 
     /**
-     * @brief get memory pointer of registered segment
-     * @param std::string name: name of the segment
+     * @brief get memory pointer of registered Segment
+     * @param name name of the Segment
      * @return float pointer, null if name is incorrect
      */
     float* floatptr_(std::string name);
 
     /**
-     * @brief get memory pointer of registered segment
-     * @param std::string name: name of the segment
+     * @brief get memory pointer of registered Segment
+     * @param name name of the Segment
      * @return double pointer, null if name is incorrect
      */
     double* doubleptr_(std::string name);
     
+    /** @brief hash map of Segmen */
     SegmentMap m_sgmt_map;
+
+    /** @brief global checkpoint info */
     CkptInfo m_cp_info;
+
+    /** @brief incremental id of checkpoint */
     int32_t m_cp_idx;
 };
 
