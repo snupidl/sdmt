@@ -1,3 +1,5 @@
+// Copyright 2019 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+
 #include "sdmt.h"
 
 #include <pybind11/pybind11.h>
@@ -14,15 +16,16 @@ PYBIND11_MODULE(sdmtpy, m) {
         .def("finalize", &SDMT::finalize)
         .def("checkpoint", &SDMT::checkpoint)
         .def("recover", &SDMT::recover)
-        .def("register", &SDMT::register_segment);
+        .def("register", &SDMT::register_segment)
+		.def("get", &SDMT::get_segment);
 
-    py::enum_<SDMT_VT>(m, "value_type")
+    py::enum_<SDMT_VT>(m, "vt")
         .value("int", SDMT_INT)
         .value("long", SDMT_LONG)
         .value("float", SDMT_FLOAT)
         .value("double", SDMT_DOUBLE);
 
-    py::enum_<SDMT_DT>(m, "data_type")
+    py::enum_<SDMT_DT>(m, "dt")
         .value("scalar", SDMT_SCALAR)
         .value("array", SDMT_ARRAY)
         .value("matrix", SDMT_MATRIX)
@@ -36,30 +39,43 @@ PYBIND11_MODULE(sdmtpy, m) {
         .value("err_wrong_dimension", SDMT_ERR_WRONG_DIMENSION)
         .value("err_failed_allocation", SDMT_ERR_FAILED_ALLOCATION)
         .value("err_failed_checkpoint", SDMT_ERR_FAILED_CHECKPOINT);
-	
-	m.def("intdata", [](std::string name) {
-		SDMT::Segment* sgmt = SDMT::get_segment(name);
-		return py::array_t<int>(
-			sgmt->m_dimension,
-			sgmt->m_strides,
-			reinterpret_cast<int*>(sgmt->m_ptr));
-	}).def("longdata", [](std::string name) {
-		SDMT::Segment* sgmt = SDMT::get_segment(name);
-		return py::array_t<long>(
-			sgmt->m_dimension,
-			sgmt->m_strides,
-			reinterpret_cast<long*>(sgmt->m_ptr)); 
-	}).def("floatdata", [](std::string name) {
-		SDMT::Segment* sgmt = SDMT::get_segment(name);
-		return py::array_t<float>(
-			sgmt->m_dimension,
-			sgmt->m_strides,
-			reinterpret_cast<float*>(sgmt->m_ptr)); 
-	}).def("doubledata", [](std::string name) {
-		SDMT::Segment* sgmt = SDMT::get_segment(name);
-		return py::array_t<double>(
-			sgmt->m_dimension,
-			sgmt->m_strides,
-			reinterpret_cast<double*>(sgmt->m_ptr)); 
-    });
+
+	py::class_<SDMT::Segment>(m, "segment", py::buffer_protocol())
+		.def_buffer([](SDMT::Segment& sgmt) -> py::buffer_info {
+			if (sgmt.m_valuetype == SDMT_INT) {
+				return py::buffer_info(
+					sgmt.m_ptr,
+					sizeof(int),
+					py::format_descriptor<int>::format(),
+					sgmt.m_dimension.size(),
+					sgmt.m_dimension,
+					sgmt.m_strides);
+			} else if (sgmt.m_valuetype == SDMT_LONG) {
+				return py::buffer_info(
+					sgmt.m_ptr,
+					sizeof(long),
+					py::format_descriptor<long>::format(),
+					sgmt.m_dimension.size(),
+					sgmt.m_dimension,
+					sgmt.m_strides);
+			} else if (sgmt.m_valuetype == SDMT_FLOAT) {
+				return py::buffer_info(
+					sgmt.m_ptr,
+					sizeof(float),
+					py::format_descriptor<float>::format(),
+					sgmt.m_dimension.size(),
+					sgmt.m_dimension,
+					sgmt.m_strides);
+			} else if (sgmt.m_valuetype == SDMT_DOUBLE) {
+				return py::buffer_info(
+					sgmt.m_ptr,
+					sizeof(double),
+					py::format_descriptor<double>::format(),
+					sgmt.m_dimension.size(),
+					sgmt.m_dimension,
+					sgmt.m_strides);
+			} else {
+				return py::buffer_info();
+			}
+		});
 }

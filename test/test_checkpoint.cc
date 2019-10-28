@@ -6,12 +6,14 @@
 
 TEST(RecoveryTest, Int1D) {
     // initialize sdmt module
-    SDMT::init();
+    SDMT::init("../checkpoint/config.fti");
 
     // request a sdmt segment
     // define 1 dimensional integer array
     // the size of array is 1024
     SDMT::register_segment("sdmttest_int1d", SDMT_INT, SDMT_ARRAY, {1024});
+
+    // get data segment
     int* ptr = SDMT::intptr("sdmttest_int1d");
 
     // write values to segment memory

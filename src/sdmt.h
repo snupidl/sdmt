@@ -123,10 +123,11 @@ class SDMT
 
     /**
      * @brief [static]init sdmt(simulation process and data management)
+     * @param std::string config: path of config file
      * @return status code
      */
-    static SDMT_Code init()
-    { return get_manager().init_(); }
+    static SDMT_Code init(std::string config)
+    { return get_manager().init_(config); }
 
     /**
      * @brief [static]start sdmt(simulation process and data management)
@@ -174,7 +175,7 @@ class SDMT
      * @brief [static] get segment
      * @return segment, null if name is incorrect
      */
-    static Segment* get_segment(std::string name)
+    static Segment get_segment(std::string name)
     { return get_manager().get_segment_(name); }
 
     /**
@@ -213,9 +214,10 @@ class SDMT
 
     /**
      * @brief init sdmt module
+     * @param std::string config: path of config file
      * @return status code
      */
-    SDMT_Code init_();
+    SDMT_Code init_(std::string config);
 
     /**
      * @brief start simulation process and data management
@@ -258,7 +260,7 @@ class SDMT
      * @brief get segment
      * @return segment, null if name is incorrect
      */
-    Segment* get_segment_(std::string name);
+    Segment get_segment_(std::string name);
 
     /**
      * @brief get memory pointer of registered segment
@@ -287,7 +289,7 @@ class SDMT
      * @return double pointer, null if name is incorrect
      */
     double* doubleptr_(std::string name);
-
+    
     SegmentMap m_sgmt_map;
     CkptInfo m_cp_info;
     int32_t m_cp_idx;

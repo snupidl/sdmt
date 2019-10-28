@@ -58,7 +58,7 @@ SET(SRCS
     src/sdmt
     src/stl_allocator
     )
-ADD_LIBRARY(sdmt STATIC ${SRCS})
+ADD_LIBRARY(sdmt SHARED ${SRCS})
 
 SET(PYTHON_SRCS
     src/pybind.cc

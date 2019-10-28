@@ -4,9 +4,9 @@
 
 #include <fti.h>
 
-SDMT_Code SDMT::init_() {
+SDMT_Code SDMT::init_(std::string config) {
     MPI_Init(nullptr, nullptr);
-    FTI_Init("../checkpoint/config.fti", MPI_COMM_WORLD);
+    FTI_Init(config.c_str(), MPI_COMM_WORLD);
 
     int nbProcs, rank;
     MPI_Comm_size(FTI_COMM_WORLD, &nbProcs);
@@ -116,13 +116,13 @@ SDMT_Code SDMT::recover_() {
     return SDMT_SUCCESS;
 }
 
-SDMT::Segment* SDMT::get_segment_(std::string name) {
+SDMT::Segment SDMT::get_segment_(std::string name) {
     auto itr = m_sgmt_map.find(name);
     if (itr == m_sgmt_map.end()) {
-        return nullptr;
+        return Segment();
     }
 
-    return &(itr->second);
+    return itr->second;
 }
 
 int* SDMT::intptr_(std::string name) {
