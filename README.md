@@ -13,8 +13,9 @@ $ git submodule init
 $ git submodule update
 $ mkdir build
 $ cd build
-$ CXX=clang++ cmake ..
+$ CXX=clang++ cmake -DCMAKE_INSTALL_PREFIX=/path/to/install ..
 $ make
+$ make install
 
 ---
 
@@ -28,7 +29,7 @@ $ ../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test
 
 run python example
 $ cd /path/to/sdmt/example
-$ cd mpirun -n 4 python ./test.py
+$ ../thirdparty/openmpi/bin/mpirun -n 4 python ./test.py
 
 ---
 

@@ -56,7 +56,6 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 SET(SRCS
     src/sdmt
-    src/stl_allocator
     )
 ADD_LIBRARY(sdmt SHARED ${SRCS})
 
@@ -67,6 +66,11 @@ SET(PYTHON_SRCS
 ADD_SUBDIRECTORY(thirdparty/pybind11)
 PYBIND11_ADD_MODULE(sdmtpy MODULE ${PYTHON_SRCS})
 TARGET_LINK_LIBRARIES(sdmtpy PUBLIC sdmt ${FTI_LIB})
+
+# installation config
+install(TARGETS sdmt sdmtpy DESTINATION lib)
+install(FILES "src/sdmt.h" DESTINATION include)
+install(FILES "src/common.h" DESTINATION include)
 
 # Add test sub-directory
 ENABLE_TESTING()
