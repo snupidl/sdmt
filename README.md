@@ -10,8 +10,6 @@ download and install
 
 ```
  git clone [git address]
- git clone [git address]
- git clone [git address]
  git submodule init
  git submodule update
  mkdir build
