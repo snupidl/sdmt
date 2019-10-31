@@ -27,11 +27,11 @@ run unit test
 `cd /path/to/sdmt/build`
 
 - checkpoint test
-`../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit\_test --gtest\_filter=RecoveryTest.\*`
+`../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=RecoveryTest.*`
 
 - restart test
-`../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit\_test --gtest\_filter=RestartTest.1st`
-`../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit\_test --gtest\_filter=RestartTest.2nd`
+`../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=RestartTest.1st`
+`../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=RestartTest.2nd`
 
 run python example
 `cd /path/to/sdmt/example`
