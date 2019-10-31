@@ -2,6 +2,8 @@
 # If you add new source file(s), add file's name to following lines
 SET(SRCS
     test_checkpoint
+    test_restart
+    test_xml
     )
 
 ADD_EXECUTABLE(unit_test ${SRCS})

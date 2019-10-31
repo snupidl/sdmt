@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(RecoveryTest, Int1D) {
+TEST(RestartTest, 1st) {
     // initialize sdmt module
     SDMT::init("../config.xml", false);
 
@@ -32,8 +32,17 @@ TEST(RecoveryTest, Int1D) {
         ptr[i] = 0;
     }
 
-    // recover checkpoint
-    SDMT::recover();
+    // end process w/o finalize
+    // it will invoke FTI_Status on next(2nd) test
+    //SDMT::finalize();
+}
+
+TEST(RestartTest, 2nd) {
+    // initialize sdmt module
+    SDMT::init("../config.xml", true);
+
+    // get data segment
+    int* ptr = SDMT::intptr("sdmttest_int1d");
 
     // check recovered values
     for (int i = 0; i < 1024; i++) {

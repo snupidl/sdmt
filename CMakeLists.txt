@@ -56,6 +56,7 @@ INCLUDE_DIRECTORIES(${CMAKE_CURRENT_BINARY_DIR})
 
 SET(SRCS
     src/sdmt
+    src/tinyxml2
     )
 ADD_LIBRARY(sdmt SHARED ${SRCS})
 

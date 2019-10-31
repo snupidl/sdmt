@@ -14,7 +14,7 @@ from mpi4py import MPI
 import numpy as np
 
 # init sdmt manager
-sdmt.init('../checkpoint/config.fti')
+sdmt.init('../config.xml', False)
 
 # request a sdmt segment
 # define 1 dimensional integer array

@@ -4,6 +4,7 @@
 #define SDMT_H_
 
 #include "common.h"
+#include "serialization.h"
 
 //#include <string>
 #include <vector>
@@ -57,9 +58,9 @@ class SDMT
             m_dimension(dim),
             m_esize(esize),
             m_ptr(ptr) {
-            for (int i = 0; i < dim.size(); i++) {
+            for (unsigned int i = 0; i < dim.size(); i++) {
                 int s = esize; 
-                for (int j = dim.size() - 1; j > i; j--) {
+                for (unsigned int j = dim.size() - 1; j > i; j--) {
                     s *= dim[j];
                 }
                 m_strides.push_back(s);
@@ -107,6 +108,16 @@ class SDMT
     };
 
     /**
+     * @brief configurations
+     */
+    struct Config {
+        /** @brief path to archive sdmt manager */
+        std::string m_archive;
+        /** @brief path to fti lib configuration file */
+        std::string m_fti_config;
+    };
+
+    /**
      * @brief checkpoint info
      */
     struct CkptInfo {
@@ -144,10 +155,11 @@ class SDMT
     /**
      * @brief [static]init sdmt(simulation process and data management)
      * @param config path of config file
+     * @param restart if archive exists, recover manager
      * @return status code
      */
-    static SDMT_Code init(std::string config)
-    { return get_manager().init_(config); }
+    static SDMT_Code init(std::string config, bool restart)
+    { return get_manager().init_(config, restart); }
 
     /**
      * @brief [static]start sdmt(simulation process and data management)
@@ -231,13 +243,13 @@ class SDMT
     { return get_manager().doubleptr_(name); }
 
   private:
-
     /**
      * @brief init sdmt module
      * @param config path of config file
+     * @param restart if archive exists, recover manager
      * @return status code
      */
-    SDMT_Code init_(std::string config);
+    SDMT_Code init_(std::string config, bool restart);
 
     /**
      * @brief start simulation process and data management
@@ -309,9 +321,31 @@ class SDMT
      * @return double pointer, null if name is incorrect
      */
     double* doubleptr_(std::string name);
+
+    /**
+     * @brief load configuration file
+     * @param config path of config file
+     * @return true if success
+     */
+    bool load_config_(std::string path);
+
+    /**
+     * @brief serialize sdmt manager whenever an update occurs
+     * @return true if success
+     */
+    bool serialize_();
+
+    /**
+     * @brief deserialize sdmt manager whenever an update occurs
+     * @return true if success
+     */
+    bool deserialize_();
     
     /** @brief hash map of Segmen */
     SegmentMap m_sgmt_map;
+
+    /** @brief configurations */
+    Config m_config;
 
     /** @brief global checkpoint info */
     CkptInfo m_cp_info;
@@ -319,5 +353,37 @@ class SDMT
     /** @brief incremental id of checkpoint */
     int32_t m_cp_idx;
 };
+
+/**
+ * @brief Segment serialization
+ * @details specification of template function in serialization.h
+ */
+template<>
+inline std::ostream& serialize::write<SDMT::Segment>(
+                        std::ostream& os, SDMT::Segment& sgmt);
+
+/**
+ * @brief SDMT::Segment deserialization
+ * @details specification of template function in serialization.h
+ */
+template<>
+inline std::istream& serialize::read<SDMT::Segment>(
+                        std::istream& is, SDMT::Segment& sgmt);
+
+/**
+ * @brief SDMT::CkptInfo serialization
+ * @details specification of template function in serialization.h
+ */
+template<>
+inline std::ostream& serialize::write<SDMT::CkptInfo>(
+                        std::ostream& os, SDMT::CkptInfo& cp_info);
+
+/**
+ * @brief SDMT::CkptInfo deserialization
+ * @details specification of template function in serialization.h
+ */
+template<>
+inline std::istream& serialize::read<SDMT::CkptInfo>(
+                        std::istream& is, SDMT::CkptInfo& cp_info);
 
 #endif  // SDMT_H_

@@ -43,6 +43,8 @@ enum SDMT_DT {
 enum SDMT_Code {
     /** the request completed successfully */
     SDMT_SUCCESS,
+    /** wrong configuration */
+    SDMT_ERR_WRONG_CONFIG,
     /** duplicated segment name */
     SDMT_ERR_DUPLICATED_NAME,
     /** invalid value type */
