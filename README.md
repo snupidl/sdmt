@@ -46,7 +46,7 @@ cd /path/to/sdmt/build
 run python example
 ```
 cd /path/to/sdmt/example
-../thirdparty/openmpi/bin/mpirun -n 4 python ./test\_recovery.py
+../thirdparty/openmpi/bin/mpirun -n 4 python ./test_recovery.py
 ```
 
 ---
