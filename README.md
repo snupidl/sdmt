@@ -39,10 +39,20 @@ cd /path/to/sdmt/build
 ../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=RestartTest.2nd
 ```
 
-run python example
+run example
 ```
 cd /path/to/sdmt/example
+```
+
+- checkpoint test
+```
 ../thirdparty/openmpi/bin/mpirun -n 4 python ./test_recovery.py
+```
+
+- restart test
+```
+../thirdparty/openmpi/bin/mpirun -n 4 python ./test_restart.py 1
+../thirdparty/openmpi/bin/mpirun -n 4 python ./test_restart.py 2
 ```
 
 ---
