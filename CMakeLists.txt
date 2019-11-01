@@ -39,9 +39,9 @@ find_library(FTI_LIB NAMES fti PATHS ${CMAKE_SOURCE_DIR}/thirdparty/fti/lib NO_D
 SET(LIBS ${LIBS} ${FTI_LIB})
 
 # Find OpenMPI headers and libs
-INCLUDE_DIRECTORIES(SYSTEM thirdparty/openmpi/include)
-find_library(MPI_LIB NAMES mpi PATHS ${CMAKE_SOURCE_DIR}/thirdparty/openmpi/lib NO_DEFAULT_PATH)
-find_library(MPICXX_LIB NAMES mpi_cxx PATHS ${CMAKE_SOURCE_DIR}/thirdparty/openmpi/lib NO_DEFAULT_PATH)
+INCLUDE_DIRECTORIES(SYSTEM /usr/lib/openmpi/include)
+find_library(MPI_LIB NAMES mpi PATHS /usr/lib/openmpi/lib NO_DEFAULT_PATH)
+find_library(MPICXX_LIB NAMES mpi_cxx PATHS /usr/lib/openmpi/lib NO_DEFAULT_PATH)
 SET(LIBS ${LIBS} ${MPI_LIB})
 SET(LIBS ${LIBS} ${MPICXX_LIB})
 
