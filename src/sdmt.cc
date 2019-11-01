@@ -19,13 +19,14 @@ SDMT_Code SDMT::init_(std::string config, bool restart) {
         deserialize_();
     } else {
         // normal init
+        // checkpoint id is assigned as follows
+        // 0: checkpoint info
+        // 1: iteration sequence
         FTIT_type ckptInfo;
         FTI_InitType(&ckptInfo, 2*sizeof(int));
         FTI_Protect(m_cp_idx++, &m_cp_info, 1, ckptInfo);
+        FTI_Protect(m_cp_idx++, &m_iter, 1, FTI_INTG);
     }
-    //int nbProcs, rank;
-    //MPI_Comm_size(FTI_COMM_WORLD, &nbProcs);
-    //MPI_Comm_rank(FTI_COMM_WORLD, &rank);
 
     return SDMT_SUCCESS;
 }
@@ -143,6 +144,14 @@ SDMT::Segment SDMT::get_segment_(std::string name) {
     return itr->second;
 }
 
+int32_t& SDMT::iter_() {
+    return m_iter;
+}
+
+int32_t SDMT::next_() {
+    return ++m_iter;
+}
+
 int* SDMT::intptr_(std::string name) {
     auto itr = m_sgmt_map.find(name);
     if (itr == m_sgmt_map.end()) {
@@ -246,6 +255,9 @@ bool SDMT::deserialize_() {
     FTI_InitType(&ckptInfo, 2*sizeof(int));
     FTI_Protect(0, &m_cp_info, 1, ckptInfo);
 
+    // recover iteration sequence
+    FTI_Protect(1, &m_iter, 1, FTI_INTG);
+
     for (auto& itr : m_sgmt_map) {
         Segment& sgmt = itr.second;
 
@@ -272,7 +284,7 @@ bool SDMT::deserialize_() {
                 FTI_Protect(sgmt.m_id, sgmt.m_ptr, size, FTI_DBLE);
                 break;
             default:
-                return SDMT_ERR_WRONG_VALUE_TYPE;
+                return false;
         }
     }
 

@@ -59,6 +59,7 @@ SET(SRCS
     src/tinyxml2
     )
 ADD_LIBRARY(sdmt SHARED ${SRCS})
+TARGET_LINK_LIBRARIES(sdmt PUBLIC ${LIBS})
 
 SET(PYTHON_SRCS
     src/pybind.cc
@@ -66,7 +67,7 @@ SET(PYTHON_SRCS
 
 ADD_SUBDIRECTORY(thirdparty/pybind11)
 PYBIND11_ADD_MODULE(sdmtpy MODULE ${PYTHON_SRCS})
-TARGET_LINK_LIBRARIES(sdmtpy PUBLIC sdmt ${FTI_LIB})
+TARGET_LINK_LIBRARIES(sdmtpy PUBLIC sdmt)
 
 # installation config
 install(TARGETS sdmt sdmtpy DESTINATION lib)

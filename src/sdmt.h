@@ -141,7 +141,7 @@ class SDMT
     /**
      * @brief SDMT constructor
      */
-    SDMT() : m_cp_info(1, 1), m_cp_idx(1) {}
+    SDMT() : m_cp_info(1, 1), m_cp_idx(0), m_iter(0) {}
 
     /**
      * @brief [static]get SDMT manager singleton
@@ -209,6 +209,20 @@ class SDMT
      */
     static Segment get_segment(std::string name)
     { return get_manager().get_segment_(name); }
+
+    /**
+     * @brierf get current iteration sequence
+     * @return current iteration number
+     */
+    static int32_t& iter()
+    { return get_manager().iter_(); }
+
+    /**
+     * @brierf proceeds iteration sequence
+     * @return next iteration number
+     */
+    static int32_t next()
+    { return get_manager().next_(); }
 
     /**
      * @brief [static]get memory pointer of registered Segment
@@ -295,6 +309,18 @@ class SDMT
     Segment get_segment_(std::string name);
 
     /**
+     * @brierf get current iteration sequence
+     * @return current iteration number
+     */
+    int32_t& iter_();
+
+    /**
+     * @brierf proceeds iteration sequence
+     * @return next iteration number
+     */
+    int32_t next_();
+
+    /**
      * @brief get memory pointer of registered Segment
      * @param name name of the Segment
      * @return integer pointer, null if name is incorrect
@@ -352,6 +378,9 @@ class SDMT
 
     /** @brief incremental id of checkpoint */
     int32_t m_cp_idx;
+
+    /** @brief iteration sequence */
+    int32_t m_iter;
 };
 
 /**

@@ -17,7 +17,9 @@ PYBIND11_MODULE(sdmtpy, m) {
         .def("checkpoint", &SDMT::checkpoint)
         .def("recover", &SDMT::recover)
         .def("register", &SDMT::register_segment)
-		.def("get", &SDMT::get_segment);
+		.def("get", &SDMT::get_segment)
+        .def("iter", &SDMT::iter)
+        .def("next", &SDMT::next);
 
     py::enum_<SDMT_VT>(m, "vt")
         .value("int", SDMT_INT)

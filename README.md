@@ -36,7 +36,7 @@ download and install
 
 examples
 ===
-[TODO] write how to run examples
+[TODO] write how to run test/examples
 
 run unit test
 ```
@@ -46,6 +46,11 @@ cd /path/to/sdmt/build
 - checkpoint test
 ```
 ../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=RecoveryTest.*
+```
+
+- iteration test
+```
+../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=IterTest.*
 ```
 
 - restart test
@@ -62,6 +67,11 @@ cd /path/to/sdmt/example
 - checkpoint test
 ```
 ../thirdparty/openmpi/bin/mpirun -n 4 python ./test_recovery.py
+```
+
+- iteration test
+```
+../thirdparty/openmpi/bin/mpirun -n 4 python ./test_iter.py
 ```
 
 - restart test
