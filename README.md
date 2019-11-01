@@ -8,15 +8,30 @@ download and install
 ===
 [TODO] write environment, how to downdload and install
 
+- download
 ```
  git clone [git address]
  git submodule init
  git submodule update
+```
+
+- build and install fti library
+```
+ cd /path/to/sdmt/thirdparty/fti-src
  mkdir build && cd build
- cmake -DCMAKE_INSTALL_PREFIX=/path/to/install ..
+ cmake -DCMAKE_INSTALL_PREFIX=/path/to/sdmt/thirdpary/fti ..
  make && make install
 ```
 
+- build and install sdmt
+
+```
+ cd /path/to/sdmt
+ mkdir build && cd build
+ cmake -DCMAKE_INSTALL_PREFIX=/path/to/install ..
+ make && make install
+ 
+```
 ---
 
 examples
