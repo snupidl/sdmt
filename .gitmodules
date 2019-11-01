@@ -4,6 +4,6 @@
 [submodule "thirdparty/googletest"]
 	path = thirdparty/googletest
 	url = https://github.com/google/googletest
-[submodule "thirdpary/fti-src"]
-	path = thirdpary/fti-src
+[submodule "thirdparty/fti-src"]
+	path = thirdparty/fti-src
 	url = https://github.com/leobago/fti.git

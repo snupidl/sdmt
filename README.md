@@ -19,7 +19,7 @@ download and install
 ```
  cd /path/to/sdmt/thirdparty/fti-src
  mkdir build && cd build
- cmake -DCMAKE_INSTALL_PREFIX=/path/to/sdmt/thirdpary/fti ..
+ cmake -DCMAKE_INSTALL_PREFIX=/path/to/sdmt/thirdparty/fti ..
  make && make install
 ```
 
