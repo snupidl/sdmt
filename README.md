@@ -40,17 +40,17 @@ run unit test
 ```
 cd /path/to/sdmt/build/test/cpp
 ```
-    = checkpoint test
+    - checkpoint test
     ```
     mpirun -n 4 ./unit_test --gtest_filter=RecoveryTest.*
     ```
 
-    = iteration test
+    - iteration test
     ```
     mpirun -n 4 ./unit_test --gtest_filter=IterTest.*
     ```
 
-    = restart test
+    - restart test
     ```
     mpirun -n 4 ./unit_test --gtest_filter=RestartTest.1st
     mpirun -n 4 ./unit_test --gtest_filter=RestartTest.2nd
@@ -60,15 +60,15 @@ cd /path/to/sdmt/build/test/cpp
 ```
 cd /path/to/sdmt/build/test/python
 ```
-    = checkpoint test
+    - checkpoint test
     ```
     mpirun -n 4 python ./test_recovery.py
     ```
-    = iteration test
+    - iteration test
     ```
     mpirun -n 4 python ./test_iter.py
     ```
-    = restart test
+    - restart test
     ```
     mpirun -n 4 python ./test_restart.py 1
     mpirun -n 4 python ./test_restart.py 2
@@ -81,7 +81,7 @@ run examples
 ```
 cd /path/to/sdmt/build/example/cpp
 ```
-    = monte carlo
+    - monte carlo
     ```
     mpirun -n 4 ./monte_carlo
     ```
