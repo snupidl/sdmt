@@ -135,6 +135,15 @@ SDMT_Code SDMT::recover_() {
     return SDMT_SUCCESS;
 }
 
+bool SDMT::exist_(std::string name) {
+    auto itr = m_sgmt_map.find(name);
+    if (itr == m_sgmt_map.end()) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 SDMT::Segment SDMT::get_segment_(std::string name) {
     auto itr = m_sgmt_map.find(name);
     if (itr == m_sgmt_map.end()) {
@@ -154,7 +163,7 @@ int32_t SDMT::next_() {
 
 int* SDMT::intptr_(std::string name) {
     auto itr = m_sgmt_map.find(name);
-    if (itr == m_sgmt_map.end()) {
+    if (itr== m_sgmt_map.end()) {
         return nullptr;
     }
 

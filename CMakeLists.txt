@@ -77,6 +77,7 @@ install(FILES "src/common.h" DESTINATION include)
 # Add test sub-directory
 ENABLE_TESTING()
 ADD_SUBDIRECTORY(test)
+ADD_SUBDIRECTORY(example)
 
 ###############################################################################
 # Summary

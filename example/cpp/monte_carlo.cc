@@ -1,0 +1,88 @@
+// Copyright 2019 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+
+#include "sdmt.h"
+
+#include <iostream>
+#include <random>
+
+#define INTERVAL 1000
+
+/**
+ * estimating the value of Pi using Monte Carlo method
+ * implemented by referring to
+ * https://www.geeksforgeeks.org/estimating-value-pi-using-monte-carlo/
+ */
+int main() {
+    using namespace std;
+    // init sdmt manage
+    // if there is archive, recover it
+    SDMT::init("./config_cpp_test.xml", true);
+
+    double* pi;
+    int* circle_points, *square_points;
+
+    // check this execution is first try
+    // if it is, create segments
+    // else get recoverd value
+    if (!SDMT::exist("mc_pi")) {
+        SDMT::register_segment("mc_pi", SDMT_INT, SDMT_SCALAR, {});
+        SDMT::register_segment("mc_circle", SDMT_DOUBLE, SDMT_SCALAR, {});
+        SDMT::register_segment("mc_square", SDMT_DOUBLE, SDMT_SCALAR, {});
+
+        pi = SDMT::doubleptr("mc_pi");
+        circle_points = SDMT::intptr("mc_circle");
+        square_points = SDMT::intptr("mc_square");
+
+        *circle_points = 0;
+        *square_points = 0;
+    } else {
+        pi = SDMT::doubleptr("mc_pi");
+        circle_points = SDMT::intptr("mc_circle");
+        square_points = SDMT::intptr("mc_square");
+    }
+
+    int& it = SDMT::iter();
+
+    // start sdmt module
+    SDMT::start();
+
+    // init rand()
+    srand(time(nullptr));
+
+    // total random numbers generated = possible x
+    // value * possible y values
+    for ( ; it < (INTERVAL * INTERVAL); it++) {
+        // randomly generated x and y values
+        double rand_x = double(rand() % (INTERVAL + 1)) / INTERVAL;
+        double rand_y = double(rand() % (INTERVAL + 1)) / INTERVAL;
+
+        // distance between (x, y) from the origin
+        double origin_dist = rand_x * rand_x + rand_y * rand_y;
+
+        // checking if (x, y) lies inside the define
+        // circle with R=1
+        if (origin_dist <= 1)
+            (*circle_points)++;
+
+        // total number of points generated
+        (*square_points)++;
+
+        // estimated pi after this iteration
+        (*pi) = double(4 * (*circle_points)) / (*square_points);
+
+        // checkpoint for every 10 interval
+        if (it % (INTERVAL*10) == 0) {
+            SDMT::checkpoint();
+            std::cout << it << "th iterations has processed" << std::endl;
+        }
+    }
+
+    // final result
+    cout << "final estimation of Pi = " << (*pi) << std::endl; 
+
+    // finalize sdmt module
+    SDMT::finalize();
+  
+    return 0; 
+
+}

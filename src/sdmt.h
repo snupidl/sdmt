@@ -204,6 +204,14 @@ class SDMT
     { return get_manager().recover_(); }
 
     /**
+     * @brief [static] check a specific segment exsits
+     * @param name name of segment
+     * @return true if exists
+     */
+    static bool exist(std::string name)
+    { return get_manager().exist_(name); }
+
+    /**
      * @brief [static] get Segment
      * @return Segment, null if name is incorrect
      */
@@ -301,6 +309,13 @@ class SDMT
      * @return status code
      */
     SDMT_Code recover_();
+
+    /**
+     * @brief [static] check a specific segment exsits
+     * @param name name of segment
+     * @return true if exists
+     */
+    bool exist_(std::string name);
 
     /**
      * @brief get Segment
