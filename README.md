@@ -8,14 +8,14 @@ download and install
 ===
 [TODO] write environment, how to downdload and install
 
-- download
+* download
 ```
  git clone [git address]
  git submodule init
  git submodule update
 ```
 
-- build and install fti library
+* build and install fti library
 ```
  cd /path/to/sdmt/thirdparty/fti-src
  mkdir build && cd build
@@ -23,70 +23,68 @@ download and install
  make && make install
 ```
 
-- build and install sdmt
+* build and install sdmt
 
 ```
  cd /path/to/sdmt
  mkdir build && cd build
  cmake -DCMAKE_INSTALL_PREFIX=/path/to/install ..
  make && make install
- 
 ```
 ---
 
 run unit test
 ===
-- cpp test
+* cpp test
 ```
 cd /path/to/sdmt/build/test/cpp
 ```
-    - checkpoint test
-    ```
-    mpirun -n 4 ./unit_test --gtest_filter=RecoveryTest.*
-    ```
+  - checkpoint test
+  ```
+  mpirun -n 4 ./unit_test --gtest_filter=RecoveryTest.*
+  ```
 
-    - iteration test
-    ```
-    mpirun -n 4 ./unit_test --gtest_filter=IterTest.*
-    ```
+  - iteration test
+  ```
+  mpirun -n 4 ./unit_test --gtest_filter=IterTest.*
+  ```
 
-    - restart test
-    ```
-    mpirun -n 4 ./unit_test --gtest_filter=RestartTest.1st
-    mpirun -n 4 ./unit_test --gtest_filter=RestartTest.2nd
-    ```
+  - restart test
+  ```
+  mpirun -n 4 ./unit_test --gtest_filter=RestartTest.1st
+  mpirun -n 4 ./unit_test --gtest_filter=RestartTest.2nd
+  ```
 
-- python test
+* python test
 ```
 cd /path/to/sdmt/build/test/python
 ```
-    - checkpoint test
-    ```
-    mpirun -n 4 python ./test_recovery.py
-    ```
-    - iteration test
-    ```
-    mpirun -n 4 python ./test_iter.py
-    ```
-    - restart test
-    ```
-    mpirun -n 4 python ./test_restart.py 1
-    mpirun -n 4 python ./test_restart.py 2
-    ```
+  - checkpoint test
+  ```
+  mpirun -n 4 python ./test_recovery.py
+  ```
+  - iteration test
+  ```
+  mpirun -n 4 python ./test_iter.py
+  ```
+  - restart test
+  ```
+  mpirun -n 4 python ./test_restart.py 1
+  mpirun -n 4 python ./test_restart.py 2
+  ```
 ---
 
 run examples
 ===
-- cpp example
+* cpp example
 ```
 cd /path/to/sdmt/build/example/cpp
 ```
-    - monte carlo
-    ```
-    mpirun -n 4 ./monte_carlo
-    ```
-
-- python example
+  - monte carlo
+  ```
+  mpirun -n 4 ./monte_carlo
+  ```
+* python example
 ```
 cd /path/to/sdmt/build/example/python
 ```
