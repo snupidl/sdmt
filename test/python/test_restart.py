@@ -4,7 +4,7 @@ Copyright 2019 PIDL(Petabyte-scale In-memory Database Lab)http://kdb.snu.ac.kr
 
 # import sdmt
 import sys
-sys.path.append('../build')
+sys.path.append('../..')
 import sdmtpy as sdmt
 
 # import mpi module
@@ -15,7 +15,7 @@ import numpy as np
 
 def first():
     # init sdmt manager
-    sdmt.init('../config.xml', False)
+    sdmt.init('./config_python_test.xml', False)
 
     # request a sdmt segment
     # define 1 dimensional integer array
@@ -46,7 +46,7 @@ def first():
 
 def second():
     # init sdmt manager
-    sdmt.init('../config.xml', True)
+    sdmt.init('./config_python_test.xml', True)
 
     # get segment and convert to numpy.ndarray
     segment = sdmt.get('sdmttest_int1d')

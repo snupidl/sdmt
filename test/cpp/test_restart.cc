@@ -6,7 +6,7 @@
 
 TEST(RestartTest, 1st) {
     // initialize sdmt module
-    SDMT::init("../config.xml", false);
+    SDMT::init("./config_cpp_test.xml", false);
 
     // request a sdmt segment
     // define 1 dimensional integer array
@@ -39,7 +39,7 @@ TEST(RestartTest, 1st) {
 
 TEST(RestartTest, 2nd) {
     // initialize sdmt module
-    SDMT::init("../config.xml", true);
+    SDMT::init("./config_cpp_test.xml", true);
 
     // get data segment
     int* ptr = SDMT::intptr("sdmttest_int1d");

@@ -34,52 +34,45 @@ download and install
 ```
 ---
 
-examples
-===
-[TODO] write how to run test/examples
-
 run unit test
+===
+- cpp test
 ```
-cd /path/to/sdmt/build
+cd /path/to/sdmt/build/test/cpp
 ```
+    * checkpoint test
+    ```
+    mpirun -n 4 ./unit_test --gtest_filter=RecoveryTest.*
+    ```
 
-- checkpoint test
-```
-../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=RecoveryTest.*
-```
+    * iteration test
+    ```
+    mpirun -n 4 ./unit_test --gtest_filter=IterTest.*
+    ```
 
-- iteration test
-```
-../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=IterTest.*
-```
+    * restart test
+    ```
+    mpirun -n 4 ./unit_test --gtest_filter=RestartTest.1st
+    mpirun -n 4 ./unit_test --gtest_filter=RestartTest.2nd
+    ```
 
-- restart test
+- python test
 ```
-../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=RestartTest.1st
-../thirdparty/openmpi/bin/mpirun -n 4 ./test/unit_test --gtest_filter=RestartTest.2nd
+cd /path/to/sdmt/build/test/python
 ```
-
-run example
-```
-cd /path/to/sdmt/example
-```
-
-- checkpoint test
-```
-../thirdparty/openmpi/bin/mpirun -n 4 python ./test_recovery.py
-```
-
-- iteration test
-```
-../thirdparty/openmpi/bin/mpirun -n 4 python ./test_iter.py
-```
-
-- restart test
-```
-../thirdparty/openmpi/bin/mpirun -n 4 python ./test_restart.py 1
-../thirdparty/openmpi/bin/mpirun -n 4 python ./test_restart.py 2
-```
-
+    * checkpoint test
+    ```
+    mpirun -n 4 python ./test_recovery.py
+    ```
+    * iteration test
+    ```
+    mpirun -n 4 python ./test_iter.py
+    ```
+    * restart test
+    ```
+    mpirun -n 4 python ./test_restart.py 1
+    mpirun -n 4 python ./test_restart.py 2
+    ```
 ---
 
 Acknowledgement

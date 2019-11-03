@@ -28,11 +28,5 @@ CTestTestfile.cmake
 .ycm_extra_conf.py
 .ycm_extra_conf.pyc
 
-# FTI config
-config.fti
-Meta
-Local
-Global
-
 # doxygen
 doxygen_log.txt

@@ -6,7 +6,7 @@
 
 TEST(IterTest, Test) {
     // initialize sdmt module
-    SDMT::init("../config.xml", false);
+    SDMT::init("./config_cpp_test.xml", false);
 
     // get iteration seqeunce
     int32_t& it = SDMT::iter();

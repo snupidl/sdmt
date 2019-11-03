@@ -1,14 +1,10 @@
-# Set files to create library
-# If you add new source file(s), add file's name to following lines
-SET(SRCS
-    test_checkpoint
-    test_restart
-    test_iter
-    test_xml
-    )
+ADD_SUBDIRECTORY(cpp)
+#ADD_SUBDIRECTORY(python)
+#install(DIRECTORY "${CMAKE_SOURCE_DIR}/test/python/" 
+#    DESTINATION "${CMAKR_CURRENT_BINARY_DIR}/python" 
+#    FILES_MATCHING PATTERN "*.py" )
 
-ADD_EXECUTABLE(unit_test ${SRCS})
-TARGET_LINK_LIBRARIES(unit_test sdmt)
-TARGET_LINK_LIBRARIES(unit_test ${TEST_ONLY_LIBS} ${LIBS} gtest_main)
-
-ADD_TEST(unit_test unit_test)
+add_custom_target(copy-files ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/test/python
+    ${CMAKE_CURRENT_BINARY_DIR}/python)

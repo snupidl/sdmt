@@ -6,7 +6,7 @@
 
 TEST(RecoveryTest, Int1D) {
     // initialize sdmt module
-    SDMT::init("../config.xml", false);
+    SDMT::init("./config_cpp_test.xml", false);
 
     // request a sdmt segment
     // define 1 dimensional integer array

@@ -4,7 +4,7 @@ Copyright 2019 PIDL(Petabyte-scale In-memory Database Lab)http://kdb.snu.ac.kr
 
 # import sdmt
 import sys
-sys.path.append('../build')
+sys.path.append('../..')
 import sdmtpy as sdmt
 
 # import mpi module
@@ -14,7 +14,7 @@ from mpi4py import MPI
 import numpy as np
 
 # init sdmt manager
-sdmt.init('../config.xml', False)
+sdmt.init('./config_python_test.xml', False)
 
 # request a sdmt segment
 # define 1 dimensional integer array

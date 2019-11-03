@@ -2,9 +2,9 @@
 [basic]
 head                           = 0
 node_size                      = 2
-ckpt_dir                       = ../checkpoint/Local
-glbl_dir                       = ../checkpoint/Global
-meta_dir                       = ../checkpoint/Meta
+ckpt_dir                       = ./checkpoint/Local
+glbl_dir                       = ./checkpoint/Global
+meta_dir                       = ./checkpoint/Meta
 ckpt_l1                        = 3
 ckpt_l2                        = 5
 ckpt_l3                        = 7
@@ -21,7 +21,7 @@ verbosity                      = 2
 
 [restart]
 failure                        = 0
-exec_id                        = 2019-10-31_14-24-52
+exec_id                        = 2019-11-03_11-43-46
 
 
 [injection]
