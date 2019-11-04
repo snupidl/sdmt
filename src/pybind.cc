@@ -18,6 +18,7 @@ PYBIND11_MODULE(sdmtpy, m) {
         .def("recover", &SDMT::recover)
         .def("register", &SDMT::register_segment)
 		.def("get", &SDMT::get_segment)
+        .def("exist", &SDMT::exist)
         .def("iter", &SDMT::iter)
         .def("next", &SDMT::next);
 

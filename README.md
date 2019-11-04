@@ -1,13 +1,11 @@
-SDMT(Simulation process and Data Management Tool) library
+# SDMT(Simulation process and Data Management Tool) library
 ===
 [TODO] write an abstract
 
 ---
 
-download and install
+## download and install
 ===
-[TODO] write environment, how to downdload and install
-
 * download
 ```
  git clone [git address]
@@ -33,9 +31,9 @@ download and install
 ```
 ---
 
-run unit test
+## run unit test
 ===
-* cpp test
+### cpp test
 ```
 cd /path/to/sdmt/build/test/cpp
 ```
@@ -55,7 +53,7 @@ cd /path/to/sdmt/build/test/cpp
   mpirun -n 4 ./unit_test --gtest_filter=RestartTest.2nd
   ```
 
-* python test
+### python test
 ```
 cd /path/to/sdmt/build/test/python
 ```
@@ -74,9 +72,9 @@ cd /path/to/sdmt/build/test/python
   ```
 ---
 
-run examples
+## run examples
 ===
-* cpp example
+###  cpp example
 ```
 cd /path/to/sdmt/build/example/cpp
 ```
@@ -84,13 +82,17 @@ cd /path/to/sdmt/build/example/cpp
   ```
   mpirun -n 4 ./monte_carlo
   ```
-* python example
+### python example
 ```
 cd /path/to/sdmt/build/example/python
 ```
+  - monte carlo
+  ```
+  mpirun -n 4 python ./monte_carlo.py
+  ```
 
 ---
-Acknowledgement
+## Acknowledgement
 ===
 This work was supported by Next-Generation Information Computing Development Program through
 the National Research Foundation of Korea(NRF) funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)

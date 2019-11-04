@@ -11,6 +11,7 @@
  * estimating the value of Pi using Monte Carlo method
  * implemented by referring to
  * https://www.geeksforgeeks.org/estimating-value-pi-using-monte-carlo/
+ * Author: Ilju Lee, ijlee@kdb.snu.ac.kr
  */
 int main() {
     using namespace std;
@@ -25,9 +26,9 @@ int main() {
     // if it is, create segments
     // else get recoverd value
     if (!SDMT::exist("mc_pi")) {
-        SDMT::register_segment("mc_pi", SDMT_INT, SDMT_SCALAR, {});
-        SDMT::register_segment("mc_circle", SDMT_DOUBLE, SDMT_SCALAR, {});
-        SDMT::register_segment("mc_square", SDMT_DOUBLE, SDMT_SCALAR, {});
+        SDMT::register_segment("mc_pi", SDMT_DOUBLE, SDMT_SCALAR, {});
+        SDMT::register_segment("mc_circle", SDMT_INT, SDMT_SCALAR, {});
+        SDMT::register_segment("mc_square", SDMT_INT, SDMT_SCALAR, {});
 
         pi = SDMT::doubleptr("mc_pi");
         circle_points = SDMT::intptr("mc_circle");
@@ -41,6 +42,7 @@ int main() {
         square_points = SDMT::intptr("mc_square");
     }
 
+    // get current iteration sequence
     int& it = SDMT::iter();
 
     // start sdmt module
@@ -73,7 +75,8 @@ int main() {
         // checkpoint for every 10 interval
         if (it % (INTERVAL*10) == 0) {
             SDMT::checkpoint();
-            std::cout << it << "th iterations has processed" << std::endl;
+            std::cout << it << "th iterations has processed,"
+                << "current Pi is " << (*pi) << std::endl;
         }
     }
 

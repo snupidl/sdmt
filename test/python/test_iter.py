@@ -16,7 +16,6 @@ sdmt.init('./config_python_test.xml', False)
 # get iteration seqeunce
 it = sdmt.iter()
 
-
 # increase iteration sequence
 # 0 -> 1
 it = sdmt.next();
