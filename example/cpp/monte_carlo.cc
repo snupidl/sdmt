@@ -74,7 +74,7 @@ int main() {
 
         // checkpoint for every 10 interval
         if (it % (INTERVAL*10) == 0) {
-            SDMT::checkpoint();
+            SDMT::checkpoint(1);
             std::cout << it << "th iterations has processed,"
                 << "current Pi is " << (*pi) << std::endl;
         }

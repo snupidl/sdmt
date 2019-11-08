@@ -9,7 +9,7 @@
 //#include <string>
 #include <vector>
 #include <unordered_map>
-
+#include <fti.h>
 /**
  * @brief a singleton class that provides APIs of SDMT
  * @li assign a data chunk to be managed in simulation process<p>
@@ -141,7 +141,7 @@ class SDMT
     /**
      * @brief SDMT constructor
      */
-    SDMT() : m_cp_info(1, 1), m_cp_idx(0), m_iter(0) {}
+    SDMT() : m_cp_info(1, 1), m_cp_idx(0), m_iter(0), m_comm(NULL) {}
 
     /**
      * @brief [static]get SDMT manager singleton
@@ -191,10 +191,11 @@ class SDMT
     
     /**
      * @brief [static]create a checkpoint of a Segment
+     * @param level checkpoint method
      * @return status code
      */
-    static SDMT_Code checkpoint()
-    { return get_manager().checkpoint_(); }
+    static SDMT_Code checkpoint(int level)
+    { return get_manager().checkpoint_(level); }
 
     /**
      * @brief [static]recover checkpointed Segments
@@ -264,6 +265,13 @@ class SDMT
     static double* doubleptr(std::string name)
     { return get_manager().doubleptr_(name); }
 
+    /**
+     * @brief get MPI communicator
+     * @return FTI_COMM_WORLD
+     */
+    static MPI_Comm comm() 
+    { return get_manager().comm_(); }
+
   private:
     /**
      * @brief init sdmt module
@@ -300,9 +308,10 @@ class SDMT
 
     /**
      * @brief create checkpoints of registered Segment
+     * @param level checkpoint method
      * @return status code
      */
-    SDMT_Code checkpoint_();
+    SDMT_Code checkpoint_(int level);
 
     /**
      * @brief [static]recover checkpointed Segment
@@ -364,6 +373,13 @@ class SDMT
     double* doubleptr_(std::string name);
 
     /**
+     * @brief get MPI communicator
+     * @return FTI_COMM_WORLD
+     */
+
+    MPI_Comm comm_();
+
+    /**
      * @brief load configuration file
      * @param config path of config file
      * @return true if success
@@ -396,6 +412,9 @@ class SDMT
 
     /** @brief iteration sequence */
     int32_t m_iter;
+
+    /** @brief MPI communicator */
+    MPI_Comm m_comm;
 };
 
 /**

@@ -19,7 +19,7 @@ TEST(IterTest, Test) {
     SDMT::start();
 
     // generate checkpoint
-    SDMT::checkpoint();
+    SDMT::checkpoint(1);
 
     // increase iteration sequence
     // 1 -> 2

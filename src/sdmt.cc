@@ -13,6 +13,7 @@ SDMT_Code SDMT::init_(std::string config, bool restart) {
 
     MPI_Init(nullptr, nullptr);
     FTI_Init(m_config.m_fti_config.c_str(), MPI_COMM_WORLD);
+    m_comm = FTI_COMM_WORLD;
 
     if (restart && FTI_Status()) {
         // recover from previous archive
@@ -32,7 +33,7 @@ SDMT_Code SDMT::init_(std::string config, bool restart) {
 }
 
 SDMT_Code SDMT::start_() {
-    MPI_Barrier(FTI_COMM_WORLD);
+    MPI_Barrier(m_comm);
     return SDMT_SUCCESS;
 }
 
@@ -115,18 +116,32 @@ SDMT_Code SDMT::register_segment_(
     }
 }
 
-SDMT_Code SDMT::checkpoint_() {
-    int res = FTI_Checkpoint(m_cp_info.id, m_cp_info.level);
-    if (res == 0) {
-        m_cp_info.level = (m_cp_info.level + 1) % 5;
-        m_cp_info.id++;
+SDMT_Code SDMT::checkpoint_(int level) {
+    // 0 level : frequency checkpoint
+    if ( level == 0 ) {
+        int res = FTI_Snapshot();
+        if (res == 0) {
 
-        // log current status
-        serialize_();
-
-        return SDMT_SUCCESS;
+            // log current status
+            serialize_();
+            return SDMT_SUCCESS;
+        }       
     }
+    else if ( level > 4 ) {
+        return SDMT_ERR_FAILED_CHECKPOINT;
+    }
+    // other level : level 1~4 checkpoint
+    else {
+        int res = FTI_Checkpoint(m_cp_info.id, level);
+        if (res == 0) {
+              m_cp_info.id++;
 
+            // log current status
+            serialize_();
+
+            return SDMT_SUCCESS;
+        }
+    }
     return SDMT_ERR_FAILED_CHECKPOINT;
 }
 
@@ -160,6 +175,11 @@ int32_t& SDMT::iter_() {
 int32_t SDMT::next_() {
     return ++m_iter;
 }
+
+MPI_Comm SDMT::comm_() {
+    return m_comm;
+}
+
 
 int* SDMT::intptr_(std::string name) {
     auto itr = m_sgmt_map.find(name);

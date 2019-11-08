@@ -25,7 +25,7 @@ TEST(RecoveryTest, Int1D) {
     SDMT::start();
 
     // generate checkpoint
-    SDMT::checkpoint();
+    SDMT::checkpoint(1);
 
     // overwrite dummy values to segment memory
     for (int i = 0; i < 1024; i++) {
