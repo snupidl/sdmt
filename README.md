@@ -17,7 +17,7 @@ when a system fault occurs or parameter reset is required.
 ## download and install
 * download
 ```
- git clone [git address]
+ git clone https://github.com/snupidl/sdmt
  git submodule init
  git submodule update
 ```
