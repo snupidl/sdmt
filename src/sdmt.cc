@@ -4,6 +4,7 @@
 #include "tinyxml2.h"
 
 #include <fti.h>
+#include <iostream>
 #include <fstream>
 
 SDMT_Code SDMT::init_(std::string config, bool restart) {
@@ -115,6 +116,224 @@ SDMT_Code SDMT::register_segment_(
         return SDMT_ERR_FAILED_ALLOCATION;
     }
 }
+
+
+
+SDMT_Code SDMT::register_int_parameter_(
+    std::string path,
+    std::string name,
+    int value) {
+
+    parapath = path + "/parameter.txt";
+
+    ifstream openFile(parapath);
+    if (openFile.is_open()){
+        std::string line;
+        while(getline(openFile, line)){
+            if(name == line){
+                openFile.close();
+                return SDMT_SUCCESS;
+            }
+        }
+    }
+    openFile.close();
+    
+    ofstream writeFile(parapath);
+    writeFile << "\n";
+    writeFile << name;
+    writeFile << "\n";
+    writeFile << value;
+    writeFile << "\n";
+    writeFile.close();
+    return SDMT_SUCCESS;
+
+}
+
+int SDMT::get_int_parameter_(
+    std::string name) {
+
+    int value ;
+    ifstream openFile(parapath.data());
+    if (openFile.is_open()){
+        std::string line;
+        while(getline(openFile, line)){
+            if(name == line){
+                getline(openFile, line);
+                value = std::stoi(line);
+		openFile.close();
+                return value;
+            }
+        }
+	openFile.close();
+    }
+
+    return 0;
+
+
+}
+
+SDMT_Code SDMT::register_long_parameter_(
+    std::string path,
+    std::string name,
+    long value) {
+
+    parapath = path + "/parameter.txt";
+
+    ifstream openFile(parapath);
+    if (openFile.is_open()){
+        std::string line;
+        while(getline(openFile, line)){
+            if(name == line){
+                openFile.close();
+                return SDMT_SUCCESS;
+            }
+        }
+    }
+    openFile.close();
+    
+    ofstream writeFile(parapath);
+    writeFile << "\n";
+    writeFile << name;
+    writeFile << "\n";
+    writeFile << value;
+    writeFile << "\n";
+    writeFile.close();
+    return SDMT_SUCCESS;
+
+}
+
+long SDMT::get_long_parameter_(
+    std::string name) {
+
+    long value ;
+    ifstream openFile(parapath.data());
+    if (openFile.is_open()){
+        std::string line;
+        while(getline(openFile, line)){
+            if(name == line){
+                getline(openFile, line);
+                value = std::stol(line);
+		openFile.close();
+                return value;
+            }
+        }
+	openFile.close();
+    }
+
+    return 0;
+
+
+}
+
+SDMT_Code SDMT::register_float_parameter_(
+    std::string path,
+    std::string name,
+    float value) {
+
+    parapath = path + "/parameter.txt";
+
+    ifstream openFile(parapath);
+    if (openFile.is_open()){
+        std::string line;
+        while(getline(openFile, line)){
+            if(name == line){
+                openFile.close();
+                return SDMT_SUCCESS;
+            }
+        }
+    }
+    openFile.close();
+    
+    ofstream writeFile(parapath);
+    writeFile << "\n";
+    writeFile << name;
+    writeFile << "\n";
+    writeFile << value;
+    writeFile << "\n";
+    writeFile.close();
+    return SDMT_SUCCESS;
+
+}
+
+float SDMT::get_float_parameter_(
+    std::string name) {
+
+    float value ;
+    ifstream openFile(parapath.data());
+    if (openFile.is_open()){
+        std::string line;
+        while(getline(openFile, line)){
+            if(name == line){
+                getline(openFile, line);
+                value = std::stof(line);
+		openFile.close();
+                return value;
+            }
+        }
+	openFile.close();
+    }
+
+    return 0;
+
+
+}
+
+SDMT_Code SDMT::register_double_parameter_(
+    std::string path,
+    std::string name,
+    double value) {
+
+    parapath = path + "/parameter.txt";
+
+    ifstream openFile(parapath);
+    if (openFile.is_open()){
+        std::string line;
+        while(getline(openFile, line)){
+            if(name == line){
+                openFile.close();
+                return SDMT_SUCCESS;
+            }
+        }
+    }
+    openFile.close();
+    
+    ofstream writeFile(parapath);
+    writeFile << "\n";
+    writeFile << name;
+    writeFile << "\n";
+    writeFile << value;
+    writeFile << "\n";
+    writeFile.close();
+    return SDMT_SUCCESS;
+
+}
+
+double SDMT::get_double_parameter_(
+    std::string name) {
+
+    double value ;
+    ifstream openFile(parapath.data());
+    if (openFile.is_open()){
+        std::string line;
+        while(getline(openFile, line)){
+            if(name == line){
+                getline(openFile, line);
+                value = std::stod(line);
+		openFile.close();
+                return value;
+            }
+        }
+	openFile.close();
+    }
+
+    return 0;
+
+
+}
+
+
+
+
 
 SDMT_Code SDMT::checkpoint_(int level) {
     // 0 level : frequency checkpoint
