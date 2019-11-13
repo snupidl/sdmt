@@ -1,5 +1,9 @@
 var searchData=
 [
-  ['recover',['recover',['../class_s_d_m_t.html#a3a3723f019f53a371c2c3b49efbed0f5',1,'SDMT']]],
-  ['register_5fsegment',['register_segment',['../class_s_d_m_t.html#a4da48bca02cad8bfe78a1bafec4a1b1f',1,'SDMT']]]
+  ['get_5fmanager',['get_manager',['../class_s_d_m_t.html#a58f43a16728b4d990ca10c1efe70740f',1,'SDMT']]],
+  ['get_5fsegment',['get_segment',['../class_s_d_m_t.html#a8dfbf78068663cc21ff1e7f15fca6e55',1,'SDMT']]],
+  ['getdocument',['GetDocument',['../classtinyxml2_1_1_x_m_l_node.html#a2de84cfa4ec3fe249bad745069d145f1',1,'tinyxml2::XMLNode::GetDocument() const'],['../classtinyxml2_1_1_x_m_l_node.html#af343d1ef0b45c0020e62d784d7e67a68',1,'tinyxml2::XMLNode::GetDocument()']]],
+  ['getlinenum',['GetLineNum',['../classtinyxml2_1_1_x_m_l_node.html#a9b5fc636646fda761d342c72e91cb286',1,'tinyxml2::XMLNode::GetLineNum()'],['../classtinyxml2_1_1_x_m_l_attribute.html#a02d5ea924586e35f9c13857d1671b765',1,'tinyxml2::XMLAttribute::GetLineNum()']]],
+  ['gettext',['GetText',['../classtinyxml2_1_1_x_m_l_element.html#a0fa5bea0a4daf3ddd503dcabb823eba6',1,'tinyxml2::XMLElement']]],
+  ['getuserdata',['GetUserData',['../classtinyxml2_1_1_x_m_l_node.html#a7f0687574afa03bc479dc44f29db0afe',1,'tinyxml2::XMLNode']]]
 ];

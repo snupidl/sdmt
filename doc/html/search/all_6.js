@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['m_5fdatatype',['m_datatype',['../struct_s_d_m_t_1_1_segment.html#a567eec58da0032cbcd0cb9b83c2e8dbd',1,'SDMT::Segment']]],
-  ['m_5fdimension',['m_dimension',['../struct_s_d_m_t_1_1_segment.html#af472ea128d3ef6acb84a2e4306179a1a',1,'SDMT::Segment']]],
-  ['m_5fesize',['m_esize',['../struct_s_d_m_t_1_1_segment.html#abf1844991a9c39778c83fb90bdc95da7',1,'SDMT::Segment']]],
-  ['m_5fid',['m_id',['../struct_s_d_m_t_1_1_segment.html#af2364bde7b35f4cd691763d3e62b97f2',1,'SDMT::Segment']]],
-  ['m_5fptr',['m_ptr',['../struct_s_d_m_t_1_1_segment.html#ad07915cd3d0e07df6338cec28ad077d8',1,'SDMT::Segment']]],
-  ['m_5fstrides',['m_strides',['../struct_s_d_m_t_1_1_segment.html#a9ba0ecef2a5986705e0336c824dc61a9',1,'SDMT::Segment']]],
-  ['m_5fvaluetype',['m_valuetype',['../struct_s_d_m_t_1_1_segment.html#a35496150825a45541dd29919a4351e32',1,'SDMT::Segment']]]
+  ['get_5fmanager',['get_manager',['../class_s_d_m_t.html#a58f43a16728b4d990ca10c1efe70740f',1,'SDMT']]],
+  ['get_5fsegment',['get_segment',['../class_s_d_m_t.html#a8dfbf78068663cc21ff1e7f15fca6e55',1,'SDMT']]],
+  ['getdocument',['GetDocument',['../classtinyxml2_1_1_x_m_l_node.html#a2de84cfa4ec3fe249bad745069d145f1',1,'tinyxml2::XMLNode::GetDocument() const'],['../classtinyxml2_1_1_x_m_l_node.html#af343d1ef0b45c0020e62d784d7e67a68',1,'tinyxml2::XMLNode::GetDocument()']]],
+  ['getlinenum',['GetLineNum',['../classtinyxml2_1_1_x_m_l_node.html#a9b5fc636646fda761d342c72e91cb286',1,'tinyxml2::XMLNode::GetLineNum()'],['../classtinyxml2_1_1_x_m_l_attribute.html#a02d5ea924586e35f9c13857d1671b765',1,'tinyxml2::XMLAttribute::GetLineNum()']]],
+  ['gettext',['GetText',['../classtinyxml2_1_1_x_m_l_element.html#a0fa5bea0a4daf3ddd503dcabb823eba6',1,'tinyxml2::XMLElement']]],
+  ['getuserdata',['GetUserData',['../classtinyxml2_1_1_x_m_l_node.html#a7f0687574afa03bc479dc44f29db0afe',1,'tinyxml2::XMLNode']]]
 ];

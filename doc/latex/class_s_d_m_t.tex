@@ -14,26 +14,28 @@ a singleton class that provides A\+P\+Is of \hyperlink{class_s_d_m_t}{S\+D\+MT}
 \item 
 struct \hyperlink{struct_s_d_m_t_1_1_ckpt_info}{Ckpt\+Info}
 \begin{DoxyCompactList}\small\item\em checkpoint info \end{DoxyCompactList}\item 
+struct \hyperlink{struct_s_d_m_t_1_1_config}{Config}
+\begin{DoxyCompactList}\small\item\em configurations \end{DoxyCompactList}\item 
 struct \hyperlink{struct_s_d_m_t_1_1_segment}{Segment}
 \begin{DoxyCompactList}\small\item\em a chunk of memory which is the unit of allocation and management \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-typedef std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} $>$ \hyperlink{class_s_d_m_t_ab60c4624d197b2cf048ca65243d5bc53}{Segment\+Map}\hypertarget{class_s_d_m_t_ab60c4624d197b2cf048ca65243d5bc53}{}\label{class_s_d_m_t_ab60c4624d197b2cf048ca65243d5bc53}
-
+\mbox{\Hypertarget{class_s_d_m_t_ab60c4624d197b2cf048ca65243d5bc53}\label{class_s_d_m_t_ab60c4624d197b2cf048ca65243d5bc53}} 
+typedef std\+::unordered\+\_\+map$<$ std\+::string, \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} $>$ \hyperlink{class_s_d_m_t_ab60c4624d197b2cf048ca65243d5bc53}{Segment\+Map}
 \begin{DoxyCompactList}\small\item\em hash map that mapping name of \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} and \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_s_d_m_t_a93fb108be06183e27b33ca23919c0ff9}{S\+D\+MT} ()\hypertarget{class_s_d_m_t_a93fb108be06183e27b33ca23919c0ff9}{}\label{class_s_d_m_t_a93fb108be06183e27b33ca23919c0ff9}
-
+\mbox{\Hypertarget{class_s_d_m_t_a93fb108be06183e27b33ca23919c0ff9}\label{class_s_d_m_t_a93fb108be06183e27b33ca23919c0ff9}} 
+\hyperlink{class_s_d_m_t_a93fb108be06183e27b33ca23919c0ff9}{S\+D\+MT} ()
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_s_d_m_t}{S\+D\+MT} constructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 static \hyperlink{class_s_d_m_t}{S\+D\+MT} \& \hyperlink{class_s_d_m_t_a58f43a16728b4d990ca10c1efe70740f}{get\+\_\+manager} ()
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}get \hyperlink{class_s_d_m_t}{S\+D\+MT} manager singleton \end{DoxyCompactList}\item 
-static S\+D\+M\+T\+\_\+\+Code \hyperlink{class_s_d_m_t_a6d177e96e25e852acc3f9bd273215f3c}{init} (std\+::string config)
+static S\+D\+M\+T\+\_\+\+Code \hyperlink{class_s_d_m_t_a234a8848281f756b8a76dcf2b69fb343}{init} (std\+::string config, bool restart)
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}init sdmt(simulation process and data management) \end{DoxyCompactList}\item 
 static S\+D\+M\+T\+\_\+\+Code \hyperlink{class_s_d_m_t_a0ee438570acc7a74676693b86fdc94a9}{start} ()
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}start sdmt(simulation process and data management) \end{DoxyCompactList}\item 
@@ -41,12 +43,18 @@ static S\+D\+M\+T\+\_\+\+Code \hyperlink{class_s_d_m_t_af56c324524d2b8684f268b78
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}finalize sdmt(simulation process and data management) \end{DoxyCompactList}\item 
 static S\+D\+M\+T\+\_\+\+Code \hyperlink{class_s_d_m_t_a4da48bca02cad8bfe78a1bafec4a1b1f}{register\+\_\+segment} (std\+::string name, S\+D\+M\+T\+\_\+\+VT vt, S\+D\+M\+T\+\_\+\+DT dt, std\+::vector$<$ int $>$ dim)
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}register a \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} to sdmt manager \end{DoxyCompactList}\item 
-static S\+D\+M\+T\+\_\+\+Code \hyperlink{class_s_d_m_t_a65fbeacab1acd95ab0197af42de6b3b0}{checkpoint} ()
+static S\+D\+M\+T\+\_\+\+Code \hyperlink{class_s_d_m_t_ae6218bd71d632ae413bec2d588547fc8}{checkpoint} (int level)
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}create a checkpoint of a \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} \end{DoxyCompactList}\item 
 static S\+D\+M\+T\+\_\+\+Code \hyperlink{class_s_d_m_t_a3a3723f019f53a371c2c3b49efbed0f5}{recover} ()
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}recover checkpointed Segments \end{DoxyCompactList}\item 
+static bool \hyperlink{class_s_d_m_t_a409904b122dea3efcacd91b2a3fd1ae0}{exist} (std\+::string name)
+\begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]} check a specific segment exsits \end{DoxyCompactList}\item 
 static \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} \hyperlink{class_s_d_m_t_a8dfbf78068663cc21ff1e7f15fca6e55}{get\+\_\+segment} (std\+::string name)
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]} get \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} \end{DoxyCompactList}\item 
+static int32\+\_\+t \& \hyperlink{class_s_d_m_t_a5d4ee5b7434f84e124825576c8128445}{iter} ()
+\item 
+static int32\+\_\+t \hyperlink{class_s_d_m_t_a37514bde7d0c4d57bcb17e67f3877ce9}{next} ()
+\item 
 static int $\ast$ \hyperlink{class_s_d_m_t_a31a70a690a9215643afaf9ef1abb35f1}{intptr} (std\+::string name)
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}get memory pointer of registered \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} \end{DoxyCompactList}\item 
 static long $\ast$ \hyperlink{class_s_d_m_t_ac36749f096dc877e0ff4bbd7370eebe6}{longptr} (std\+::string name)
@@ -54,7 +62,9 @@ static long $\ast$ \hyperlink{class_s_d_m_t_ac36749f096dc877e0ff4bbd7370eebe6}{l
 static float $\ast$ \hyperlink{class_s_d_m_t_a44a9454c55626de3cf5e9b37b9016d6c}{floatptr} (std\+::string name)
 \begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}get memory pointer of registered \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} \end{DoxyCompactList}\item 
 static double $\ast$ \hyperlink{class_s_d_m_t_ab51288f0cabdd3a1ff1db6920c1096f7}{doubleptr} (std\+::string name)
-\begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}get memory pointer of registered \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \mbox{[}static\mbox{]}get memory pointer of registered \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} \end{DoxyCompactList}\item 
+static M\+P\+I\+\_\+\+Comm \hyperlink{class_s_d_m_t_a92bb161da5bd3ffd846ba811fc27c161}{comm} ()
+\begin{DoxyCompactList}\small\item\em get M\+PI communicator \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -76,27 +86,43 @@ Hyerim Jeon, \href{mailto:hrjeon@kdb.snu.ac.kr}{\tt hrjeon@kdb.\+snu.\+ac.\+kr}
 
 
 \subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_s_d_m_t_ae6218bd71d632ae413bec2d588547fc8}\label{class_s_d_m_t_ae6218bd71d632ae413bec2d588547fc8}} 
 \index{S\+D\+MT@{S\+D\+MT}!checkpoint@{checkpoint}}
 \index{checkpoint@{checkpoint}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{checkpoint()}{checkpoint()}}]{\setlength{\rightskip}{0pt plus 5cm}static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::checkpoint (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_a65fbeacab1acd95ab0197af42de6b3b0}{}\label{class_s_d_m_t_a65fbeacab1acd95ab0197af42de6b3b0}
+\subsubsection{\texorpdfstring{checkpoint()}{checkpoint()}}
+{\footnotesize\ttfamily static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::checkpoint (\begin{DoxyParamCaption}\item[{int}]{level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}create a checkpoint of a \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} 
 
+
+\begin{DoxyParams}{Parameters}
+{\em level} & checkpoint method \\
+\hline
+\end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 status code 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a92bb161da5bd3ffd846ba811fc27c161}\label{class_s_d_m_t_a92bb161da5bd3ffd846ba811fc27c161}} 
+\index{S\+D\+MT@{S\+D\+MT}!comm@{comm}}
+\index{comm@{comm}!S\+D\+MT@{S\+D\+MT}}
+\subsubsection{\texorpdfstring{comm()}{comm()}}
+{\footnotesize\ttfamily static M\+P\+I\+\_\+\+Comm S\+D\+M\+T\+::comm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+get M\+PI communicator 
+
+\begin{DoxyReturn}{Returns}
+F\+T\+I\+\_\+\+C\+O\+M\+M\+\_\+\+W\+O\+R\+LD 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_ab51288f0cabdd3a1ff1db6920c1096f7}\label{class_s_d_m_t_ab51288f0cabdd3a1ff1db6920c1096f7}} 
 \index{S\+D\+MT@{S\+D\+MT}!doubleptr@{doubleptr}}
 \index{doubleptr@{doubleptr}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{doubleptr(std\+::string name)}{doubleptr(std::string name)}}]{\setlength{\rightskip}{0pt plus 5cm}static double$\ast$ S\+D\+M\+T\+::doubleptr (
-\begin{DoxyParamCaption}
-\item[{std\+::string}]{name}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_ab51288f0cabdd3a1ff1db6920c1096f7}{}\label{class_s_d_m_t_ab51288f0cabdd3a1ff1db6920c1096f7}
+\subsubsection{\texorpdfstring{doubleptr()}{doubleptr()}}
+{\footnotesize\ttfamily static double$\ast$ S\+D\+M\+T\+::doubleptr (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}get memory pointer of registered \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} 
@@ -109,13 +135,30 @@ status code
 \begin{DoxyReturn}{Returns}
 double pointer, null if name is incorrect 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a409904b122dea3efcacd91b2a3fd1ae0}\label{class_s_d_m_t_a409904b122dea3efcacd91b2a3fd1ae0}} 
+\index{S\+D\+MT@{S\+D\+MT}!exist@{exist}}
+\index{exist@{exist}!S\+D\+MT@{S\+D\+MT}}
+\subsubsection{\texorpdfstring{exist()}{exist()}}
+{\footnotesize\ttfamily static bool S\+D\+M\+T\+::exist (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+\mbox{[}static\mbox{]} check a specific segment exsits 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & name of segment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if exists 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_af56c324524d2b8684f268b78d7e64534}\label{class_s_d_m_t_af56c324524d2b8684f268b78d7e64534}} 
 \index{S\+D\+MT@{S\+D\+MT}!finalize@{finalize}}
 \index{finalize@{finalize}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{finalize()}{finalize()}}]{\setlength{\rightskip}{0pt plus 5cm}static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::finalize (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_af56c324524d2b8684f268b78d7e64534}{}\label{class_s_d_m_t_af56c324524d2b8684f268b78d7e64534}
+\subsubsection{\texorpdfstring{finalize()}{finalize()}}
+{\footnotesize\ttfamily static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::finalize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}finalize sdmt(simulation process and data management) 
@@ -123,13 +166,12 @@ double pointer, null if name is incorrect
 \begin{DoxyReturn}{Returns}
 status code 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a44a9454c55626de3cf5e9b37b9016d6c}\label{class_s_d_m_t_a44a9454c55626de3cf5e9b37b9016d6c}} 
 \index{S\+D\+MT@{S\+D\+MT}!floatptr@{floatptr}}
 \index{floatptr@{floatptr}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{floatptr(std\+::string name)}{floatptr(std::string name)}}]{\setlength{\rightskip}{0pt plus 5cm}static float$\ast$ S\+D\+M\+T\+::floatptr (
-\begin{DoxyParamCaption}
-\item[{std\+::string}]{name}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_a44a9454c55626de3cf5e9b37b9016d6c}{}\label{class_s_d_m_t_a44a9454c55626de3cf5e9b37b9016d6c}
+\subsubsection{\texorpdfstring{floatptr()}{floatptr()}}
+{\footnotesize\ttfamily static float$\ast$ S\+D\+M\+T\+::floatptr (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}get memory pointer of registered \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} 
@@ -142,13 +184,12 @@ status code
 \begin{DoxyReturn}{Returns}
 float pointer, null if name is incorrect 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a58f43a16728b4d990ca10c1efe70740f}\label{class_s_d_m_t_a58f43a16728b4d990ca10c1efe70740f}} 
 \index{S\+D\+MT@{S\+D\+MT}!get\+\_\+manager@{get\+\_\+manager}}
 \index{get\+\_\+manager@{get\+\_\+manager}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{get\+\_\+manager()}{get_manager()}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf S\+D\+MT}\& S\+D\+M\+T\+::get\+\_\+manager (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_a58f43a16728b4d990ca10c1efe70740f}{}\label{class_s_d_m_t_a58f43a16728b4d990ca10c1efe70740f}
+\subsubsection{\texorpdfstring{get\+\_\+manager()}{get\_manager()}}
+{\footnotesize\ttfamily static \hyperlink{class_s_d_m_t}{S\+D\+MT}\& S\+D\+M\+T\+::get\+\_\+manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}get \hyperlink{class_s_d_m_t}{S\+D\+MT} manager singleton 
@@ -156,13 +197,12 @@ float pointer, null if name is incorrect
 \begin{DoxyReturn}{Returns}
 static \hyperlink{class_s_d_m_t}{S\+D\+MT} manager 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a8dfbf78068663cc21ff1e7f15fca6e55}\label{class_s_d_m_t_a8dfbf78068663cc21ff1e7f15fca6e55}} 
 \index{S\+D\+MT@{S\+D\+MT}!get\+\_\+segment@{get\+\_\+segment}}
 \index{get\+\_\+segment@{get\+\_\+segment}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{get\+\_\+segment(std\+::string name)}{get_segment(std::string name)}}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf Segment} S\+D\+M\+T\+::get\+\_\+segment (
-\begin{DoxyParamCaption}
-\item[{std\+::string}]{name}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_a8dfbf78068663cc21ff1e7f15fca6e55}{}\label{class_s_d_m_t_a8dfbf78068663cc21ff1e7f15fca6e55}
+\subsubsection{\texorpdfstring{get\+\_\+segment()}{get\_segment()}}
+{\footnotesize\ttfamily static \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} S\+D\+M\+T\+::get\+\_\+segment (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]} get \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} 
@@ -170,13 +210,12 @@ static \hyperlink{class_s_d_m_t}{S\+D\+MT} manager
 \begin{DoxyReturn}{Returns}
 \hyperlink{struct_s_d_m_t_1_1_segment}{Segment}, null if name is incorrect 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a234a8848281f756b8a76dcf2b69fb343}\label{class_s_d_m_t_a234a8848281f756b8a76dcf2b69fb343}} 
 \index{S\+D\+MT@{S\+D\+MT}!init@{init}}
 \index{init@{init}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{init(std\+::string config)}{init(std::string config)}}]{\setlength{\rightskip}{0pt plus 5cm}static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::init (
-\begin{DoxyParamCaption}
-\item[{std\+::string}]{config}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_a6d177e96e25e852acc3f9bd273215f3c}{}\label{class_s_d_m_t_a6d177e96e25e852acc3f9bd273215f3c}
+\subsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::init (\begin{DoxyParamCaption}\item[{std\+::string}]{config,  }\item[{bool}]{restart }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}init sdmt(simulation process and data management) 
@@ -185,17 +224,18 @@ static \hyperlink{class_s_d_m_t}{S\+D\+MT} manager
 \begin{DoxyParams}{Parameters}
 {\em config} & path of config file \\
 \hline
+{\em restart} & if archive exists, recover manager \\
+\hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 status code 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a31a70a690a9215643afaf9ef1abb35f1}\label{class_s_d_m_t_a31a70a690a9215643afaf9ef1abb35f1}} 
 \index{S\+D\+MT@{S\+D\+MT}!intptr@{intptr}}
 \index{intptr@{intptr}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{intptr(std\+::string name)}{intptr(std::string name)}}]{\setlength{\rightskip}{0pt plus 5cm}static int$\ast$ S\+D\+M\+T\+::intptr (
-\begin{DoxyParamCaption}
-\item[{std\+::string}]{name}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_a31a70a690a9215643afaf9ef1abb35f1}{}\label{class_s_d_m_t_a31a70a690a9215643afaf9ef1abb35f1}
+\subsubsection{\texorpdfstring{intptr()}{intptr()}}
+{\footnotesize\ttfamily static int$\ast$ S\+D\+M\+T\+::intptr (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}get memory pointer of registered \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} 
@@ -208,13 +248,21 @@ status code
 \begin{DoxyReturn}{Returns}
 integer pointer, null if name is incorrect 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a5d4ee5b7434f84e124825576c8128445}\label{class_s_d_m_t_a5d4ee5b7434f84e124825576c8128445}} 
+\index{S\+D\+MT@{S\+D\+MT}!iter@{iter}}
+\index{iter@{iter}!S\+D\+MT@{S\+D\+MT}}
+\subsubsection{\texorpdfstring{iter()}{iter()}}
+{\footnotesize\ttfamily static int32\+\_\+t\& S\+D\+M\+T\+::iter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+get current iteration sequence \begin{DoxyReturn}{Returns}
+current iteration number 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_ac36749f096dc877e0ff4bbd7370eebe6}\label{class_s_d_m_t_ac36749f096dc877e0ff4bbd7370eebe6}} 
 \index{S\+D\+MT@{S\+D\+MT}!longptr@{longptr}}
 \index{longptr@{longptr}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{longptr(std\+::string name)}{longptr(std::string name)}}]{\setlength{\rightskip}{0pt plus 5cm}static long$\ast$ S\+D\+M\+T\+::longptr (
-\begin{DoxyParamCaption}
-\item[{std\+::string}]{name}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_ac36749f096dc877e0ff4bbd7370eebe6}{}\label{class_s_d_m_t_ac36749f096dc877e0ff4bbd7370eebe6}
+\subsubsection{\texorpdfstring{longptr()}{longptr()}}
+{\footnotesize\ttfamily static long$\ast$ S\+D\+M\+T\+::longptr (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}get memory pointer of registered \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} 
@@ -227,13 +275,21 @@ integer pointer, null if name is incorrect
 \begin{DoxyReturn}{Returns}
 long integer pointer, null if name is incorrect 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a37514bde7d0c4d57bcb17e67f3877ce9}\label{class_s_d_m_t_a37514bde7d0c4d57bcb17e67f3877ce9}} 
+\index{S\+D\+MT@{S\+D\+MT}!next@{next}}
+\index{next@{next}!S\+D\+MT@{S\+D\+MT}}
+\subsubsection{\texorpdfstring{next()}{next()}}
+{\footnotesize\ttfamily static int32\+\_\+t S\+D\+M\+T\+::next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+proceeds iteration sequence \begin{DoxyReturn}{Returns}
+next iteration number 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a3a3723f019f53a371c2c3b49efbed0f5}\label{class_s_d_m_t_a3a3723f019f53a371c2c3b49efbed0f5}} 
 \index{S\+D\+MT@{S\+D\+MT}!recover@{recover}}
 \index{recover@{recover}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{recover()}{recover()}}]{\setlength{\rightskip}{0pt plus 5cm}static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::recover (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_a3a3723f019f53a371c2c3b49efbed0f5}{}\label{class_s_d_m_t_a3a3723f019f53a371c2c3b49efbed0f5}
+\subsubsection{\texorpdfstring{recover()}{recover()}}
+{\footnotesize\ttfamily static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::recover (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}recover checkpointed Segments 
@@ -241,16 +297,12 @@ long integer pointer, null if name is incorrect
 \begin{DoxyReturn}{Returns}
 status code 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a4da48bca02cad8bfe78a1bafec4a1b1f}\label{class_s_d_m_t_a4da48bca02cad8bfe78a1bafec4a1b1f}} 
 \index{S\+D\+MT@{S\+D\+MT}!register\+\_\+segment@{register\+\_\+segment}}
 \index{register\+\_\+segment@{register\+\_\+segment}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{register\+\_\+segment(std\+::string name, S\+D\+M\+T\+\_\+\+V\+T vt, S\+D\+M\+T\+\_\+\+D\+T dt, std\+::vector$<$ int $>$ dim)}{register_segment(std::string name, SDMT_VT vt, SDMT_DT dt, std::vector< int > dim)}}]{\setlength{\rightskip}{0pt plus 5cm}static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::register\+\_\+segment (
-\begin{DoxyParamCaption}
-\item[{std\+::string}]{name, }
-\item[{S\+D\+M\+T\+\_\+\+VT}]{vt, }
-\item[{S\+D\+M\+T\+\_\+\+DT}]{dt, }
-\item[{std\+::vector$<$ int $>$}]{dim}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_a4da48bca02cad8bfe78a1bafec4a1b1f}{}\label{class_s_d_m_t_a4da48bca02cad8bfe78a1bafec4a1b1f}
+\subsubsection{\texorpdfstring{register\+\_\+segment()}{register\_segment()}}
+{\footnotesize\ttfamily static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::register\+\_\+segment (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{S\+D\+M\+T\+\_\+\+VT}]{vt,  }\item[{S\+D\+M\+T\+\_\+\+DT}]{dt,  }\item[{std\+::vector$<$ int $>$}]{dim }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}register a \hyperlink{struct_s_d_m_t_1_1_segment}{Segment} to sdmt manager 
@@ -269,13 +321,12 @@ status code
 \begin{DoxyReturn}{Returns}
 status code 
 \end{DoxyReturn}
+\mbox{\Hypertarget{class_s_d_m_t_a0ee438570acc7a74676693b86fdc94a9}\label{class_s_d_m_t_a0ee438570acc7a74676693b86fdc94a9}} 
 \index{S\+D\+MT@{S\+D\+MT}!start@{start}}
 \index{start@{start}!S\+D\+MT@{S\+D\+MT}}
-\subsubsection[{\texorpdfstring{start()}{start()}}]{\setlength{\rightskip}{0pt plus 5cm}static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::start (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}\hypertarget{class_s_d_m_t_a0ee438570acc7a74676693b86fdc94a9}{}\label{class_s_d_m_t_a0ee438570acc7a74676693b86fdc94a9}
+\subsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily static S\+D\+M\+T\+\_\+\+Code S\+D\+M\+T\+::start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
 
 
 \mbox{[}static\mbox{]}start sdmt(simulation process and data management) 
@@ -287,5 +338,5 @@ status code
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-/raid/users/ijlee/workspace/hpc/src/sdmt.\+h\item 
-/raid/users/ijlee/workspace/hpc/src/sdmt.\+cc\end{DoxyCompactItemize}
+/home/ijlee/workspace/sdmt/src/sdmt.\+h\item 
+/home/ijlee/workspace/sdmt/src/sdmt.\+cc\end{DoxyCompactItemize}
