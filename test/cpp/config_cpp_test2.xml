@@ -1,5 +1,5 @@
 <sdmt>
     <ArchivePath>./checkpoint/sdmt.archive</ArchivePath>
     <FTIConfig>./checkpoint/config.fti</FTIConfig>
-    <ParamPath>./checkpoint/parameter.txt</ParamPath>
+    <ParamPath>./../../../test/cpp/parameter.txt</ParamPath>
 </sdmt>

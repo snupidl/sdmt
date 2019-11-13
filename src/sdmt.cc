@@ -120,13 +120,11 @@ SDMT_Code SDMT::register_segment_(
 
 
 SDMT_Code SDMT::register_int_parameter_(
-    std::string path,
     std::string name,
     int value) {
 
-    parapath = path + "/parameter.txt";
 
-    ifstream openFile(parapath);
+    ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
         while(getline(openFile, line)){
@@ -138,7 +136,7 @@ SDMT_Code SDMT::register_int_parameter_(
     }
     openFile.close();
     
-    ofstream writeFile(parapath);
+    ofstream writeFile(m_config.m_param_path);
     writeFile << "\n";
     writeFile << name;
     writeFile << "\n";
@@ -153,7 +151,7 @@ int SDMT::get_int_parameter_(
     std::string name) {
 
     int value ;
-    ifstream openFile(parapath.data());
+    ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
         while(getline(openFile, line)){
@@ -173,13 +171,11 @@ int SDMT::get_int_parameter_(
 }
 
 SDMT_Code SDMT::register_long_parameter_(
-    std::string path,
     std::string name,
     long value) {
 
-    parapath = path + "/parameter.txt";
 
-    ifstream openFile(parapath);
+    ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
         while(getline(openFile, line)){
@@ -191,7 +187,7 @@ SDMT_Code SDMT::register_long_parameter_(
     }
     openFile.close();
     
-    ofstream writeFile(parapath);
+    ofstream writeFile(m_config.m_param_path);
     writeFile << "\n";
     writeFile << name;
     writeFile << "\n";
@@ -206,7 +202,7 @@ long SDMT::get_long_parameter_(
     std::string name) {
 
     long value ;
-    ifstream openFile(parapath.data());
+    ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
         while(getline(openFile, line)){
@@ -226,13 +222,11 @@ long SDMT::get_long_parameter_(
 }
 
 SDMT_Code SDMT::register_float_parameter_(
-    std::string path,
     std::string name,
     float value) {
 
-    parapath = path + "/parameter.txt";
 
-    ifstream openFile(parapath);
+    ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
         while(getline(openFile, line)){
@@ -244,7 +238,7 @@ SDMT_Code SDMT::register_float_parameter_(
     }
     openFile.close();
     
-    ofstream writeFile(parapath);
+    ofstream writeFile(m_config.m_param_path);
     writeFile << "\n";
     writeFile << name;
     writeFile << "\n";
@@ -259,7 +253,7 @@ float SDMT::get_float_parameter_(
     std::string name) {
 
     float value ;
-    ifstream openFile(parapath.data());
+    ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
         while(getline(openFile, line)){
@@ -279,13 +273,11 @@ float SDMT::get_float_parameter_(
 }
 
 SDMT_Code SDMT::register_double_parameter_(
-    std::string path,
     std::string name,
     double value) {
 
-    parapath = path + "/parameter.txt";
 
-    ifstream openFile(parapath);
+    ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
         while(getline(openFile, line)){
@@ -297,7 +289,7 @@ SDMT_Code SDMT::register_double_parameter_(
     }
     openFile.close();
     
-    ofstream writeFile(parapath);
+    ofstream writeFile(m_config.m_param_path);
     writeFile << "\n";
     writeFile << name;
     writeFile << "\n";
@@ -312,7 +304,7 @@ double SDMT::get_double_parameter_(
     std::string name) {
 
     double value ;
-    ifstream openFile(parapath.data());
+    ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
         while(getline(openFile, line)){
@@ -466,6 +458,14 @@ bool SDMT::load_config_(std::string config) {
         return false;
     } else {
         m_config.m_fti_config = element->GetText();
+    }
+
+    // get path for parameter file
+    element = node->FirstChildElement("ParamPath");
+    if (element == nullptr) {
+        return false;
+    } else {
+        m_config.m_param_path = element->GetText();
     }
 
     return true;

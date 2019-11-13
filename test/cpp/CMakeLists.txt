@@ -18,6 +18,11 @@ add_custom_command(TARGET unit_test PRE_BUILD
 )
 
 add_custom_command(TARGET unit_test PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    ${CMAKE_SOURCE_DIR}/test/cpp/config_cpp_test2.xml
+    ${CMAKE_CURRENT_BINARY_DIR}/config_cpp_test2.xml
+)
+add_custom_command(TARGET unit_test PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/test/cpp/checkpoint
     ${CMAKE_CURRENT_BINARY_DIR}/checkpoint/

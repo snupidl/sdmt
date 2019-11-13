@@ -115,6 +115,8 @@ class SDMT
         std::string m_archive;
         /** @brief path to fti lib configuration file */
         std::string m_fti_config;
+        /** @brief path to registered parameter file */
+        std::string m_param_path;
     };
 
     /**
@@ -191,40 +193,36 @@ class SDMT
    
 
 
-    static SDMT_Code register_int_parameter(std::string path,
-				std::string name,
+    static SDMT_Code register_int_parameter(std::string name,
 				int value)
-    { return get_manager().register_int_parameter_(path, name, value); }
+    { return get_manager().register_int_parameter_(name, value); }
 
     static int get_int_parameter(std::string name)
     { return get_manager().get_int_parameter_(name); }
 
 
 
-    static SDMT_Code register_long_parameter(std::string path,
-				std::string name,
+    static SDMT_Code register_long_parameter(std::string name,
 				long value)
-    { return get_manager().register_long_parameter_(path, name, value); }
+    { return get_manager().register_long_parameter_(name, value); }
 
     static int get_long_parameter(std::string name)
     { return get_manager().get_long_parameter_(name); }
 
 
 
-    static SDMT_Code register_float_parameter(std::string path,
-				std::string name,
+    static SDMT_Code register_float_parameter(std::string name,
 				float value)
-    { return get_manager().register_float_parameter_(path, name, value); }
+    { return get_manager().register_float_parameter_(name, value); }
 
     static int get_float_parameter(std::string name)
     { return get_manager().get_float_parameter_(name); }
 
 
 
-    static SDMT_Code register_double_parameter(std::string path,
-				std::string name,
+    static SDMT_Code register_double_parameter(std::string name,
 				double value)
-    { return get_manager().register_double_parameter_(path, name, value); }
+    { return get_manager().register_double_parameter_(name, value); }
 
     static int get_double_parameter(std::string name)
     { return get_manager().get_double_parameter_(name); }
@@ -348,29 +346,25 @@ class SDMT
 
 
 
-    SDMT_Code register_int_parameter_(std::string path,
-                            std::string name,
+    SDMT_Code register_int_parameter_(std::string name,
 			    int value);
 
     int get_int_parameter_(std::string name);
 
 
-    SDMT_Code register_long_parameter_(std::string path,
-                            std::string name,
+    SDMT_Code register_long_parameter_(std::string name,
 			    long value);
 
     long get_long_parameter_(std::string name);
 
 
-    SDMT_Code register_float_parameter_(std::string path,
-                            std::string name,
+    SDMT_Code register_float_parameter_(std::string name,
 			    float value);
 
     float get_float_parameter_(std::string name);
 
 
-    SDMT_Code register_double_parameter_(std::string path,
-                            std::string name,
+    SDMT_Code register_double_parameter_(std::string name,
 			    double value);
 
     double get_double_parameter_(std::string name);
@@ -487,7 +481,6 @@ class SDMT
     /** @brief MPI communicator */
     MPI_Comm m_comm;
 
-    std::string parapath;
 };
 
 /**
