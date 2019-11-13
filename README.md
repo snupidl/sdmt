@@ -1,6 +1,15 @@
 # SDMT(Simulation process and Data Management Tool) library
-[TODO] write an abstract
-
+SDMT(Simulation Process and Data Management Tool) library provides APIs
+for managing processes and data to scientific applications in
+High-Performance Computing Environment. Applications can request memory
+allocation for the data to be used in the simulation. The SDMT module
+manages the allocated memory segment and allows to record intermediate
+snapshots of the memory as persistent checkpoints in the middle of
+long-running simulations. Applications can also recover the simulation
+process and data from snapshots and restart iterative loop operations
+as needed. In other words, the SDMT library helps to eliminate the need
+to be restarted from scratch of long-running scientific applications
+when a system fault occurs or parameter reset is required.
 ---
 
 ## download and install
@@ -85,6 +94,10 @@ cd /path/to/sdmt/build/example/python
   - monte carlo
   ```
   mpirun -n 4 python ./monte_carlo.py
+  ```
+  - mnist
+  ```
+  mpirun -n 4 python ./mnist.py
   ```
 
 ---
