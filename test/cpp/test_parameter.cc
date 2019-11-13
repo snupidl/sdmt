@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-TEST(RecoveryTest, Int1D) {
+TEST(ParameterTest, Test) {
     // initialize sdmt module
     SDMT::init("./config_cpp_test.xml", false);
 

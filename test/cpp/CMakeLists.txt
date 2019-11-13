@@ -4,6 +4,7 @@ SET(SRCS
     test_checkpoint
     test_restart
     test_iter
+    test_parameter
     )
 
 ADD_EXECUTABLE(unit_test ${SRCS})

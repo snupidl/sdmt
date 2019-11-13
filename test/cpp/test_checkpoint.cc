@@ -14,10 +14,6 @@ TEST(RecoveryTest, Int1D) {
     SDMT::register_segment("sdmttest_int1d", SDMT_INT, SDMT_ARRAY, {1024});
 
 
-    // register parameter initial value
-    SDMT::register_int_parameter("/home/hrjeon/", "test_para", 100);
-
-
     // get data segment
     int* ptr = SDMT::intptr("sdmttest_int1d");
 
@@ -45,12 +41,6 @@ TEST(RecoveryTest, Int1D) {
         EXPECT_EQ(ptr[i], i * i);
     }
 
-    // get parameter from parameter.txt file
-    int parameter = SDMT::get_int_parameter("test_para");
-
-    // check whether parameter value read is same as initial
-    EXPECT_EQ(parameter, 100);
-    
 
     // finalize sdmt module
     SDMT::finalize();
