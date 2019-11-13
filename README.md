@@ -1,11 +1,9 @@
 # SDMT(Simulation process and Data Management Tool) library
-===
 [TODO] write an abstract
 
 ---
 
 ## download and install
-===
 * download
 ```
  git clone [git address]
@@ -32,7 +30,6 @@
 ---
 
 ## run unit test
-===
 ### cpp test
 ```
 cd /path/to/sdmt/build/test/cpp
@@ -73,7 +70,6 @@ cd /path/to/sdmt/build/test/python
 ---
 
 ## run examples
-===
 ###  cpp example
 ```
 cd /path/to/sdmt/build/example/cpp
@@ -93,7 +89,6 @@ cd /path/to/sdmt/build/example/python
 
 ---
 ## Acknowledgement
-===
 This work was supported by Next-Generation Information Computing Development Program through
 the National Research Foundation of Korea(NRF) funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
 

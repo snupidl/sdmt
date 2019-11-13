@@ -34,7 +34,7 @@ def first():
     sdmt.start()
 
     # generate checkpoint
-    sdmt.checkpoint()
+    sdmt.checkpoint(1)
 
     # overwrite dummy values to segment memory
     for i in range(1024):

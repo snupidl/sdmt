@@ -71,7 +71,7 @@ while it < (_interval * _interval):
 
     # checkpoint for every 10 interval
     if it % (_interval * 10) == 0:
-        sdmt.checkpoint()
+        sdmt.checkpoint(1)
         print('{}th iteration has processed, current Pi is {:.4f}'.format(it, pi[0]))
 
     # move to next iteration
@@ -82,5 +82,3 @@ print('final estimation of Pi = {:.4f}'.format(pi[0]))
 
 # finalize sdmt module
 sdmt.finalize();
-
-it = sdmt.next()

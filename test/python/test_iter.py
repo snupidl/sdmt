@@ -24,7 +24,7 @@ it = sdmt.next();
 sdmt.start();
 
 # generate checkpoint
-sdmt.checkpoint();
+sdmt.checkpoint(1);
 
 # increase iteration sequence
 # 1 -> 2
