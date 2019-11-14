@@ -191,39 +191,75 @@ class SDMT
                                 std::vector<int> dim)
     { return get_manager().register_segment_(name, vt, dt, dim); }
    
-
-
+    /**
+     * @brief [static]register a int type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
     static SDMT_Code register_int_parameter(std::string name,
 				int value)
     { return get_manager().register_int_parameter_(name, value); }
 
+    /**
+     * @brief [static]get a int type parameter registered
+     * @param name name of the parameter
+     * @return parameter value
+     */
     static int get_int_parameter(std::string name)
     { return get_manager().get_int_parameter_(name); }
 
-
-
+    /**
+     * @brief [static]register a long type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
     static SDMT_Code register_long_parameter(std::string name,
 				long value)
     { return get_manager().register_long_parameter_(name, value); }
 
+    /**
+     * @brief [static]get a long type parameter registered
+     * @param name name of the parameter
+     * @return parameter value
+     */
     static int get_long_parameter(std::string name)
     { return get_manager().get_long_parameter_(name); }
 
-
-
+    /**
+     * @brief [static]register a float type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
     static SDMT_Code register_float_parameter(std::string name,
 				float value)
     { return get_manager().register_float_parameter_(name, value); }
 
+    /**
+     * @brief [static]get a float type parameter registered
+     * @param name name of the parameter
+     * @return parameter value
+     */
     static int get_float_parameter(std::string name)
     { return get_manager().get_float_parameter_(name); }
 
-
-
+    /**
+     * @brief [static]register a double type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
     static SDMT_Code register_double_parameter(std::string name,
 				double value)
     { return get_manager().register_double_parameter_(name, value); }
 
+    /**
+     * @brief [static]get a double type parameter registered
+     * @param name name of the parameter
+     * @return parameter value
+     */
     static int get_double_parameter(std::string name)
     { return get_manager().get_double_parameter_(name); }
  
@@ -344,32 +380,72 @@ class SDMT
                             SDMT_DT dt,
                             std::vector<int> dim);
 
-
-
+    /**
+     * @brief register a int type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
     SDMT_Code register_int_parameter_(std::string name,
 			    int value);
 
+    /**
+     * @brief get a int type parameter registered
+     * @param name name of the parameter
+     * @return parameter value
+     */
     int get_int_parameter_(std::string name);
 
 
+    /**
+     * @brief register a long type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
     SDMT_Code register_long_parameter_(std::string name,
 			    long value);
 
+    /**
+     * @brief get a long type parameter registered
+     * @param name name of the parameter
+     * @return parameter value
+     */
     long get_long_parameter_(std::string name);
 
 
+    /**
+     * @brief register a float type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
     SDMT_Code register_float_parameter_(std::string name,
 			    float value);
 
+    /**
+     * @brief get a float type parameter registered
+     * @param name name of the parameter
+     * @return parameter value
+     */
     float get_float_parameter_(std::string name);
 
 
+    /**
+     * @brief register a double type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
     SDMT_Code register_double_parameter_(std::string name,
 			    double value);
 
+    /**
+     * @brief get a double type parameter registered
+     * @param name name of the parameter
+     * @return parameter value
+     */
     double get_double_parameter_(std::string name);
-
-
 
     /**
      * @brief create checkpoints of registered Segment
@@ -441,7 +517,6 @@ class SDMT
      * @brief get MPI communicator
      * @return FTI_COMM_WORLD
      */
-
     MPI_Comm comm_();
 
     /**

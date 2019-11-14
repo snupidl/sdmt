@@ -61,6 +61,12 @@ cd /path/to/sdmt/build/test/cpp
   mpirun -n 4 ./unit_test --gtest_filter=RestartTest.2nd
   ```
 
+  - parameter reset test
+  ```
+  mpirun -n 4 ./unit_test --gtest_filter=ParameterTest.1st
+  mpirun -n 4 ./unit_test --gtest_filter=ParameterTest.2nd
+  ```
+
 ### python test
 ```
 cd /path/to/sdmt/build/test/python
@@ -101,6 +107,43 @@ cd /path/to/sdmt/build/example/python
   ```
   mpirun -n 4 python ./mnist.py
   ```
+  ---
+
+
+## multi-level checkpoint manual
+###   
+FTI is a multi safety level checkpointing interface.  
+SDMT provides an api which is easy to apply to enable the user select the checkpointing strategy which fits best th the problem.
+###  
+- ##### Definition
+
+```
+SDMT_Code checkpoint(int level)
+```
+- ##### Input
+
+|  <center>Level</center> |  <center>Type</center> |  <center>Description</center> |
+|:--------:|:--------:|:--------|
+|**0** | <center>Multi-level checkpoint</center> |User can set checkpointing frequnecy per level in configuration file. (../checkpoint/config.fti) |
+|**1** | <center>L1 checkpoint</center> |The checkpoint of each process is written on the local SSD of the respective node. This fast but possess the drawback, that in case of a data loss and corrupted checkpoint data even in only one node, the execution cannot successfully restarted.|
+|**2** | <center>L2 checkpoint</center> |On initialisation, FTI creates a virtual ring for each group of nodes. The first step of L2 is just a L1 checkpoint. In the second step, the checkpoints are duplicated and the copies stored on the neighboring node in the group.That means in case of a failure and data loss in the nodes, the execution still can be successfully restrated, as long as the data loss does not happen on two neighboring nodes at the same time.|
+|**3** | <center>L3 checkpoint</center> |The checkpoint data trunks from each node getting encoded via Reed-Solomon(RS) erasure code. It enables tolerate the breakdown and data loss in half of the nodes. In contrast to the L2, L3 is irrelevant which of nodes encounters the failure.|
+|**4** | <center>L4 checkpoint</center> |All the checkpoint files are flushed to the parallel file system.|
+
+
+- ##### Configuration file
+```
+...
+ckpt_l1                        = 3
+ckpt_l2                        = 5
+ckpt_l3                        = 7
+ckpt_l4                        = 11
+...
+```
+The numeric value on the left means the freuency of each checkpoint level.
+
+
+
 
 ---
 ## Acknowledgement

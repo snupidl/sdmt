@@ -123,7 +123,7 @@ SDMT_Code SDMT::register_int_parameter_(
     std::string name,
     int value) {
 
-
+    // check parameter is already registered
     ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
@@ -136,6 +136,7 @@ SDMT_Code SDMT::register_int_parameter_(
     }
     openFile.close();
     
+    // register parameter
     ofstream writeFile(m_config.m_param_path);
     writeFile << "\n";
     writeFile << name;
@@ -164,17 +165,14 @@ int SDMT::get_int_parameter_(
         }
 	openFile.close();
     }
-
     return 0;
-
-
 }
 
 SDMT_Code SDMT::register_long_parameter_(
     std::string name,
     long value) {
 
-
+    // check parameter is already registered
     ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
@@ -187,6 +185,7 @@ SDMT_Code SDMT::register_long_parameter_(
     }
     openFile.close();
     
+    // register parameter
     ofstream writeFile(m_config.m_param_path);
     writeFile << "\n";
     writeFile << name;
@@ -215,17 +214,14 @@ long SDMT::get_long_parameter_(
         }
 	openFile.close();
     }
-
     return 0;
-
-
 }
 
 SDMT_Code SDMT::register_float_parameter_(
     std::string name,
     float value) {
 
-
+    // check parameter is already registered
     ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
@@ -238,6 +234,7 @@ SDMT_Code SDMT::register_float_parameter_(
     }
     openFile.close();
     
+    // register parameter
     ofstream writeFile(m_config.m_param_path);
     writeFile << "\n";
     writeFile << name;
@@ -266,17 +263,14 @@ float SDMT::get_float_parameter_(
         }
 	openFile.close();
     }
-
     return 0;
-
-
 }
 
 SDMT_Code SDMT::register_double_parameter_(
     std::string name,
     double value) {
 
-
+    // check parameter is already registered
     ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
         std::string line;
@@ -289,6 +283,7 @@ SDMT_Code SDMT::register_double_parameter_(
     }
     openFile.close();
     
+    // register parameter
     ofstream writeFile(m_config.m_param_path);
     writeFile << "\n";
     writeFile << name;
@@ -317,15 +312,8 @@ double SDMT::get_double_parameter_(
         }
 	openFile.close();
     }
-
     return 0;
-
-
 }
-
-
-
-
 
 SDMT_Code SDMT::checkpoint_(int level) {
     // 0 level : frequency checkpoint
