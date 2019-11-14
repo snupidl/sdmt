@@ -73,6 +73,12 @@ TARGET_LINK_LIBRARIES(sdmtpy PUBLIC sdmt)
 install(TARGETS sdmt sdmtpy DESTINATION lib)
 install(FILES "src/sdmt.h" DESTINATION include)
 install(FILES "src/common.h" DESTINATION include)
+install(FILES "src/tinyxml2.h" DESTINATION include)
+install(FILES "src/serialization.h" DESTINATION include)
+install(FILES "thirdparty/fti/include/fti.h" DESTINATION include)
+install(FILES "thirdparty/fti/include/fti-intern.h" DESTINATION include)
+install(FILES "thirdparty/fti/lib/libfti.a" DESTINATION lib)
+install(FILES "thirdparty/fti/lib/libfti.so" DESTINATION lib)
 
 # Add test sub-directory
 ENABLE_TESTING()
