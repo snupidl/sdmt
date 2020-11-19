@@ -15,6 +15,11 @@ when a system fault occurs or parameter reset is required.
 ---
 
 ## download and install
+* prerequisite
+```
+ apt-get install build-essential cmake libssl-dev libopenmpi-dev python3-dev python3-distutils
+```
+
 * download
 ```
  git clone https://github.com/snupidl/sdmt
@@ -152,5 +157,6 @@ the National Research Foundation of Korea(NRF) funded by the Ministry of Science
 
 Authors
 - Ilju Lee, ijlee@kdb.snu.ac.kr
-- Jinyon Kim, jykim@kdb.snu.ac.kr
 - Hyerim Jeon, hrjeon@kdb.snu.ac.kr
+- Jongin Kim, jikim@kdb.snu.ac.kr
+- Youngjune Park, yjpark@kdb.snu.ac.kr

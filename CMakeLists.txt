@@ -16,11 +16,9 @@ ENDIF()
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 SET(CMAKE_CXX_STANDARD 11)
 
-INCLUDE_DIRECTORIES(SYSTEM /usr/include)
-
 # Where to find cmake modules
-SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake_modules")
-INCLUDE(${CMAKE_MODULE_PATH}/FindPackageCustom.cmake)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules")
+include(AppendProperty)
 
 ###############################################################################
 # Find necessary libraries and include dirs
@@ -39,11 +37,13 @@ find_library(FTI_LIB NAMES fti PATHS ${CMAKE_SOURCE_DIR}/thirdparty/fti/lib NO_D
 SET(LIBS ${LIBS} ${FTI_LIB})
 
 # Find OpenMPI headers and libs
-INCLUDE_DIRECTORIES(SYSTEM /usr/include/openmpi)
-find_library(MPI_LIB NAMES mpi PATHS /usr/lib/openmpi/lib NO_DEFAULT_PATH)
-find_library(MPICXX_LIB NAMES mpi_cxx PATHS /usr/lib/openmpi/lib NO_DEFAULT_PATH)
-SET(LIBS ${LIBS} ${MPI_LIB})
-SET(LIBS ${LIBS} ${MPICXX_LIB})
+project(FTI C CXX Fortran)
+find_package(MPI REQUIRED)
+
+INCLUDE_DIRECTORIES(SYSTEM /usr/include)
+INCLUDE_DIRECTORIES(${MPI_Fortran_INCLUDE_PATH})
+INCLUDE_DIRECTORIES(${MPI_C_INCLUDE_PATH})
+SET(LIBS ${LIBS} ${MPI_C_LIBRARIES} ${MPI_CXX_LIBRARIES})
 
 # Enable c++11 (a.k.a. c++0x)
 if(UNIX)
