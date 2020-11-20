@@ -1,6 +1,24 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 3.5)
 PROJECT(DSMT CXX)
 
+### For Fortran build
+enable_language(Fortran)
+IF(CMAKE_Fortran_COMPILER_ID MATCHES "GNU")
+	SET(dialect "-ffree-form -std=f2008 -fimplicit-none")
+	SET(bounds "-fbounds-check")
+ENDIF()
+IF(CMAKE_Fortran_COMPILER_ID MATCHES "Intel")
+	SET(dialect "-stand f08 -free -implicitnone")
+	SET(bounds "-check bounds")
+ENDIF()
+IF(CMAKE_Fortran_COMPILER_ID MATCHES "PGI")
+	SET(dialect "-Mfreeform -Mdclchk -Mstandard -Mallocatable=03")
+	SET(bounds "-C")
+ENDIF()
+
+SET(CMAKE_FORTRAN_FLAGS_DEBUG "${CMAKE_Fortran_FLAGS_DEBUG} ${bounds}")
+SET(CMAKE_FORTRAN_FLAGS "${CMAKE_Fortran_FLAGS} $dialect}")
+
 # Set default build type
 IF(NOT CMAKE_BUILD_TYPE)
     MESSAGE(STATUS "Build type not set - defaulting to Release")
@@ -69,8 +87,16 @@ ADD_SUBDIRECTORY(thirdparty/pybind11)
 PYBIND11_ADD_MODULE(sdmtpy MODULE ${PYTHON_SRCS})
 TARGET_LINK_LIBRARIES(sdmtpy PUBLIC sdmt)
 
+SET(FORTRAN_SRCS
+	src/sdmt_capi.cc
+	src/sdmt_mod.f90
+	)
+
+ADD_LIBRARY(sdmtfortran SHARED ${SRCS} ${FORTRAN_SRCS})
+TARGET_LINK_LIBRARIES(sdmtfortran PUBLIC sdmt ${LIBS})
+
 # installation config
-install(TARGETS sdmt sdmtpy DESTINATION lib)
+install(TARGETS sdmt sdmtpy sdmtfortran DESTINATION lib)
 install(FILES "src/sdmt.h" DESTINATION include)
 install(FILES "src/common.h" DESTINATION include)
 install(FILES "src/tinyxml2.h" DESTINATION include)
