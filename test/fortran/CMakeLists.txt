@@ -9,12 +9,12 @@ TARGET_LINK_LIBRARIES(fortran_test ${LIBS} sdmtfortran)
 
 add_custom_target(copy-files-ex-fortran1 ALL
 	COMMAND ${CMAKE_COMMAND} -E copy
-	${CMAKE_SOURCE_DIR}/example/fortran/config_fortran_test.xml
+	${CMAKE_SOURCE_DIR}/test/fortran/config_fortran_test.xml
 	${CMAKE_CURRENT_BINARY_DIR}/config_fortran_test.xml
 )
 
 add_custom_target(copy-files-ex-fortran2 ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/example/fortran/checkpoint
+    ${CMAKE_SOURCE_DIR}/test/fortran/checkpoint
     ${CMAKE_CURRENT_BINARY_DIR}/checkpoint/
 )

@@ -1,5 +1,5 @@
 ADD_SUBDIRECTORY(cpp)
-ADD_SUBDIRECTORY(fortran)
+#ADD_SUBDIRECTORY(fortran)
 
 add_custom_target(copy-files-ex ALL
     COMMAND ${CMAKE_COMMAND} -E copy_directory
