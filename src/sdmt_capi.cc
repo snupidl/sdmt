@@ -85,9 +85,9 @@ SDMT::Segment sdmt_get_segment(char* name){
 	return SDMT::get_segment(name);
 }
 
-int32_t& sdmt_iter(){
+int32_t sdmt_iter(){
 //	cout << "[SDMT] [C API] iter" << endl;
-	return SDMT::iter();
+	return SDMT :: iter();
 }
 
 int32_t sdmt_next(){
@@ -213,7 +213,7 @@ extern "C" {
 	segment sdmt_get_segment_c_(char* name){
 		return sdmt_get_segment(name);
 	}
-	int32_t& sdmt_iter_c_(){
+	int32_t sdmt_iter_c_(){
 		return sdmt_iter();
 	}
 	int32_t sdmt_next_c_(){

@@ -129,7 +129,7 @@ end function
 function sdmt_next_c() bind (C, name="sdmt_next_c_")
 use iso_c_binding
 implicit none
-integer(c_long) :: sdmt_next_c
+integer(c_int) :: sdmt_next_c
 end function
 
 function sdmt_comm_c() bind (C, name="sdmt_comm_c_")
@@ -201,7 +201,7 @@ ENUMERATOR :: SDMT_DOUBLE
 ENUMERATOR :: SDMT_NUM_VT
 END ENUM
 ENUM, BIND(C) 
-ENUMERATOR :: SDMT_SCALA
+ENUMERATOR :: SDMT_SCALAR
 ENUMERATOR :: SDMT_ARRAY
 ENUMERATOR :: SDMT_MATRIX
 ENUMERATOR :: SDMT_TENSOR
@@ -245,8 +245,9 @@ function sdmt_register_segment(sname, vt, dt, dim_numpara, dim_format)
 implicit none
 integer :: sdmt_register_segment
 character(len=*) :: sname
-integer :: vt, dt, dim_numpara
-integer :: dim_format(dim_numpara)
+integer :: vt, dt
+integer ::dim_numpara
+integer, optional :: dim_format(dim_numpara)
 sdmt_register_segment = sdmt_register_segment_c(sname, vt, dt, dim_numpara, dim_format)
 end function
 
@@ -339,7 +340,7 @@ end function
 
 function sdmt_iter()
 implicit none
-integer :: sdmt_iter
+integer(kind=8) :: sdmt_iter
 sdmt_iter = sdmt_iter_c()
 end function
 
@@ -392,8 +393,7 @@ end function
 !character(len=*) :: sname
 !integer, pointer :: fptr(:,:,:)
 !integer, dimension(3) :: dm
-!call c_f_pointer(sdmt_intptr_c(sname), fptr, dm)
-!end subroutine
+!call c_f_pointer(sdmt_intptr_c(sname), !end subroutine
 
 
 

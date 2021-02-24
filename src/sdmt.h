@@ -197,6 +197,20 @@ class SDMT
      * @param value value of the parameter
      * @return status code
      */
+    
+	static SDMT_Code change_segment(std::string name,
+                                SDMT_VT cvt,
+                                SDMT_DT cdt,
+                                std::vector<int> cdim)
+    {return get_manager().change_segment_(name, cvt, cdt, cdim); }
+   
+    /**
+     * @brief [static]register a int type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
+
     static SDMT_Code register_int_parameter(std::string name,
 				int value)
     { return get_manager().register_int_parameter_(name, value); }
@@ -379,6 +393,18 @@ class SDMT
                             SDMT_VT vt,
                             SDMT_DT dt,
                             std::vector<int> dim);
+
+    /**
+     * @brief register a int type parameter to be adjusted
+     * @param name name of the parameter
+     * @param value value of the parameter
+     * @return status code
+     */
+    
+	SDMT_Code change_segment_(std::string name,
+                            SDMT_VT cvt,
+                            SDMT_DT cdt,
+                            std::vector<int> cdim);
 
     /**
      * @brief register a int type parameter to be adjusted

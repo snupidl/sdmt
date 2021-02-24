@@ -117,6 +117,79 @@ SDMT_Code SDMT::register_segment_(
     }
 }
 
+SDMT_Code SDMT::change_segment_(
+        std::string name,
+        SDMT_VT cvt,
+        SDMT_DT cdt,
+        std::vector<int> cdim) {
+	auto itr = m_sgmt_map.find(name);
+	
+	if (itr == m_sgmt_map.end()){
+		return SDMT_ERR_FAILED_ALLOCATION;
+	}
+    if (cdt < SDMT_SCALAR || cdt >= SDMT_NUM_DT) {
+        return SDMT_ERR_WRONG_DATA_TYPE;
+    }
+
+    // check the definition of dimension
+    if (cdim.size() != (int)cdt) {
+        return SDMT_ERR_WRONG_DIMENSION;
+    }
+
+    // calculate the byte size of memory to allocate
+    size_t csize = 1;
+    for (auto d: cdim) {
+        csize *= d;
+    }
+	void* p = nullptr;
+	SDMT::Segment sg = itr->second;
+	int32_t m_id = sg.m_id;
+//	p = sg.m_ptr;
+	free(sg.m_ptr);
+    int esize;
+    try {
+        switch (cvt) {
+            case SDMT_INT:
+                esize = sizeof(int);
+				p = std::malloc(csize*esize);
+                FTI_Protect(m_id, p, csize, FTI_INTG);
+                break;
+            case SDMT_LONG:
+                esize = sizeof(long);
+				p = std::malloc(csize*esize);
+                FTI_Protect(m_id, p, csize, FTI_LONG);
+                break;
+            case SDMT_FLOAT:
+                esize = sizeof(float);
+				p = std::malloc(csize*esize);
+                FTI_Protect(m_id, p, csize, FTI_SFLT);
+                break;
+            case SDMT_DOUBLE:
+                esize = sizeof(double);
+				p = std::malloc(csize*esize);
+                FTI_Protect(m_id, p, csize, FTI_DBLE);
+                break;
+            default:
+                return SDMT_ERR_WRONG_VALUE_TYPE;
+        }
+    } catch (...) {
+        return SDMT_ERR_FAILED_ALLOCATION;
+    }
+	
+	if (p) {
+        // register to sdmt manager
+		m_sgmt_map.erase(name);
+        m_sgmt_map[name] = Segment(m_id, cvt, cdt, cdim, esize, p);
+
+        // log current status
+        serialize_();
+
+        return SDMT_SUCCESS;
+    } else {
+        return SDMT_ERR_FAILED_ALLOCATION;
+    }
+		
+}
 
 
 SDMT_Code SDMT::register_int_parameter_(
@@ -363,7 +436,6 @@ SDMT::Segment SDMT::get_segment_(std::string name) {
     if (itr == m_sgmt_map.end()) {
         return Segment();
     }
-
     return itr->second;
 }
 
