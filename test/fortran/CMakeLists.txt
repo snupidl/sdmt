@@ -1,11 +1,11 @@
-SET(SRCS
-	fortran_test.f90
+SET(checkpoint_SRC
+	fortran_checkpoint.f90
 	)
 
-ADD_EXECUTABLE(fortran_test ${SRCS})
+ADD_EXECUTABLE(fortran_checkpoint ${checkpoint_SRCS})
 
-TARGET_LINK_LIBRARIES(fortran_test sdmt) 
-TARGET_LINK_LIBRARIES(fortran_test ${LIBS} sdmtfortran)
+TARGET_LINK_LIBRARIES(fortran_checkpoint sdmt) 
+TARGET_LINK_LIBRARIES(fortran_checkpoint ${LIBS} sdmtfortran)
 
 add_custom_target(copy-files-ex-fortran_test1 ALL
 	COMMAND ${CMAKE_COMMAND} -E copy
