@@ -163,7 +163,7 @@ This work was supported by Next-Generation Information Computing Development Pro
 the National Research Foundation of Korea(NRF) funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
 
 ## Contact
-[sdmt@kdb.snu.ac.kr](sdmt.snu.ac.kr)
+email: sdmt@kdb.snu.ac.kr
 
 Authors
 - Ilju Lee, ijlee@kdb.snu.ac.kr
