@@ -1,17 +1,23 @@
-### data reference : https://www.kaggle.com/rozemberczki/musae-facebook-pagepage-network?select=musae_facebook_target.csv
-### code reference : https://gist.github.com/diogojc/1338222/84d767a68da711a154778fb1d00e772d65322187
+"""
+Copyright 2021 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+This work was supported by Next-Generation Information Computing Development
+Program through the National Research Foundation of Korea(NRF)
+funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
+Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
+Contact: sdmt@kdb.snu.ac.kr
+
+data reference : https://www.kaggle.com/rozemberczki/musae-facebook-pagepage-network?select=musae_facebook_target.csv
+code reference : https://gist.github.com/diogojc/1338222/84d767a68da711a154778fb1d00e772d65322187
+"""
 
 import numpy as np
 from scipy.sparse import csc_matrix
 
 #import sdmt
-import sys
-sys.path.append('../..')
-import sdmtpy as sdmt
+from sdmt import sdmt
 
 #import mpi module
 from mpi4py import MPI
-
 
 def pageRank(G, r, it, s= .85, maxerr = .0001):
 

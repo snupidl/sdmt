@@ -1,5 +1,13 @@
-### reference : https://github.com/ezstoltz/genetic-algorithm/blob/master/genetic_algorithm_TSP.ipynb
+"""
+Copyright 2021 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+This work was supported by Next-Generation Information Computing Development
+Program through the National Research Foundation of Korea(NRF)
+funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
+Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
+Contact: sdmt@kdb.snu.ac.kr
 
+code reference : https://github.com/ezstoltz/genetic-algorithm/blob/master/genetic_algorithm_TSP.ipynb
+"""
 
 import numpy as np
 import random
@@ -8,9 +16,7 @@ import pandas as pd
 import math
 
 # import sdmt
-import sys
-sys.path.append('../..')
-import sdmtpy as sdmt
+from sdmt import sdmt
 
 # import mpi module
 from mpi4py import MPI

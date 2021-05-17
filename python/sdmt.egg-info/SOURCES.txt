@@ -1,0 +1,8 @@
+setup.py
+sdmt/__init__.py
+sdmt/scripts.py
+sdmt.egg-info/PKG-INFO
+sdmt.egg-info/SOURCES.txt
+sdmt.egg-info/dependency_links.txt
+sdmt.egg-info/entry_points.txt
+sdmt.egg-info/top_level.txt

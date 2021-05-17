@@ -17,100 +17,109 @@ when a system fault occurs or parameter reset is required.
 ## download and install
 * prerequisite
 ```
- apt-get install build-essential cmake libssl-dev libopenmpi-dev python3-dev python3-distutils
+ $ apt-get install build-essential cmake libssl-dev libopenmpi-dev python3-dev python3-distutils
+```
+```
+ $ pip install mpi4py click clint
 ```
 
 * download
 ```
- git clone https://github.com/snupidl/sdmt
- git submodule init
- git submodule update
+ $ git clone https://github.com/snupidl/sdmt
+ $ git submodule init
+ $ git submodule update
 ```
 
 * build and install fti library
 ```
- cd /path/to/sdmt/thirdparty/fti-src
- mkdir build && cd build
- cmake -DCMAKE_INSTALL_PREFIX=/path/to/sdmt/thirdparty/fti ..
- make && make install
+ $ cd /path/to/sdmt/thirdparty/fti-src
+ $ mkdir build && cd build
+ $ cmake -DCMAKE_INSTALL_PREFIX=/path/to/sdmt/thirdparty/fti ..
+ $ make && make install
 ```
 
 * build and install sdmt
+```
+ $ cd /path/to/sdmt
+ $ mkdir build && cd build
+ $ cmake -DCMAKE_INSTALL_PREFIX=/path/to/install ..
+ $ make && make install
+```
 
+* install as python library
 ```
- cd /path/to/sdmt
- mkdir build && cd build
- cmake -DCMAKE_INSTALL_PREFIX=/path/to/install ..
- make && make install
+ $ cd /path/to/sdmt
+ $ pip install --user -e ./python
 ```
+ 
 ---
 
 ## run unit test
 ### cpp test
 ```
-cd /path/to/sdmt/build/test/cpp
+$ cd /path/to/sdmt/build/test/cpp
 ```
   - checkpoint test
   ```
-  mpirun -n 4 ./unit_test --gtest_filter=RecoveryTest.*
+  $ mpirun -n 4 ./unit_test --gtest_filter=RecoveryTest.*
   ```
 
   - iteration test
   ```
-  mpirun -n 4 ./unit_test --gtest_filter=IterTest.*
+  $ mpirun -n 4 ./unit_test --gtest_filter=IterTest.*
   ```
 
   - restart test
   ```
-  mpirun -n 4 ./unit_test --gtest_filter=RestartTest.1st
-  mpirun -n 4 ./unit_test --gtest_filter=RestartTest.2nd
+  $ mpirun -n 4 ./unit_test --gtest_filter=RestartTest.1st
+  $ mpirun -n 4 ./unit_test --gtest_filter=RestartTest.2nd
   ```
 
   - parameter reset test
   ```
-  mpirun -n 4 ./unit_test --gtest_filter=ParameterTest.1st
-  mpirun -n 4 ./unit_test --gtest_filter=ParameterTest.2nd
+  $ mpirun -n 4 ./unit_test --gtest_filter=ParameterTest.1st
+  $ mpirun -n 4 ./unit_test --gtest_filter=ParameterTest.2nd
   ```
 
 ### python test
 ```
-cd /path/to/sdmt/build/test/python
+$ cd /path/to/sdmt/build/test/python
 ```
   - checkpoint test
   ```
-  mpirun -n 4 python ./test_recovery.py
+  $ mpirun -n 4 python ./test_recovery.py
   ```
   - iteration test
   ```
-  mpirun -n 4 python ./test_iter.py
+  $ mpirun -n 4 python ./test_iter.py
   ```
   - restart test
   ```
-  mpirun -n 4 python ./test_restart.py 1
-  mpirun -n 4 python ./test_restart.py 2
+  $ mpirun -n 4 python ./test_restart.py 1
+  $ mpirun -n 4 python ./test_restart.py 2
   ```
 ---
 
 ## run examples
 ###  cpp example
 ```
-cd /path/to/sdmt/build/example/cpp
+$ cd /path/to/sdmt/build/example/cpp
 ```
   - monte carlo
   ```
-  mpirun -n 4 ./monte_carlo
+  $ mpirun -n 4 ./monte_carlo
   ```
 ### python example
 ```
-cd /path/to/sdmt/build/example/python
+$ cd /path/to/sdmt/build/example/python
 ```
   - monte carlo
   ```
-  mpirun -n 4 python ./monte_carlo.py
+  $ mpirun -n 4 python ./monte_carlo.py
   ```
   - mnist
   ```
-  mpirun -n 4 python ./mnist.py
+  $ mpirun -n 4 python ./mnist.py
   ```
   ---
 
@@ -148,12 +157,13 @@ ckpt_l4                        = 11
 The numeric value on the left means the freuency of each checkpoint level.
 
 
-
-
 ---
 ## Acknowledgement
 This work was supported by Next-Generation Information Computing Development Program through
 the National Research Foundation of Korea(NRF) funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
+
+## Contact
+[sdmt@kdb.snu.ac.kr](sdmt.snu.ac.kr)
 
 Authors
 - Ilju Lee, ijlee@kdb.snu.ac.kr
