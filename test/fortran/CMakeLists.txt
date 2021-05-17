@@ -2,7 +2,7 @@ SET(checkpoint_SRC
 	fortran_checkpoint.f90
 	)
 
-ADD_EXECUTABLE(fortran_checkpoint ${checkpoint_SRCS})
+ADD_EXECUTABLE(fortran_checkpoint ${checkpoint_SRC})
 
 TARGET_LINK_LIBRARIES(fortran_checkpoint sdmt) 
 TARGET_LINK_LIBRARIES(fortran_checkpoint ${LIBS} sdmtfortran)
