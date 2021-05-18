@@ -1,4 +1,11 @@
-// Copyright 2019 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+/**
+Copyright 2021 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+This work was supported by Next-Generation Information Computing Development
+Program through the National Research Foundation of Korea(NRF)
+funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
+Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
+Contact: sdmt@kdb.snu.ac.kr
+ */
 
 #ifndef SDMT_H_
 #define SDMT_H_
@@ -10,15 +17,13 @@
 #include <vector>
 #include <unordered_map>
 #include <fti.h>
+
 /**
  * @brief a singleton class that provides APIs of SDMT
  * @li assign a data chunk to be managed in simulation process<p>
  * @li make snapshot checkpoint during iterative simulation
  *  and recovery intermediate results for restart<p>
  * @li collect statistics about data reference<p>
- * @author Ilju Lee, ijlee@kdb.snu.ac.kr
- * @author Jinyon Kim, jykim@kdb.snu.ac.kr
- * @author Hyerim Jeon, hrjeon@kdb.snu.ac.kr
  */
 class SDMT
 {

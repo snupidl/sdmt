@@ -1,4 +1,15 @@
-// Copyright 2019 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+/**
+Copyright 2021 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+This work was supported by Next-Generation Information Computing Development
+Program through the National Research Foundation of Korea(NRF)
+funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
+Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
+Contact: sdmt@kdb.snu.ac.kr
+
+estimating the value of Pi using Monte Carlo method
+implemented by referring to
+https://www.geeksforgeeks.org/estimating-value-pi-using-monte-carlo/
+ */
 
 #include "sdmt.h"
 
@@ -7,12 +18,6 @@
 
 #define INTERVAL 1000
 
-/**
- * estimating the value of Pi using Monte Carlo method
- * implemented by referring to
- * https://www.geeksforgeeks.org/estimating-value-pi-using-monte-carlo/
- * Author: Ilju Lee, ijlee@kdb.snu.ac.kr
- */
 int main() {
     using namespace std;
     // init sdmt manage

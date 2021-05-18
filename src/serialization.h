@@ -1,9 +1,6 @@
 #pragma once
-//
-//
 //  Created by ZK on 14-7-4.
 //  https://github.com/zk4/Serialization.git
-//
 
 #include <cassert>
 #include <cstring>
@@ -14,9 +11,8 @@
 #include <set>
 #include <list>
 #include <type_traits>
+
 using namespace std;
-
-
 
 class serialize
 {
@@ -166,15 +162,12 @@ public:
         return ostream_;
     }
 
- 
-
 template<typename T>
 static inline void ZeroMem(T& t)
 {
 	memset(&t, 0, sizeof (T));
 }
 
- 
 template<typename T>
 static inline istream& read(istream& istream_, T&  t_)
 {   if(std::is_fundamental<T>::value)
@@ -209,8 +202,6 @@ static inline ostream& write(ostream& ostream_, T&  t_)
     
 	
 }
-    
-
  
 /////////////vector//////////////////////////////////
 template <class T >
@@ -300,9 +291,7 @@ static inline  istream& read(istream& istream_, vector<T*>& container)
 	return istream_;
 }
 
-
 ////////////////map/////////////////////
-
 template <class K, class V>
 static inline ostream&  write(ostream& ostream_, map<K, V>& container)
 {
@@ -400,7 +389,6 @@ static inline  istream& read(istream& istream_, map<K, V*>& container)
 }
 
 ////////////unordered_map/////////////////
-
 template <class K, class V>
 static inline ostream&  write(ostream& ostream_, unordered_map<K, V>& container)
 {
@@ -440,7 +428,6 @@ static inline  istream& read(istream& istream_, unordered_map<K, V>& container)
 }
 
 ////////////////set/////////////////////
-
 template <class T >
 static inline ostream& write(ostream& ostream_, set<T>& container)
 {
@@ -524,10 +511,7 @@ static inline  istream& read(istream& istream_, set<T*>& container)
 	return istream_;
 }
 
-
-
 ////////////////list/////////////////////
-
 template <class T >
 static inline ostream& write(ostream& ostream_, list<T>& container)
 {
@@ -583,8 +567,6 @@ static inline ostream&  write(ostream& ostream_, list<T*>& container)
 	}
 	return ostream_;
 }
-
-
 
 template <class T >
 static inline  istream& read(istream& istream_, list<T*>& container)

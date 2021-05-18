@@ -1,9 +1,18 @@
+/**
+Copyright 2021 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+This work was supported by Next-Generation Information Computing Development
+Program through the National Research Foundation of Korea(NRF)
+funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
+Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
+Contact: sdmt@kdb.snu.ac.kr
+ */
+
 #include <iostream>
 #include "sdmt.h"
 #include <algorithm>
 #include <fstream>
-using namespace std;
 
+using namespace std;
 
 SDMT_Code sdmt_init(char *config, bool &restart) {
 //    cout << "[SDMT] [C API] init" << endl;
@@ -17,7 +26,7 @@ SDMT_Code sdmt_start() {
 
 SDMT_Code sdmt_finalize() {
 //    cout << "[SDMT] [C API] finalize" << endl;
-   return SDMT::finalize();
+    return SDMT::finalize();
 }
 
 SDMT_Code sdmt_register_segment(char* name, SDMT_VT& vt, SDMT_DT& dt, std::vector<int>& dim) {
@@ -101,9 +110,7 @@ MPI_Comm sdmt_comm(){
 }
 
 int* sdmt_intptr(char* name) {
-//    cout << "[SDMT] [C API] intptr" << endl;
-    
-	
+//  cout << "[SDMT] [C API] intptr" << endl;
 	return SDMT::intptr(name);
 }
 
@@ -122,9 +129,6 @@ double* sdmt_doubleptr(char* name){
 	return SDMT::doubleptr(name);
 }
 
-
-
-
 /*
 bool sdmt_load_config(std::string config){
 	cout << "[SDMT] [C API] load config" << endl;
@@ -142,9 +146,7 @@ bool sdmt_deserialize(){
 }
 */
 
-
 extern "C" {
-	
 	typedef SDMT_VT sdmt_vt;
 	typedef SDMT_DT sdmt_dt;
 	typedef SDMT_Code sdmt_code;
@@ -169,7 +171,8 @@ extern "C" {
         return sdmt_finalize();
     }
 
-    sdmt_code sdmt_register_segment_c_(char* name, SDMT_VT* vt, SDMT_DT* dt, int* dim_numpara, int dim_format[]) {
+    sdmt_code sdmt_register_segment_c_(char* name,
+            SDMT_VT* vt, SDMT_DT* dt, int* dim_numpara, int dim_format[]) {
 		std::vector<int> dim_;
 		for(int i = 0; i< *dim_numpara; ++i){
 			dim_.push_back((dim_format)[i]);
@@ -177,28 +180,28 @@ extern "C" {
 		return sdmt_register_segment(name, *vt, *dt, dim_);
     }
 
-	sdmt_code sdmt_register_int_parameter_c_(char* name, int* value){
+	sdmt_code sdmt_register_int_parameter_c_(char* name, int* value) {
 		return sdmt_register_int_parameter(name, *value);
 	}
 	int sdmt_get_int_parameter_c_(char* name){
 		return sdmt_get_int_parameter(name);
 	}
-	sdmt_code sdmt_register_long_parameter_c_(char* name, long* value){
+	sdmt_code sdmt_register_long_parameter_c_(char* name, long* value) {
 		return sdmt_register_long_parameter(name, *value);
 	}
 	long sdmt_get_long_parameter_c_(char* name){
 		return sdmt_get_long_parameter(name);
 	}
-	sdmt_code sdmt_register_float_parameter_c_(char* name, float* value){
+	sdmt_code sdmt_register_float_parameter_c_(char* name, float* value) {
 		return sdmt_register_float_parameter(name, *value);
 	}
-	float sdmt_get_float_parameter_c_(char* name){
+	float sdmt_get_float_parameter_c_(char* name) {
 		return sdmt_get_float_parameter(name);
 	}
-	sdmt_code sdmt_register_double_parameter_c_(char* name, double* value){
+	sdmt_code sdmt_register_double_parameter_c_(char* name, double* value) {
 		return sdmt_register_double_parameter(name, *value);
 	}
-	double sdmt_get_double_parameter_c_(char* name){
+	double sdmt_get_double_parameter_c_(char* name) {
 		return sdmt_get_double_parameter(name);
 	}
 	sdmt_code sdmt_checkpoint_c_(int *level) {
@@ -207,36 +210,34 @@ extern "C" {
 	sdmt_code sdmt_recover_c_() {
 		return sdmt_recover();
 	}
-	bool sdmt_exist_c_(char* name){
+	bool sdmt_exist_c_(char* name) {
 		return sdmt_exist(name);
 	}
-	segment sdmt_get_segment_c_(char* name){
+	segment sdmt_get_segment_c_(char* name) {
 		return sdmt_get_segment(name);
 	}
-	int32_t sdmt_iter_c_(){
+	int32_t sdmt_iter_c_() {
 		return sdmt_iter();
 	}
-	int32_t sdmt_next_c_(){
+	int32_t sdmt_next_c_() {
 		return sdmt_next();
 	}
-	mpi_comm sdmt_comm_c_(){
+	mpi_comm sdmt_comm_c_() {
 		return sdmt_comm();
 	}
 	int_p sdmt_intptr_c_(char* name) {
 		return sdmt_intptr(name);
     }
-	long_p sdmt_longptr_c_(char* name){
+	long_p sdmt_longptr_c_(char* name) {
 		return sdmt_longptr(name);
 	}
-	float_p sdmt_floatptr_c_(char* name){
+	float_p sdmt_floatptr_c_(char* name) {
 		return sdmt_floatptr(name);
 	}
-	double_p sdmt_doubleptr_c_(char* name){
+	double_p sdmt_doubleptr_c_(char* name) {
 		return sdmt_doubleptr(name);
 	}
-
-	int_p sdmt_intmat_c_(void* vptr){
-	
+	int_p sdmt_intmat_c_(void* vptr) {
 	
 	}
 	/*

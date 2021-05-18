@@ -1,5 +1,11 @@
-// Copyright 2019 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
-
+/**
+Copyright 2021 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+This work was supported by Next-Generation Information Computing Development
+Program through the National Research Foundation of Korea(NRF)
+funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
+Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
+Contact: sdmt@kdb.snu.ac.kr
+ */
 #include "sdmt.h"
 
 #include <gtest/gtest.h>
@@ -12,7 +18,6 @@ TEST(RecoveryTest, Int1D) {
     // define 1 dimensional integer array
     // the size of array is 1024
     SDMT::register_segment("sdmttest_int1d", SDMT_INT, SDMT_ARRAY, {1024});
-
 
     // get data segment
     int* ptr = SDMT::intptr("sdmttest_int1d");
@@ -40,7 +45,6 @@ TEST(RecoveryTest, Int1D) {
     for (int i = 0; i < 1024; i++) {
         EXPECT_EQ(ptr[i], i * i);
     }
-
 
     // finalize sdmt module
     SDMT::finalize();

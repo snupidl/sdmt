@@ -395,8 +395,4 @@ end function
 !integer, dimension(3) :: dm
 !call c_f_pointer(sdmt_intptr_c(sname), !end subroutine
 
-
-
-
-
 end module

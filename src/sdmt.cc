@@ -1,4 +1,11 @@
-// Copyright 2019 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+/**
+Copyright 2021 PIDL(Petabyte-scale In-memory Database Lab) http://kdb.snu.ac.kr
+This work was supported by Next-Generation Information Computing Development
+Program through the National Research Foundation of Korea(NRF)
+funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
+Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
+Contact: sdmt@kdb.snu.ac.kr
+ */
 
 #include "sdmt.h"
 #include "tinyxml2.h"
@@ -141,10 +148,11 @@ SDMT_Code SDMT::change_segment_(
     for (auto d: cdim) {
         csize *= d;
     }
+
 	void* p = nullptr;
 	SDMT::Segment sg = itr->second;
 	int32_t m_id = sg.m_id;
-//	p = sg.m_ptr;
+    //p = sg.m_ptr;
 	free(sg.m_ptr);
     int esize;
     try {
@@ -188,9 +196,7 @@ SDMT_Code SDMT::change_segment_(
     } else {
         return SDMT_ERR_FAILED_ALLOCATION;
     }
-		
 }
-
 
 SDMT_Code SDMT::register_int_parameter_(
     std::string name,
@@ -238,6 +244,7 @@ int SDMT::get_int_parameter_(
         }
 	openFile.close();
     }
+
     return 0;
 }
 
@@ -266,8 +273,8 @@ SDMT_Code SDMT::register_long_parameter_(
     writeFile << value;
     writeFile << "\n";
     writeFile.close();
-    return SDMT_SUCCESS;
 
+    return SDMT_SUCCESS;
 }
 
 long SDMT::get_long_parameter_(
@@ -315,8 +322,8 @@ SDMT_Code SDMT::register_float_parameter_(
     writeFile << value;
     writeFile << "\n";
     writeFile.close();
-    return SDMT_SUCCESS;
 
+    return SDMT_SUCCESS;
 }
 
 float SDMT::get_float_parameter_(
@@ -334,8 +341,9 @@ float SDMT::get_float_parameter_(
                 return value;
             }
         }
-	openFile.close();
+	    openFile.close();
     }
+
     return 0;
 }
 
@@ -364,8 +372,8 @@ SDMT_Code SDMT::register_double_parameter_(
     writeFile << value;
     writeFile << "\n";
     writeFile.close();
-    return SDMT_SUCCESS;
 
+    return SDMT_SUCCESS;
 }
 
 double SDMT::get_double_parameter_(
@@ -383,8 +391,9 @@ double SDMT::get_double_parameter_(
                 return value;
             }
         }
-	openFile.close();
+	    openFile.close();
     }
+
     return 0;
 }
 
