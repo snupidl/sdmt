@@ -8,7 +8,7 @@ Contact: sdmt@kdb.snu.ac.kr
 """
 
 # import sdmt
-from sdmt import sdmt
+import sdmt
 
 # import mpi module
 from mpi4py import MPI
@@ -19,71 +19,69 @@ import numpy as np
 # init sdmt manager
 sdmt.init('./config_python_test.xml', False)
 
-# request a sdmt segment
+# register new snapshot
 # define 1 dimensional integer array
-# the size of array is 1024
+# initial size of array is 1024
+size = 1024
+sdmt.register('sdmttest_int1d', 'int', 'array', [size])
 
-size = 6
-sdmt.register('sdmttest_int1d', sdmt.vt.int, sdmt.dt.array, [size])
-
-# get segment and convert to numpy.ndarray
-segment = sdmt.get('sdmttest_int1d')
-data = np.array(segment, copy=False)
-
-# write values to segment memory
-for i in range(0, size):
+# get snapshot and write values
+data = sdmt.get('sdmttest_int1d')
+for i in range(size):
     data[i] = i
 
 # start sdmt module
 sdmt.start()
 sdmt.checkpoint(1)
 
-for i in range(size):
-    data[i] = 0
+# update values, then recover
+data.fill(0)
 sdmt.recover()
 
-for i in range(0, size):
+# check correctness
+for i in range(size):
     if data[i] != i:
         print('1 incorrect value {} : {}'.format(data[i], i))
 
-# change size
+# update definition of snapshot
 size = size * 2
-sdmt.change_segment('sdmttest_int1d', sdmt.vt.int, sdmt.dt.array, [size])
-segment = sdmt.get('sdmttest_int1d')
-data = np.array(segment, copy=False)
-for i in range(0, size):
+data = sdmt.change_segment('sdmttest_int1d', 'int', 'array', [size])
+
+# write values
+for i in range(size):
     data[i] = i * 2
 sdmt.checkpoint(1)
+
 # overwrite dummy values to segment memory
-for i in range(size):
-    data[i] = 0
+data.fill(0)
 
 # recover checkpoint
 sdmt.recover()
 
-# check recovered valuse
+# check correctness
 for i in range(0, size):
     if data[i] != i * 2:
         print('2 incorrect value {} : {}'.format(data[i], i))
-# finalize sdmt module
 
-# change size
-size = int(size / 4)
-sdmt.change_segment('sdmttest_int1d', sdmt.vt.int, sdmt.dt.array, [size])
-segment = sdmt.get('sdmttest_int1d')
-data = np.array(segment, copy=False)
-for i in range(0, size):
-	data[i] = i * 3
+# update definiation of snapshot
+size = size // 4
+data = sdmt.change_segment('sdmttest_int1d', 'int', 'array', [size])
+
+# write values
+for i in range(size):
+    data[i] = i * 3
 sdmt.checkpoint(1)
 
-for i in range(0, size):
-    data[i] = 0
-
+# overwrite dummy values to segment memory
+data.fill(0)
 
 #recover checkpoint
 sdmt.recover()
+
+# check correctness
 for i in range(0 ,size):
     if data[i] != i *3:
         print('3 incorrect value {} : {}'.format(data[i], i))
 
+# finalize sdmt module
 sdmt.finalize()

@@ -405,7 +405,6 @@ class SDMT
      * @param value value of the parameter
      * @return status code
      */
-    
 	SDMT_Code change_segment_(std::string name,
                             SDMT_VT cvt,
                             SDMT_DT cdt,
@@ -426,7 +425,6 @@ class SDMT
      * @return parameter value
      */
     int get_int_parameter_(std::string name);
-
 
     /**
      * @brief register a long type parameter to be adjusted
@@ -460,7 +458,6 @@ class SDMT
      * @return parameter value
      */
     float get_float_parameter_(std::string name);
-
 
     /**
      * @brief register a double type parameter to be adjusted

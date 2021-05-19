@@ -12,87 +12,66 @@ code reference : https://medium.com/@mamady94/a-tutorial-on-optimization-algorit
 import numpy as np
 
 # import sdmt
-from sdmt import sdmt
+import sdmt
 
 # import mpi module
 from mpi4py import MPI
 
 def update_position(x, v):
-	new_x = x + v
-	return new_x
+    new_x = x + v
+    return new_x
 def update_velocity(x, v, p_best, g_best, c0=0.5, c1=1.5, w=0.75):
-	r = np.random.uniform()
-	new_v = w*v + c0*r*(p_best-x) + c1*r*(g_best-x)
-	return new_v
+    r = np.random.uniform()
+    new_v = w*v + c0*r*(p_best-x) + c1*r*(g_best-x)
+    return new_v
 
 def sphere(x): ### global solution (0,0,0)
-
-	return np.sum(np.square(x))
+    return np.sum(np.square(x))
 
 ### target function
-
 def func(x) :
+    return (x[0]**2 + x[1] -11)**2 + (x[0] + x[1]**2 -7)**2
 
-	return (x[0]**2 + x[1] -11)**2 + (x[0] + x[1]**2 -7)**2
-
-maxiter = 1500
-
+# init sdmt library
 sdmt.init('./config_python_test.xml', True)
 
-# check this execution is first try
-# if it is, create segments
-# else get recovered value
+# register sdmt snapshot, restore if exists
+particles_pos = sdmt.register('particles_pos', 'double', 'matrix', [50, 2], 0)
+velocities = sdmt.register('velocities', 'double', 'matrix', [50, 2], np.random.uniform)
+p_best = sdmt.register('p_best', 'double', 'matrix', [50, 2], 0)
 
 n_particles = 50
-init_pos = [0,0]
-particle_dim = len(init_pos)
-g_best = init_pos
+g_best = [0, 0]
+maxiter = 1500
 
-if not sdmt.exist('particles_pos'):
+# get current iteration sequence
+it = sdmt.iter()
 
-	sdmt.register('particles_pos', sdmt.vt.double, sdmt.dt.matrix, [n_particles, particle_dim])
-	sdmt.register('velocities', sdmt.vt.double, sdmt.dt.matrix, [n_particles, particle_dim])
-	sdmt.register('p_best', sdmt.vt.double, sdmt.dt.matrix, [n_particles, particle_dim])
-
-	particles_pos = np.array(sdmt.get('particles_pos'), copy=False)
-	velocities = np.array(sdmt.get('velocities'), copy=False)
-	p_best = np.array(sdmt.get('p_best'), copy=False)
-
-	particles_pos_ = np.random.uniform(size=(n_particles, particle_dim))*init_pos
-	velocities_ = np.random.uniform(size=(n_particles, particle_dim))
-	p_best_ = particles_pos_
-
-	for i in range(0, n_particles):
-		for j in range(0, particle_dim):
-			particles_pos[i, j] = particles_pos_[i,j]
-			velocities[i, j] = velocities_[i, j]
-			p_best[i, j] = p_best_[i, j]
-
-	sdmt.checkpoint(1)
-else :
-	particles_pos = np.array(sdmt.get('particles_pos'), copy=False)
-	velocities = np.array(sdmt.get('velocities'), copy=False)
-	p_best = np.array(sdmt.get('p_best'), copy=False)
-
+# start sdmt module
 sdmt.start()
 
-it = sdmt.iter()
 print('current iteration order : ', it)
 while it < maxiter :
-	if it % 100 == 0:
-		sdmt.checkpoint(1)
-	for i in range(n_particles):
-		x = particles_pos[i]
-		v = velocities[i]
-		velocities[i] = update_velocity(x, v, p_best[i], g_best)
-		particles_pos[i] = update_position(x,v)
-		if func(particles_pos[i]) < func(p_best[i]):
-			p_best[i] = particles_pos[i]
-		if func(particles_pos[i]) < func(g_best):
-			g_best = particles_pos[i]
-	it = sdmt.next()
+    if it % 100 == 0:
+        sdmt.checkpoint(1)
+        print('current iteration order : ', it)
 
+    for i in range(n_particles):
+        x = particles_pos[i]
+        v = velocities[i]
+        velocities[i] = update_velocity(x, v, p_best[i], g_best)
+        particles_pos[i] = update_position(x,v)
+        if func(particles_pos[i]) < func(p_best[i]):
+            p_best[i] = particles_pos[i]
+        if func(particles_pos[i]) < func(g_best):
+            g_best = particles_pos[i]
+    
+    # move to next iteration
+    it = sdmt.next()
 
+# print result
 print('solution : ', g_best)
 print('results : ', func(g_best))
 
+# finalize sdmt module
+sdmt.finalize();

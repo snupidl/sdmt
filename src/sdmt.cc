@@ -229,7 +229,6 @@ SDMT_Code SDMT::register_int_parameter_(
 
 int SDMT::get_int_parameter_(
     std::string name) {
-
     int value ;
     ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
@@ -238,11 +237,11 @@ int SDMT::get_int_parameter_(
             if(name == line){
                 getline(openFile, line);
                 value = std::stoi(line);
-		openFile.close();
+		        openFile.close();
                 return value;
             }
         }
-	openFile.close();
+	    openFile.close();
     }
 
     return 0;
@@ -251,7 +250,6 @@ int SDMT::get_int_parameter_(
 SDMT_Code SDMT::register_long_parameter_(
     std::string name,
     long value) {
-
     // check parameter is already registered
     ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
@@ -288,11 +286,11 @@ long SDMT::get_long_parameter_(
             if(name == line){
                 getline(openFile, line);
                 value = std::stol(line);
-		openFile.close();
+		        openFile.close();
                 return value;
             }
         }
-	openFile.close();
+	    openFile.close();
     }
     return 0;
 }
@@ -328,7 +326,6 @@ SDMT_Code SDMT::register_float_parameter_(
 
 float SDMT::get_float_parameter_(
     std::string name) {
-
     float value ;
     ifstream openFile(m_config.m_param_path);
     if (openFile.is_open()){
@@ -337,7 +334,7 @@ float SDMT::get_float_parameter_(
             if(name == line){
                 getline(openFile, line);
                 value = std::stof(line);
-		openFile.close();
+		        openFile.close();
                 return value;
             }
         }
@@ -387,7 +384,7 @@ double SDMT::get_double_parameter_(
             if(name == line){
                 getline(openFile, line);
                 value = std::stod(line);
-		openFile.close();
+		        openFile.close();
                 return value;
             }
         }
@@ -402,7 +399,6 @@ SDMT_Code SDMT::checkpoint_(int level) {
     if ( level == 0 ) {
         int res = FTI_Snapshot();
         if (res == 0) {
-
             // log current status
             serialize_();
             return SDMT_SUCCESS;
@@ -415,8 +411,7 @@ SDMT_Code SDMT::checkpoint_(int level) {
     else {
         int res = FTI_Checkpoint(m_cp_info.id, level);
         if (res == 0) {
-              m_cp_info.id++;
-
+            m_cp_info.id++;
             // log current status
             serialize_();
 

@@ -10,6 +10,18 @@ Contact: sdmt@kdb.snu.ac.kr
 import click
 from clint.textui import puts, colored
 
+class CLI():
+    def info(self, msg):
+        puts(colored.white('[INFO] ' + msg.strip()))
+    def highlight(self, msg):
+        puts(colored.green('[INFO] ' + msg.strip()))
+    def warning(self, msg):
+        puts(colored.yellow('[WARINGIN] ' + msg.strip()))
+    def error(self, msg):
+        puts(colored.red('[ERROR] ' + msg.strip()))
+
+cli = CLI()
+
 @click.group()
 def sdmt_cli():
     pass

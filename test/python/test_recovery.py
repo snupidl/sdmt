@@ -8,7 +8,7 @@ Contact: sdmt@kdb.snu.ac.kr
 """
 
 # import sdmt
-from sdmt import sdmt
+import sdmt
 
 # import mpi module
 from mpi4py import MPI
@@ -22,11 +22,7 @@ sdmt.init('./config_python_test.xml', False)
 # request a sdmt segment
 # define 1 dimensional integer array
 # the size of array is 1024
-sdmt.register('sdmttest_int1d', sdmt.vt.int, sdmt.dt.array, [1024])
-
-# get segment and convert to numpy.ndarray
-segment = sdmt.get('sdmttest_int1d')
-data = np.array(segment, copy=False)
+data = sdmt.register('sdmttest_int1d', 'int', 'array', [1024])
 
 # write values to segment memory
 for i in range(1024):
@@ -39,8 +35,7 @@ sdmt.start()
 sdmt.checkpoint(1)
 
 # overwrite dummy values to segment memory
-for i in range(1024):
-    data[i] = 0
+data.fill(0)
 
 # recover checkpoint
 sdmt.recover()

@@ -12,7 +12,7 @@ https://www.geeksforgeeks.org/estimating-value-pi-using-monte-carlo/
 """
 
 # import sdmt
-from sdmt import sdmt
+import sdmt
 
 # import mpi module
 from mpi4py import MPI
@@ -24,26 +24,13 @@ import random
 
 _interval =  1000
 
+# init sdmt library
 sdmt.init('./config_python_test.xml', True)
 
-# check this execution is first try
-# if it is, create segments
-# else get recovered value
-if not sdmt.exist('mc_pi'):
-    sdmt.register('mc_pi', sdmt.vt.double, sdmt.dt.array, [1])
-    sdmt.register('mc_circle', sdmt.vt.int, sdmt.dt.array, [1])
-    sdmt.register('mc_square', sdmt.vt.int, sdmt.dt.array, [1])
-
-    pi = np.array(sdmt.get('mc_pi'), copy=False)
-    circle_points = np.array(sdmt.get('mc_circle'), copy=False)
-    square_points = np.array(sdmt.get('mc_square'), copy=False)
-
-    circle_points[0] = 0
-    square_points[0] = 0
-else:
-    pi = np.array(sdmt.get('mc_pi'), copy=False)
-    circle_points = np.array(sdmt.get('mc_circle'), copy=False)
-    square_points = np.array(sdmt.get('mc_square'), copy=False)
+# register sdmt snapshot, restore if exists
+pi = sdmt.register('mc_pi', 'double', 'array', [1])
+circle_points = sdmt.register('mc_circle', 'int', 'array', [1], 0)
+square_points = sdmt.register('mc_square', 'int', 'array', [1], 0)
 
 # get current iteration sequence
 it = sdmt.iter()
@@ -72,12 +59,13 @@ while it < (_interval * _interval):
 
     # checkpoint for every 10 interval
     if it % (_interval * 10) == 0:
-	    sdmt.checkpoint(1)
-	    print('{}th iteration has processed, current Pi is {:.4f}'.format(it, pi[0]))
+        sdmt.checkpoint(1)
+        print(f'{it}th iteration has processed, current Pi is {pi[0]:.4f}')
+
     # move to next iteration
     it = sdmt.next()
 
-# final result
+# print result
 print('final estimation of Pi = {:.4f}'.format(pi[0]))
 
 # finalize sdmt module

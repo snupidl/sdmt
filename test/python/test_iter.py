@@ -8,7 +8,7 @@ Contact: sdmt@kdb.snu.ac.kr
 """
 
 # import sdmt
-from sdmt import sdmt
+import sdmt
 
 # import mpi module
 from mpi4py import MPI

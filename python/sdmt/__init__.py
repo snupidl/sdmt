@@ -8,11 +8,8 @@ Contact: sdmt@kdb.snu.ac.kr
 """ 
 __version__ = '1.0.0'
 
-import sys, os
-sdmt_path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-sdmt_path = os.path.join(sdmt_path, '../build')
-sys.path.append(sdmt_path)
-import sdmtpy as sdmt
+from sdmt.api import *
+from dan.scripts import cli
 
 __all__ = [
         '__version__',

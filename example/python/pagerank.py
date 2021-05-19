@@ -14,97 +14,91 @@ import numpy as np
 from scipy.sparse import csc_matrix
 
 #import sdmt
-from sdmt import sdmt
+import sdmt
 
 #import mpi module
 from mpi4py import MPI
 
 def pageRank(G, r, it, s= .85, maxerr = .0001):
-
-	"""
-	G : matrix representing state transitions
-	Gij = binary value
-
-	s : damping factor
-
-	maxerr : converged point
-	"""
-
-	n = G.shape[0]
-	# transform G into markov matrix A
-	A = csc_matrix(G, dtype=np.float)
-	rsums = np.array(A.sum(1))[:,0]
-	ri, ci = A.nonzero()
-	A.data /= rsums[ri]
-
-	# bool array of sink states
-	sink = rsums==0
-	ro = np.zeros(n)
-	while np.sum(np.abs(r-ro)) > maxerr:
-		ro = r.copy()
-		# calculate each pagerank at a time
-		for i in range(0, n):
-			# inlinks of state i
-			Ai = np.array(A[:,i].todense())[:,0]
-			# account for sink states
-			Di = sink / float(n)
-			# account for teleportation to state i
-			Ei = np.ones(n) / float(n)
-			r[i] = ro.dot(Ai*s + Di*s + Ei*(1-s))
-		it = sdmt.next()
-		sdmt.checkpoint(1)
-	# return normalized pagerank
-	r = r / float(sum(r))
-	rank = list()
-	for i in range(0, len(r)):
-		rank.append([i, r[i]])
-	ranks = sorted(rank, key = lambda rnk : rnk[1], reverse=True)
-	return ranks
+    """
+    G : matrix representing state transitions, Gij = binary value
+    s : damping factor
+    maxerr : converged point
+    """
+    n = G.shape[0]
+    # transform G into markov matrix A
+    A = csc_matrix(G, dtype=np.float)
+    rsums = np.array(A.sum(1))[:,0]
+    ri, ci = A.nonzero()
+    A.data /= rsums[ri]
+    
+    # bool array of sink states
+    sink = rsums==0
+    ro = np.zeros(n)
+    while np.sum(np.abs(r-ro)) > maxerr:
+        ro = r.copy()
+        # calculate each pagerank at a time
+        for i in range(0, n):
+            # inlinks of state i
+            Ai = np.array(A[:,i].todense())[:,0]
+            # account for sink states
+            Di = sink / float(n)
+            # account for teleportation to state i
+            Ei = np.ones(n) / float(n)
+            r[i] = ro.dot(Ai*s + Di*s + Ei*(1-s))
+        it = sdmt.next()
+        sdmt.checkpoint(1)
+    # return normalized pagerank
+    r = r / float(sum(r))
+    rank = list()
+    for i in range(0, len(r)):
+        rank.append([i, r[i]])
+    ranks = sorted(rank, key = lambda rnk : rnk[1], reverse=True)
+    return ranks
 
 def top10(ranks):
-	facebook_target = open('musae_facebook_target.csv', 'r')
-	line = facebook_target.readline()
-	metadata = dict()
-	while True :
-		line = facebook_target.readline()
-		if not line : break
-		spls = line.split('\n')
-		spl = spls[0].split(',')
-		metadata[int(spl[0])] = (spl[1], spl[2], spl[3])
-	### top 10
-	for i in range(0, 10):
-		print(ranks[i][1], metadata[ranks[i][0]])
+    with open('./dataset/musae_facebook_target.csv') as f:
+        data = f.readlines()
+        metadata = dict()
+        for line in data[1:]:
+            if not line : break
+            line = line.split(',')
+            metadata[int(line[0])] = (line[1], line[2], line[3])
 
+        ### top 10
+        for i in range(10):
+            print(ranks[i][1], metadata[ranks[i][0]])
+
+
+# init sdmt library
 sdmt.init('./config_python_test.xml', True)
 
 if not sdmt.exist('facebook'):
-	sdmt.register('facebook', sdmt.vt.int, sdmt.dt.matrix, [22470,22470])
-	sdmt.register('r', sdmt.vt.double, sdmt.dt.array, [22470])
+    facebook = sdmt.register('facebook', 'int', 'matrix', [22470, 22470], 0)
+    r = sdmt.register('r', 'double', 'array', [22470], 1.0)
 
-	facebook = np.array(sdmt.get('facebook'), copy=False)
-	for i in range(0, 22470):
-		for j in range(0, 22470):
-			facebook[i, j] = 0
-
-	r = np.array(sdmt.get('r'), copy=False)
-	for i in range(0, 22470):
-		r[i] = 1.0
-
-	facebook_edge = open('musae_facebook_edges.csv', 'r')
-	line = facebook_edge.readline()
-	while True:
-		line = facebook_edge.readline()
-		if not line : break
-		spl = line.split(',')
-		facebook[int(spl[0]),int(spl[1])] = 1
-		facebook[int(spl[1]),int(spl[0])] = 1
-	sdmt.checkpoint(1)
+    # init edge data
+    with open('./dataset/musae_facebook_edges.csv') as f:
+        data = f.readlines()
+        for line in data[1:]:
+            if not line : break
+            line = line.split(',')
+            u, v = int(line[0]), int(line[1])
+            facebook[u, v] = 1
+            facebook[v, u] = 1
 else:
-	facebook = np.array(sdmt.get('facebook'), copy=False)
-	r = np.array(sdmt.get('r'), copy=False)
+    facebook = sdmt.get('facebook')
+    r = sdmt.get('r')
+
+# start sdmt module
 sdmt.start()
+
+# get current iteration sequence
 it = sdmt.iter()
+
+# run
 ranks = pageRank(facebook, r, it, s=.86, maxerr = 0.0000000001)
 top10(ranks)
 
+# finalize sdmt module
 sdmt.finalize()
