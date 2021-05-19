@@ -170,8 +170,6 @@ def change(name, vt=None, dt=None, dim=None, init=0):
                 for i in range(res.size):
                     res.itemset(i, init())
             return res
-        else:
-            return np.array(sdmtpy.get(name), copy=False)
 
     except Exception as e:
         sdmt.cli.error('Failed to change sdmt snapshot, ' + str(e))
