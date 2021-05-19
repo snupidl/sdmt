@@ -20,7 +20,7 @@ verbosity                      = 2
 
 
 [restart]
-failure                        = 1
+failure                        = 0
 exec_id                        = 2021-05-17_20-24-38
 
 
