@@ -6,6 +6,9 @@ funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
 Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
 Contact: sdmt@kdb.snu.ac.kr
 
+Solving target function using Particle Swarm Optimization
+implemented by referring to
+
 code reference : https://medium.com/@mamady94/a-tutorial-on-optimization-algorithms-the-example-of-particle-swarm-optimization-981d883be9d5
 """
 
@@ -65,7 +68,7 @@ while it < maxiter :
             p_best[i] = particles_pos[i]
         if func(particles_pos[i]) < func(g_best):
             g_best = particles_pos[i]
-    
+
     # move to next iteration
     it = sdmt.next()
 

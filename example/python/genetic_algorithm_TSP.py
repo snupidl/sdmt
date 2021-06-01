@@ -6,7 +6,9 @@ funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
 Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
 Contact: sdmt@kdb.snu.ac.kr
 
-code reference : https://github.com/ezstoltz/genetic-algorithm/blob/master/genetic_algorithm_TSP.ipynb
+solving Travelling Salesman Problem between real Olympic host city using genetic algorithm
+implemented by referring to
+https://github.com/ezstoltz/genetic-algorithm/blob/master/genetic_algorithm_TSP.ipynb
 """
 
 import random
@@ -87,12 +89,12 @@ def matingPool(population, selectionResults):
 ### breed = crossover
 def breed(parent1, parent2):
     child, childP1, childP2 = [], [], []
-    
+
     geneA = int(random.random() * len(parent1))
     geneB = int(random.random() * len(parent1))
 
     startGene, endGene = min(geneA, geneB), max(geneA, geneB)
-    
+
     for i in range(startGene, endGene):
         childP1.append(parent1[i])
     childP2 = [item for item in parent2 if item not in childP1]

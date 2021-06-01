@@ -6,8 +6,10 @@ funded by the Ministry of Science, ICT (NRF-2016M3C4A7952587)
 Author: Ilju Lee, Jongin Kim, Hyerim Jeon, Youngjune Park
 Contact: sdmt@kdb.snu.ac.kr
 
-data reference : https://www.kaggle.com/rozemberczki/musae-facebook-pagepage-network?select=musae_facebook_target.csv
-code reference : https://gist.github.com/diogojc/1338222/84d767a68da711a154778fb1d00e772d65322187
+estimating pagerank using facebook data
+implemented by referring to
+https://gist.github.com/diogojc/1338222/84d767a68da711a154778fb1d00e772d65322187
+https://www.kaggle.com/rozemberczki/musae-facebook-pagepage-network?select=musae_facebook_target.csv
 """
 
 import numpy as np
@@ -31,7 +33,7 @@ def pageRank(G, r, it, s= .85, maxerr = .0001):
     rsums = np.array(A.sum(1))[:,0]
     ri, ci = A.nonzero()
     A.data /= rsums[ri]
-    
+
     # bool array of sink states
     sink = rsums==0
     ro = np.zeros(n)

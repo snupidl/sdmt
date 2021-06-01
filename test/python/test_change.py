@@ -45,7 +45,7 @@ for i in range(size):
 
 # update definition of snapshot
 size = size * 2
-data = sdmt.change_segment('sdmttest_int1d', 'int', 'array', [size])
+data = sdmt.change('sdmttest_int1d', 'int', 'array', [size])
 
 # write values
 for i in range(size):
@@ -65,7 +65,7 @@ for i in range(0, size):
 
 # update definiation of snapshot
 size = size // 4
-data = sdmt.change_segment('sdmttest_int1d', 'int', 'array', [size])
+data = sdmt.change('sdmttest_int1d', 'int', 'array', [size])
 
 # write values
 for i in range(size):
