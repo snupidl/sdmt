@@ -15,7 +15,7 @@ import sys, os
 sdmt_path = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 sdmt_path = os.path.join(sdmt_path, '../build')
 sys.path.append(sdmt_path)
-import sdmtpy 
+import sdmtpy
 import sdmt
 
 import numpy as np
@@ -208,3 +208,67 @@ def exist(name):
         return sdmtpy.exist(name)
     except Exception as e:
         sdmt.cli.error('Failed to check whether snapshot exists, ' + str(e))
+
+def register_int(name, value):
+	""" register int parameter in parameter.txt
+	"""
+	try:
+		return sdmtpy.register_int(name,value)
+	except Exception as e:
+		sdmt.cli.error('Failed to register sdmt int parameter,' + str(e))
+
+def register_long(name, value):
+	""" register long parameter in parameter.txt
+	"""
+	try:
+		return sdmtpy.register_long(name,value)
+	except Exception as e:
+		sdmt.cli.error('Failed to register sdmt long parameter,' + str(e))
+
+def register_float(name, value):
+	""" register int parameter in parameter.txt
+	"""
+	try:
+		return sdmtpy.register_float(name,value)
+	except Exception as e:
+		sdmt.cli.error('Failed to register sdmt float parameter,' + str(e))
+
+def register_double(name, value):
+	""" register int parameter in parameter.txt
+	"""
+	try:
+		return sdmtpy.register_double(name,value)
+	except Exception as e:
+		sdmt.cli.error('Failed to register sdmt double parameter,' + str(e))
+
+def get_int(name):
+	"""	Get int parameter in parameter.txt
+	"""
+	try:
+		return sdmtpy.get_int(name)
+	except Exception as e:
+		sdmt.cli.error('Failed to get sdmt int parameter, ' + str(e))
+
+def get_long(name):
+	"""	Get long parameter in parameter.txt
+	"""
+	try:
+		return sdmtpy.get_long(name)
+	except Exception as e:
+		sdmt.cli.error('Failed to get sdmt long parameter, ' + str(e))
+
+def get_float(name):
+	"""	Get float parameter in parameter.txt
+	"""
+	try:
+		return sdmtpy.get_float(name)
+	except Exception as e:
+		sdmt.cli.error('Failed to get sdmt float parameter, ' + str(e))
+
+def get_double(name):
+	"""	Get int parameter in parameter.txt
+	"""
+	try:
+		return sdmtpy.get_double(name)
+	except Exception as e:
+		sdmt.cli.error('Failed to get sdmt double parameter, ' + str(e))

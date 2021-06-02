@@ -1,0 +1,5 @@
+<sdmt>
+    <ArchivePath>./checkpoint/sdmt.archive</ArchivePath>
+    <FTIConfig>./checkpoint/config.fti</FTIConfig>
+    <ParamPath>./../../../test/python/parameter.txt</ParamPath>
+</sdmt>
