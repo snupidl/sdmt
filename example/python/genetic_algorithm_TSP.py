@@ -182,7 +182,7 @@ popList = initialPopulation(popSize, cityList)
 sdmt.init('./config_python_test.xml', True)
 
 # register sdmt snapshot, restore if exists
-population = sdmt.register('population', 'double', 'tensor', [100,23,3], popList)
+population = sdmt.register_snapshot('population', 'double', 'tensor', [100,23,3], popList)
 
 # get current iteration sequence
 it = sdmt.iter()

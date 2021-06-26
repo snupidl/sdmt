@@ -39,9 +39,9 @@ def func(x) :
 sdmt.init('./config_python_test.xml', True)
 
 # register sdmt snapshot, restore if exists
-particles_pos = sdmt.register('particles_pos', 'double', 'matrix', [50, 2], 0)
-velocities = sdmt.register('velocities', 'double', 'matrix', [50, 2], np.random.uniform)
-p_best = sdmt.register('p_best', 'double', 'matrix', [50, 2], 0)
+particles_pos = sdmt.register_snapshot('particles_pos', 'double', 'matrix', [50, 2], 0)
+velocities = sdmt.register_snapshot('velocities', 'double', 'matrix', [50, 2], np.random.uniform)
+p_best = sdmt.register_snapshot('p_best', 'double', 'matrix', [50, 2], 0)
 
 n_particles = 50
 g_best = [0, 0]

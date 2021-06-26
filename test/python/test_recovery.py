@@ -22,7 +22,7 @@ sdmt.init('./config_python_test.xml', False)
 # request a sdmt segment
 # define 1 dimensional integer array
 # the size of array is 1024
-data = sdmt.register('sdmttest_int1d', 'int', 'array', [1024])
+data = sdmt.register_snapshot('sdmttest_int1d', 'int', 'array', [1024])
 
 # write values to segment memory
 for i in range(1024):

@@ -28,9 +28,9 @@ _interval =  1000
 sdmt.init('./config_python_test.xml', True)
 
 # register sdmt snapshot, restore if exists
-pi = sdmt.register('mc_pi', 'double', 'array', [1])
-circle_points = sdmt.register('mc_circle', 'int', 'array', [1], 0)
-square_points = sdmt.register('mc_square', 'int', 'array', [1], 0)
+pi = sdmt.register_snapshot('mc_pi', 'double', 'array', [1])
+circle_points = sdmt.register_snapshot('mc_circle', 'int', 'array', [1], 0)
+square_points = sdmt.register_snapshot('mc_square', 'int', 'array', [1], 0)
 
 # get current iteration sequence
 it = sdmt.iter()

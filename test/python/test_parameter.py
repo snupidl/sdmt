@@ -18,10 +18,10 @@ def first():
 
 	# init sdmt manager
 	sdmt.init('./config_python_test.xml', False)
-	sdmt.register_int('test_para', 100)
+	sdmt.register_param('test_para', 100)
 
 	# get parameter from parameter.txt file
-	data = sdmt.get_int('test_para')
+	data = sdmt.get_param('test_para', 'int')
 
 	# check whether parameter value read is same as initial
 	if data != 100:
@@ -34,7 +34,7 @@ def second():
 	sdmt.init('./config_python_test2.xml', False)
 
 	# get parameter from parameter.txt file
-	data = sdmt.get_int('test_para')
+	data = sdmt.get_param('test_para', 'int')
 
 	# check whether parameter value read is same as initial
 	if data != 200:

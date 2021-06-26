@@ -76,8 +76,8 @@ def top10(ranks):
 sdmt.init('./config_python_test.xml', True)
 
 if not sdmt.exist('facebook'):
-    facebook = sdmt.register('facebook', 'int', 'matrix', [22470, 22470], 0)
-    r = sdmt.register('r', 'double', 'array', [22470], 1.0)
+    facebook = sdmt.register_snapshot('facebook', 'int', 'matrix', [22470, 22470], 0)
+    r = sdmt.register_snapshot('r', 'double', 'array', [22470], 1.0)
 
     # init edge data
     with open('./dataset/musae_facebook_edges.csv') as f:

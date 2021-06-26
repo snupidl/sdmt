@@ -23,7 +23,7 @@ sdmt.init('./config_python_test.xml', False)
 # define 1 dimensional integer array
 # initial size of array is 1024
 size = 1024
-sdmt.register('sdmttest_int1d', 'int', 'array', [size])
+sdmt.register_snapshot('sdmttest_int1d', 'int', 'array', [size])
 
 # get snapshot and write values
 data = sdmt.get('sdmttest_int1d')
@@ -45,7 +45,7 @@ for i in range(size):
 
 # update definition of snapshot
 size = size * 2
-data = sdmt.change('sdmttest_int1d', 'int', 'array', [size])
+data = sdmt.change_snapshot('sdmttest_int1d', 'int', 'array', [size])
 
 # write values
 for i in range(size):
@@ -65,7 +65,7 @@ for i in range(0, size):
 
 # update definiation of snapshot
 size = size // 4
-data = sdmt.change('sdmttest_int1d', 'int', 'array', [size])
+data = sdmt.change_snapshot('sdmttest_int1d', 'int', 'array', [size])
 
 # write values
 for i in range(size):

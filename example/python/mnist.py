@@ -28,8 +28,8 @@ sdmt.init('./config_python_test.xml', True)
 # if it is, create segments
 # else get recovered value
 if not sdmt.exist('mnist_W'):
-    sdmt.register('mnist_W', sdmt.vt.float, sdmt.dt.matrix, [784, 10])
-    sdmt.register('mnist_b', sdmt.vt.float, sdmt.dt.array, [10])
+    sdmt.register_snapshot('mnist_W', sdmt.vt.float, sdmt.dt.matrix, [784, 10])
+    sdmt.register_snapshot('mnist_b', sdmt.vt.float, sdmt.dt.array, [10])
 
     segment_W = np.array(sdmt.get('mnist_W'), copy=False)
     segment_b = np.array(sdmt.get('mnist_b'), copy=False)
