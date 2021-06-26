@@ -29,15 +29,13 @@ _dt_map = {
         'tensor': sdmtpy.dt.tensor,
         }
 
-def init(config, restart=True, msg=True):
+def init(config, restart=True):
     """Init SDMT library module
     Parameters:
     -----------
     path: path of config file
     restart: recover snapshot if archive exists
-    msg: if set, print out sdmt message
     """
-
     try:
         # initialize library
         sdmtpy.init(config, restart)
@@ -206,65 +204,93 @@ def exist(name):
         sdmt.cli.error('Failed to check whether snapshot exists, ' + str(e))
 
 def register_int(name, value):
-	""" register int parameter in parameter.txt
-	"""
-	try:
-		return sdmtpy.register_int(name,value)
-	except Exception as e:
-		sdmt.cli.error('Failed to register sdmt int parameter,' + str(e))
+    """ register int parameter in parameter.txt
+    Parameters:
+    -----------
+    name: name of parameter
+    value: value of parameter
+    """
+    try:
+        return sdmtpy.register_int(name, value)
+    except Exception as e:
+        sdmt.cli.error('Failed to register sdmt int parameter,' + str(e))
 
 def register_long(name, value):
-	""" register long parameter in parameter.txt
-	"""
-	try:
-		return sdmtpy.register_long(name,value)
-	except Exception as e:
-		sdmt.cli.error('Failed to register sdmt long parameter,' + str(e))
+    """ register long parameter in parameter.txt
+    Parameters:
+    -----------
+    name: name of parameter
+    value: value of parameter
+    """
+    try:
+        return sdmtpy.register_long(name,value)
+    except Exception as e:
+        sdmt.cli.error('Failed to register sdmt long parameter,' + str(e))
 
 def register_float(name, value):
-	""" register int parameter in parameter.txt
-	"""
-	try:
-		return sdmtpy.register_float(name,value)
-	except Exception as e:
-		sdmt.cli.error('Failed to register sdmt float parameter,' + str(e))
+    """ register int parameter in parameter.txt
+    Parameters:
+    -----------
+    name: name of parameter
+    value: value of parameter
+    """
+    try:
+        return sdmtpy.register_float(name,value)
+    except Exception as e:
+        sdmt.cli.error('Failed to register sdmt float parameter,' + str(e))
 
 def register_double(name, value):
-	""" register int parameter in parameter.txt
-	"""
-	try:
-		return sdmtpy.register_double(name,value)
-	except Exception as e:
-		sdmt.cli.error('Failed to register sdmt double parameter,' + str(e))
+    """ register int parameter in parameter.txt
+    Parameters:
+    -----------
+    name: name of parameter
+    value: value of parameter
+    """
+    try:
+        return sdmtpy.register_double(name,value)
+    except Exception as e:
+        sdmt.cli.error('Failed to register sdmt double parameter,' + str(e))
 
 def get_int(name):
-	"""	Get int parameter in parameter.txt
-	"""
-	try:
-		return sdmtpy.get_int(name)
-	except Exception as e:
-		sdmt.cli.error('Failed to get sdmt int parameter, ' + str(e))
+    """	Get int parameter in parameter.txt
+    Parameters:
+    -----------
+    name: name of parameter
+    """
+    try:
+        return sdmtpy.get_int(name)
+    except Exception as e:
+        sdmt.cli.error('Failed to get sdmt int parameter, ' + str(e))
 
 def get_long(name):
-	"""	Get long parameter in parameter.txt
-	"""
-	try:
-		return sdmtpy.get_long(name)
-	except Exception as e:
-		sdmt.cli.error('Failed to get sdmt long parameter, ' + str(e))
+    """	Get long parameter in parameter.txt
+    Parameters:
+    -----------
+    name: name of parameter
+    """
+    try:
+        return sdmtpy.get_long(name)
+    except Exception as e:
+        sdmt.cli.error('Failed to get sdmt long parameter, ' + str(e))
 
 def get_float(name):
-	"""	Get float parameter in parameter.txt
-	"""
-	try:
-		return sdmtpy.get_float(name)
-	except Exception as e:
-		sdmt.cli.error('Failed to get sdmt float parameter, ' + str(e))
+    """	Get float parameter in parameter.txt
+    Parameters:
+    -----------
+    name: name of parameter
+    """
+    try:
+        return sdmtpy.get_float(name)
+    except Exception as e:
+        sdmt.cli.error('Failed to get sdmt float parameter, ' + str(e))
 
 def get_double(name):
-	"""	Get int parameter in parameter.txt
-	"""
-	try:
-		return sdmtpy.get_double(name)
-	except Exception as e:
-		sdmt.cli.error('Failed to get sdmt double parameter, ' + str(e))
+    """	Get int parameter in parameter.txt
+    Parameters:
+    -----------
+    name: name of parameter
+    """
+    try:
+        return sdmtpy.get_double(name)
+    except Exception as e:
+        sdmt.cli.error('Failed to get sdmt double parameter, ' + str(e))

@@ -24,10 +24,10 @@ implicit none
 integer(c_int) :: sdmt_finalize_c
 end function
 					
-function sdmt_register_segment_c(sname, vt, dt, dim_numpara, dim_format) bind (C, name = "sdmt_register_segment_c_")
+function sdmt_register_snapshot_c(sname, vt, dt, dim_numpara, dim_format) bind (C, name = "sdmt_register_snapshot_c_")
 use iso_c_binding
 implicit none
-integer(c_int) :: sdmt_register_segment_c
+integer(c_int) :: sdmt_register_snapshot_c
 character(kind=c_char) :: sname(*)
 integer(c_int) :: vt, dt, dim_numpara
 integer(c_int) :: dim_format(dim_numpara)
@@ -113,10 +113,10 @@ logical(c_bool) :: sdmt_exist_c
 character(kind=c_char) :: sname(*)
 end function
 
-function sdmt_get_segment_c(sname) bind (C, name="sdmt_get_segment_c_")
+function sdmt_get_snapshot_c(sname) bind (C, name="sdmt_get_snapshot_c_")
 use iso_c_binding
 implicit none
-type(c_ptr) :: sdmt_get_segment_c
+type(c_ptr) :: sdmt_get_snapshot_c
 character(kind=c_char) :: sname(*)
 end function
 
@@ -180,13 +180,13 @@ public::SDMT_ERR_FAILED_ALLOCATION, SDMT_ERR_FAILED_CHECKPOINT
 
 public::sdmt_init
 public::sdmt_start 
-public::sdmt_finalize, sdmt_register_segment
+public::sdmt_finalize, sdmt_register_snapshot
 public::sdmt_register_int_parameter, sdmt_get_int_parameter
 public::sdmt_register_long_parameter, sdmt_get_long_parameter
 public::sdmt_register_float_parameter, sdmt_get_float_parameter
 public::sdmt_register_double_parameter, sdmt_get_double_parameter
 public::sdmt_checkpoint, sdmt_recover
-public::sdmt_exist, sdmt_get_segment
+public::sdmt_exist, sdmt_get_snapshot
 public::sdmt_iter, sdmt_next
 public::sdmt_comm
 public::sdmt_intptr
@@ -241,14 +241,14 @@ integer :: sdmt_finalize
 sdmt_finalize = sdmt_finalize_c()
 end function
 
-function sdmt_register_segment(sname, vt, dt, dim_numpara, dim_format)
+function sdmt_register_snapshot(sname, vt, dt, dim_numpara, dim_format)
 implicit none
-integer :: sdmt_register_segment
+integer :: sdmt_register_snapshot
 character(len=*) :: sname
 integer :: vt, dt
 integer ::dim_numpara
 integer, optional :: dim_format(dim_numpara)
-sdmt_register_segment = sdmt_register_segment_c(sname, vt, dt, dim_numpara, dim_format)
+sdmt_register_snapshot = sdmt_register_snapshot_c(sname, vt, dt, dim_numpara, dim_format)
 end function
 
 function sdmt_register_int_parameter(sname, val)
@@ -331,11 +331,11 @@ character(len=*) :: sname
 sdmt_exist = sdmt_exist_c(sname)
 end function
 
-function sdmt_get_segment(sname) 
+function sdmt_get_snapshot(sname) 
 implicit none
-type(c_ptr) :: sdmt_get_segment
+type(c_ptr) :: sdmt_get_snapshot
 character(len=*) :: sname
-sdmt_get_segment = sdmt_get_segment_c(sname)
+sdmt_get_snapshot = sdmt_get_snapshot_c(sname)
 end function
 
 function sdmt_iter()

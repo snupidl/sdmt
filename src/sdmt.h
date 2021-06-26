@@ -32,26 +32,26 @@ class SDMT
      * @brief a chunk of memory 
      *  which is the unit of allocation and management
      */
-    struct Segment {
+    struct Snapshot {
         /**
-         * @brief create a null Segment
+         * @brief create a null Snapshot
          */
-        Segment()
+        Snapshot()
             : m_id(-1),
             m_valuetype(SDMT_NUM_VT),
             m_datatype(SDMT_NUM_DT),
             m_ptr(nullptr) {}
 
         /**
-         * @brief SDMT::Segment constructor
-         * @param id id of Segment
+         * @brief SDMT::Snapshot constructor
+         * @param id id of Snapshot
          * @param vt value type
          * @param dt data type
          * @param dim size of each dimension
          * @param esize size of an element
          * @param ptr assigned memory
          */
-        Segment(int32_t id,
+        Snapshot(int32_t id,
                 SDMT_VT vt,
                 SDMT_DT dt,
                 std::vector<int> dim,
@@ -73,10 +73,10 @@ class SDMT
         }
 
         /**
-         * @brief SDMT::Segment copy constructor
-         * @param other Segment to copy
+         * @brief SDMT::Snapshot copy constructor
+         * @param other Snapshot to copy
          */
-        Segment(const Segment& other)
+        Snapshot(const Snapshot& other)
             : m_id(other.m_id),
             m_valuetype(other.m_valuetype),
             m_datatype(other.m_datatype),
@@ -86,14 +86,14 @@ class SDMT
             m_ptr(other.m_ptr) {}
 
         /**
-         * @brief SDMT::Segment destructor
+         * @brief SDMT::Snapshot destructor
          */
-        ~Segment() {}
+        ~Snapshot() {}
 
-        /** @brief id of Segment*/
+        /** @brief id of Snapshot*/
         int32_t m_id;
 
-        /** @brief value type of elements in Segment */
+        /** @brief value type of elements in Snapshot */
         SDMT_VT m_valuetype;
 
         /** @brief type of data structure */
@@ -105,7 +105,7 @@ class SDMT
         /** @brief byte strides for each index */
         std::vector<int> m_strides;
 
-        /** @brief byte size of an element in Segment */
+        /** @brief byte size of an element in Snapshot */
         int32_t m_esize;
 
         /** @brief memory pointer of data */
@@ -141,9 +141,9 @@ class SDMT
     };
 
     /**
-     * @brief hash map that mapping name of Segment and Segment
+     * @brief hash map that mapping Snapshot'nams and Snapshot
      */
-    typedef std::unordered_map<std::string, Segment> SegmentMap;
+    typedef std::unordered_map<std::string, Snapshot> SnapshotMap;
 
     /**
      * @brief SDMT constructor
@@ -183,18 +183,18 @@ class SDMT
     { return get_manager().finalize_(); }
 
     /**
-     * @brief [static]register a Segment to sdmt manager
-     * @param name name of the Segment
+     * @brief [static]register a Snapshot to sdmt manager
+     * @param name name of the Snapshot
      * @param vt value type
      * @param dt data type
      * @param dim size of each dimension
      * @return status code
      */
-    static SDMT_Code register_segment(std::string name,
+    static SDMT_Code register_snapshot(std::string name,
                                 SDMT_VT vt,
                                 SDMT_DT dt,
                                 std::vector<int> dim)
-    { return get_manager().register_segment_(name, vt, dt, dim); }
+    { return get_manager().register_snapshot_(name, vt, dt, dim); }
    
     /**
      * @brief [static]register a int type parameter to be adjusted
@@ -202,12 +202,11 @@ class SDMT
      * @param value value of the parameter
      * @return status code
      */
-    
-	static SDMT_Code change_segment(std::string name,
+	static SDMT_Code change_snapshot(std::string name,
                                 SDMT_VT cvt,
                                 SDMT_DT cdt,
                                 std::vector<int> cdim)
-    {return get_manager().change_segment_(name, cvt, cdt, cdim); }
+    {return get_manager().change_snapshot_(name, cvt, cdt, cdim); }
    
     /**
      * @brief [static]register a int type parameter to be adjusted
@@ -215,7 +214,6 @@ class SDMT
      * @param value value of the parameter
      * @return status code
      */
-
     static SDMT_Code register_int_parameter(std::string name,
 				int value)
     { return get_manager().register_int_parameter_(name, value); }
@@ -283,7 +281,7 @@ class SDMT
     { return get_manager().get_double_parameter_(name); }
  
     /**
-     * @brief [static]create a checkpoint of a Segment
+     * @brief [static]create a checkpoint of a Snapshot
      * @param level checkpoint method
      * @return status code
      */
@@ -291,26 +289,26 @@ class SDMT
     { return get_manager().checkpoint_(level); }
 
     /**
-     * @brief [static]recover checkpointed Segments
+     * @brief [static]recover checkpointed Snapshots
      * @return status code
      */
     static SDMT_Code recover()
     { return get_manager().recover_(); }
 
     /**
-     * @brief [static] check a specific segment exsits
-     * @param name name of segment
+     * @brief [static] check a specific snapshot exsits
+     * @param name name of snapshot
      * @return true if exists
      */
     static bool exist(std::string name)
     { return get_manager().exist_(name); }
 
     /**
-     * @brief [static] get Segment
-     * @return Segment, null if name is incorrect
+     * @brief [static] get Snapshot
+     * @return Snapshot, null if name is incorrect
      */
-    static Segment get_segment(std::string name)
-    { return get_manager().get_segment_(name); }
+    static Snapshot get_snapshot(std::string name)
+    { return get_manager().get_snapshot_(name); }
 
     /**
      * @brierf get current iteration sequence
@@ -327,32 +325,32 @@ class SDMT
     { return get_manager().next_(); }
 
     /**
-     * @brief [static]get memory pointer of registered Segment
-     * @param name name of the Segment
+     * @brief [static]get memory pointer of registered Snapshot
+     * @param name name of the Snapshot
      * @return integer pointer, null if name is incorrect
      */
     static int* intptr(std::string name)
     { return get_manager().intptr_(name); }
 
     /**
-     * @brief [static]get memory pointer of registered Segment
-     * @param name name of the Segment
+     * @brief [static]get memory pointer of registered Snapshot
+     * @param name name of the Snapshot
      * @return long integer pointer, null if name is incorrect
      */
     static long* longptr(std::string name)
     { return get_manager().longptr_(name); }
 
     /**
-     * @brief [static]get memory pointer of registered Segment
-     * @param name name of the Segment
+     * @brief [static]get memory pointer of registered Snapshot
+     * @param name name of the Snapshot
      * @return float pointer, null if name is incorrect
      */
     static float* floatptr(std::string name)
     { return get_manager().floatptr_(name); }
 
     /**
-     * @brief [static]get memory pointer of registered Segment
-     * @param name name of the Segment
+     * @brief [static]get memory pointer of registered Snapshot
+     * @param name name of the Snapshot
      * @return double pointer, null if name is incorrect
      */
     static double* doubleptr(std::string name)
@@ -387,14 +385,14 @@ class SDMT
     SDMT_Code finalize_();
 
     /**
-     * @brief register a Segment to sdmt manager
-     * @param name name of the Segment
+     * @brief register a Snapshot to sdmt manager
+     * @param name name of the Snapshot
      * @param vt value type
      * @param dt data type
      * @param dim size of each dimension
      * @return status code
      */
-    SDMT_Code register_segment_(std::string name,
+    SDMT_Code register_snapshot_(std::string name,
                             SDMT_VT vt,
                             SDMT_DT dt,
                             std::vector<int> dim);
@@ -405,7 +403,7 @@ class SDMT
      * @param value value of the parameter
      * @return status code
      */
-	SDMT_Code change_segment_(std::string name,
+	SDMT_Code change_snapshot_(std::string name,
                             SDMT_VT cvt,
                             SDMT_DT cdt,
                             std::vector<int> cdim);
@@ -476,30 +474,30 @@ class SDMT
     double get_double_parameter_(std::string name);
 
     /**
-     * @brief create checkpoints of registered Segment
+     * @brief create checkpoints of registered Snapshot
      * @param level checkpoint method
      * @return status code
      */
     SDMT_Code checkpoint_(int level);
 
     /**
-     * @brief [static]recover checkpointed Segment
+     * @brief [static]recover checkpointed Snapshot
      * @return status code
      */
     SDMT_Code recover_();
 
     /**
-     * @brief [static] check a specific segment exsits
-     * @param name name of segment
+     * @brief [static] check a specific snapshot exsits
+     * @param name name of snapshot
      * @return true if exists
      */
     bool exist_(std::string name);
 
     /**
-     * @brief get Segment
-     * @return Segment, null if name is incorrect
+     * @brief get Snapshot
+     * @return Snapshot, null if name is incorrect
      */
-    Segment get_segment_(std::string name);
+    Snapshot get_snapshot_(std::string name);
 
     /**
      * @brierf get current iteration sequence
@@ -514,29 +512,29 @@ class SDMT
     int32_t next_();
 
     /**
-     * @brief get memory pointer of registered Segment
-     * @param name name of the Segment
+     * @brief get memory pointer of registered Snapshot
+     * @param name name of the Snapshot
      * @return integer pointer, null if name is incorrect
      */
     int* intptr_(std::string name);
 
     /**
-     * @brief get memory pointer of registered Segment
-     * @param name name of the Segment
+     * @brief get memory pointer of registered Snapshot
+     * @param name name of the Snapshot
      * @return long integer pointer, null if name is incorrect
      */
     long* longptr_(std::string name);
 
     /**
-     * @brief get memory pointer of registered Segment
-     * @param name name of the Segment
+     * @brief get memory pointer of registered Snapshot
+     * @param name name of the Snapshot
      * @return float pointer, null if name is incorrect
      */
     float* floatptr_(std::string name);
 
     /**
-     * @brief get memory pointer of registered Segment
-     * @param name name of the Segment
+     * @brief get memory pointer of registered Snapshot
+     * @param name name of the Snapshot
      * @return double pointer, null if name is incorrect
      */
     double* doubleptr_(std::string name);
@@ -567,7 +565,7 @@ class SDMT
     bool deserialize_();
     
     /** @brief hash map of Segmen */
-    SegmentMap m_sgmt_map;
+    SnapshotMap m_snapshot_map;
 
     /** @brief configurations */
     Config m_config;
@@ -587,20 +585,20 @@ class SDMT
 };
 
 /**
- * @brief Segment serialization
+ * @brief Snapshot serialization
  * @details specification of template function in serialization.h
  */
 template<>
-inline std::ostream& serialize::write<SDMT::Segment>(
-                        std::ostream& os, SDMT::Segment& sgmt);
+inline std::ostream& serialize::write<SDMT::Snapshot>(
+                        std::ostream& os, SDMT::Snapshot& snapshot);
 
 /**
- * @brief SDMT::Segment deserialization
+ * @brief SDMT::Snapshot deserialization
  * @details specification of template function in serialization.h
  */
 template<>
-inline std::istream& serialize::read<SDMT::Segment>(
-                        std::istream& is, SDMT::Segment& sgmt);
+inline std::istream& serialize::read<SDMT::Snapshot>(
+                        std::istream& is, SDMT::Snapshot& snapshot);
 
 /**
  * @brief SDMT::CkptInfo serialization

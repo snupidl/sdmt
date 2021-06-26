@@ -29,9 +29,9 @@ SDMT_Code sdmt_finalize() {
     return SDMT::finalize();
 }
 
-SDMT_Code sdmt_register_segment(char* name, SDMT_VT& vt, SDMT_DT& dt, std::vector<int>& dim) {
-//	cout << "[SDMT] [C API] register_segment" << endl;
-	return SDMT::register_segment(name, vt, dt, dim);
+SDMT_Code sdmt_register_snapshot(char* name, SDMT_VT& vt, SDMT_DT& dt, std::vector<int>& dim) {
+//	cout << "[SDMT] [C API] register_snapshot" << endl;
+	return SDMT::register_snapshot(name, vt, dt, dim);
 }
 
 SDMT_Code sdmt_register_int_parameter(char* name, int& value){
@@ -89,9 +89,9 @@ bool sdmt_exist(char* name){
 	return SDMT::exist(name);
 }
 
-SDMT::Segment sdmt_get_segment(char* name){
-//	cout << "[SDMT] [C API] get_segment" << endl;
-	return SDMT::get_segment(name);
+SDMT::Snapshot sdmt_get_snapshot(char* name){
+//	cout << "[SDMT] [C API] get_snapshot" << endl;
+	return SDMT::get_snapshot(name);
 }
 
 int32_t sdmt_iter(){
@@ -150,7 +150,7 @@ extern "C" {
 	typedef SDMT_VT sdmt_vt;
 	typedef SDMT_DT sdmt_dt;
 	typedef SDMT_Code sdmt_code;
-	typedef SDMT::Segment segment;
+	typedef SDMT::Snapshot snapshot;
 	
 	typedef int* int_p;
 	typedef long* long_p;
@@ -171,13 +171,13 @@ extern "C" {
         return sdmt_finalize();
     }
 
-    sdmt_code sdmt_register_segment_c_(char* name,
+    sdmt_code sdmt_register_snapshot_c_(char* name,
             SDMT_VT* vt, SDMT_DT* dt, int* dim_numpara, int dim_format[]) {
 		std::vector<int> dim_;
 		for(int i = 0; i< *dim_numpara; ++i){
 			dim_.push_back((dim_format)[i]);
 		}
-		return sdmt_register_segment(name, *vt, *dt, dim_);
+		return sdmt_register_snapshot(name, *vt, *dt, dim_);
     }
 
 	sdmt_code sdmt_register_int_parameter_c_(char* name, int* value) {
@@ -213,8 +213,8 @@ extern "C" {
 	bool sdmt_exist_c_(char* name) {
 		return sdmt_exist(name);
 	}
-	segment sdmt_get_segment_c_(char* name) {
-		return sdmt_get_segment(name);
+	snapshot sdmt_get_snapshot_c_(char* name) {
+		return sdmt_get_snapshot(name);
 	}
 	int32_t sdmt_iter_c_() {
 		return sdmt_iter();

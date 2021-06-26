@@ -52,14 +52,14 @@ SDMT_Code SDMT::finalize_() {
     return SDMT_SUCCESS;
 }
 
-SDMT_Code SDMT::register_segment_(
+SDMT_Code SDMT::register_snapshot_(
         std::string name,
         SDMT_VT vt,
         SDMT_DT dt,
         std::vector<int> dim) {
-    // check duplicated name in segment map
-    auto itr = m_sgmt_map.find(name);
-    if (itr != m_sgmt_map.end()) {
+    // check duplicated name in snapshot map
+    auto itr = m_snapshot_map.find(name);
+    if (itr != m_snapshot_map.end()) {
         return SDMT_ERR_DUPLICATED_NAME;
     }
 
@@ -113,7 +113,7 @@ SDMT_Code SDMT::register_segment_(
 
     if (p) {
         // register to sdmt manager
-        m_sgmt_map[name] = Segment(m_cp_idx++, vt, dt, dim, esize, p);
+        m_snapshot_map[name] = Snapshot(m_cp_idx++, vt, dt, dim, esize, p);
 
         // log current status
         serialize_();
@@ -124,14 +124,14 @@ SDMT_Code SDMT::register_segment_(
     }
 }
 
-SDMT_Code SDMT::change_segment_(
+SDMT_Code SDMT::change_snapshot_(
         std::string name,
         SDMT_VT cvt,
         SDMT_DT cdt,
         std::vector<int> cdim) {
-	auto itr = m_sgmt_map.find(name);
+	auto itr = m_snapshot_map.find(name);
 	
-	if (itr == m_sgmt_map.end()){
+	if (itr == m_snapshot_map.end()){
 		return SDMT_ERR_FAILED_ALLOCATION;
 	}
     if (cdt < SDMT_SCALAR || cdt >= SDMT_NUM_DT) {
@@ -150,7 +150,7 @@ SDMT_Code SDMT::change_segment_(
     }
 
 	void* p = nullptr;
-	SDMT::Segment sg = itr->second;
+	SDMT::Snapshot sg = itr->second;
 	int32_t m_id = sg.m_id;
     //p = sg.m_ptr;
 	free(sg.m_ptr);
@@ -186,8 +186,8 @@ SDMT_Code SDMT::change_segment_(
 	
 	if (p) {
         // register to sdmt manager
-		m_sgmt_map.erase(name);
-        m_sgmt_map[name] = Segment(m_id, cvt, cdt, cdim, esize, p);
+		m_snapshot_map.erase(name);
+        m_snapshot_map[name] = Snapshot(m_id, cvt, cdt, cdim, esize, p);
 
         // log current status
         serialize_();
@@ -427,18 +427,18 @@ SDMT_Code SDMT::recover_() {
 }
 
 bool SDMT::exist_(std::string name) {
-    auto itr = m_sgmt_map.find(name);
-    if (itr == m_sgmt_map.end()) {
+    auto itr = m_snapshot_map.find(name);
+    if (itr == m_snapshot_map.end()) {
         return false;
     } else {
         return true;
     }
 }
 
-SDMT::Segment SDMT::get_segment_(std::string name) {
-    auto itr = m_sgmt_map.find(name);
-    if (itr == m_sgmt_map.end()) {
-        return Segment();
+SDMT::Snapshot SDMT::get_snapshot_(std::string name) {
+    auto itr = m_snapshot_map.find(name);
+    if (itr == m_snapshot_map.end()) {
+        return Snapshot();
     }
     return itr->second;
 }
@@ -457,8 +457,8 @@ MPI_Comm SDMT::comm_() {
 
 
 int* SDMT::intptr_(std::string name) {
-    auto itr = m_sgmt_map.find(name);
-    if (itr== m_sgmt_map.end()) {
+    auto itr = m_snapshot_map.find(name);
+    if (itr== m_snapshot_map.end()) {
         return nullptr;
     }
 
@@ -466,8 +466,8 @@ int* SDMT::intptr_(std::string name) {
 }
 
 long* SDMT::longptr_(std::string name) {
-    auto itr = m_sgmt_map.find(name);
-    if (itr == m_sgmt_map.end()) {
+    auto itr = m_snapshot_map.find(name);
+    if (itr == m_snapshot_map.end()) {
         return nullptr;
     }
 
@@ -475,8 +475,8 @@ long* SDMT::longptr_(std::string name) {
 }
 
 float* SDMT::floatptr_(std::string name) {
-    auto itr = m_sgmt_map.find(name);
-    if (itr == m_sgmt_map.end()) {
+    auto itr = m_snapshot_map.find(name);
+    if (itr == m_snapshot_map.end()) {
         return nullptr;
     }
 
@@ -484,8 +484,8 @@ float* SDMT::floatptr_(std::string name) {
 }
 
 double* SDMT:: doubleptr_(std::string name) {
-    auto itr = m_sgmt_map.find(name);
-    if (itr == m_sgmt_map.end()) {
+    auto itr = m_snapshot_map.find(name);
+    if (itr == m_snapshot_map.end()) {
         return nullptr;
     }
 
@@ -539,7 +539,7 @@ bool SDMT::serialize_() {
     std::ofstream archive(m_config.m_archive,
                     std::ios::out | std::ios::binary | std::ios::trunc);
 
-    serialize::write(archive, m_sgmt_map);
+    serialize::write(archive, m_snapshot_map);
     serialize::write(archive, m_cp_info);
     serialize::write(archive, m_cp_idx);
 
@@ -557,8 +557,8 @@ bool SDMT::deserialize_() {
         return false;
     }
     
-    // recover segment map
-    serialize::read(archive, m_sgmt_map);
+    // recover snapshot map
+    serialize::read(archive, m_snapshot_map);
     serialize::read(archive, m_cp_info);
     serialize::read(archive, m_cp_idx);
 
@@ -570,30 +570,30 @@ bool SDMT::deserialize_() {
     // recover iteration sequence
     FTI_Protect(1, &m_iter, 1, FTI_INTG);
 
-    for (auto& itr : m_sgmt_map) {
-        Segment& sgmt = itr.second;
+    for (auto& itr : m_snapshot_map) {
+        Snapshot& snapshot = itr.second;
 
         // calculate the byte size of memory to allocate
         size_t size = 1;
-        for (auto d: sgmt.m_dimension) {
+        for (auto d: snapshot.m_dimension) {
             size *= d;
         }
 
         // allocate memory and register to checkpointing module
-        sgmt.m_ptr = std::malloc(size * sgmt.m_esize);
+        snapshot.m_ptr = std::malloc(size * snapshot.m_esize);
 
-        switch (sgmt.m_valuetype) {
+        switch (snapshot.m_valuetype) {
             case SDMT_INT:
-                FTI_Protect(sgmt.m_id, sgmt.m_ptr, size, FTI_INTG);
+                FTI_Protect(snapshot.m_id, snapshot.m_ptr, size, FTI_INTG);
                 break;
             case SDMT_LONG:
-                FTI_Protect(sgmt.m_id, sgmt.m_ptr, size, FTI_LONG);
+                FTI_Protect(snapshot.m_id, snapshot.m_ptr, size, FTI_LONG);
                 break;
             case SDMT_FLOAT:
-                FTI_Protect(sgmt.m_id, sgmt.m_ptr, size, FTI_SFLT);
+                FTI_Protect(snapshot.m_id, snapshot.m_ptr, size, FTI_SFLT);
                 break;
             case SDMT_DOUBLE:
-                FTI_Protect(sgmt.m_id, sgmt.m_ptr, size, FTI_DBLE);
+                FTI_Protect(snapshot.m_id, snapshot.m_ptr, size, FTI_DBLE);
                 break;
             default:
                 return false;
@@ -607,27 +607,27 @@ bool SDMT::deserialize_() {
 }
 
 template<>
-inline std::ostream& serialize::write<SDMT::Segment>(
-                        std::ostream& os, SDMT::Segment& sgmt) {
-    serialize::write(os, sgmt.m_id);
-    serialize::write(os, sgmt.m_valuetype);
-    serialize::write(os, sgmt.m_datatype);
-    serialize::write(os, sgmt.m_dimension);
-    serialize::write(os, sgmt.m_strides);
-    serialize::write(os, sgmt.m_esize);
+inline std::ostream& serialize::write<SDMT::Snapshot>(
+                        std::ostream& os, SDMT::Snapshot& snapshot) {
+    serialize::write(os, snapshot.m_id);
+    serialize::write(os, snapshot.m_valuetype);
+    serialize::write(os, snapshot.m_datatype);
+    serialize::write(os, snapshot.m_dimension);
+    serialize::write(os, snapshot.m_strides);
+    serialize::write(os, snapshot.m_esize);
 
     return os;
 }
 
 template<>
-inline std::istream& serialize::read<SDMT::Segment>(
-                        std::istream& is, SDMT::Segment& sgmt) {
-    serialize::read(is, sgmt.m_id);
-    serialize::read(is, sgmt.m_valuetype);
-    serialize::read(is, sgmt.m_datatype);
-    serialize::read(is, sgmt.m_dimension);
-    serialize::read(is, sgmt.m_strides);
-    serialize::read(is, sgmt.m_esize);
+inline std::istream& serialize::read<SDMT::Snapshot>(
+                        std::istream& is, SDMT::Snapshot& snapshot) {
+    serialize::read(is, snapshot.m_id);
+    serialize::read(is, snapshot.m_valuetype);
+    serialize::read(is, snapshot.m_datatype);
+    serialize::read(is, snapshot.m_dimension);
+    serialize::read(is, snapshot.m_strides);
+    serialize::read(is, snapshot.m_esize);
 
     return is;
 }

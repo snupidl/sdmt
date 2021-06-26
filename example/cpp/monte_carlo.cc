@@ -28,12 +28,12 @@ int main() {
     int* circle_points, *square_points;
 
     // check this execution is first try
-    // if it is, create segments
+    // if it is, create snapshots
     // else get recoverd value
     if (!SDMT::exist("mc_pi")) {
-        SDMT::register_segment("mc_pi", SDMT_DOUBLE, SDMT_SCALAR, {});
-        SDMT::register_segment("mc_circle", SDMT_INT, SDMT_SCALAR, {});
-        SDMT::register_segment("mc_square", SDMT_INT, SDMT_SCALAR, {});
+        SDMT::register_snapshot("mc_pi", SDMT_DOUBLE, SDMT_SCALAR, {});
+        SDMT::register_snapshot("mc_circle", SDMT_INT, SDMT_SCALAR, {});
+        SDMT::register_snapshot("mc_square", SDMT_INT, SDMT_SCALAR, {});
 
         pi = SDMT::doubleptr("mc_pi");
         circle_points = SDMT::intptr("mc_circle");

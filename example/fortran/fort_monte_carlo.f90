@@ -42,9 +42,9 @@ c_b = .false.
 
 res = sdmt_init(config, c_b)
 
-res = sdmt_register_segment(pi_name, SDMT_DOUBLE, SDMT_SCALAR, 0)
-res = sdmt_register_segment(square_name, SDMT_INT, SDMT_SCALAR, 0)
-res = sdmt_register_segment(circle_name, SDMT_INT, SDMT_SCALAR, 0)
+res = sdmt_register_snapshot(pi_name, SDMT_DOUBLE, SDMT_SCALAR, 0)
+res = sdmt_register_snapshot(square_name, SDMT_INT, SDMT_SCALAR, 0)
+res = sdmt_register_snapshot(circle_name, SDMT_INT, SDMT_SCALAR, 0)
 
 call c_f_pointer(sdmt_doubleptr_c(pi_name), pi_ptr)
 call c_f_pointer(sdmt_intptr_c(square_name), sq_ptr)

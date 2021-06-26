@@ -33,7 +33,7 @@ dimension_format(1) = 3
 dimension_format(2) = 745
 dimension_format(3) = 1
 
-res = sdmt_register_segment(seg_name,  SDMT_DOUBLE, SDMT_TENSOR, dimension_numpara, dimension_format)
+res = sdmt_register_snapshot(seg_name,  SDMT_DOUBLE, SDMT_TENSOR, dimension_numpara, dimension_format)
 
 call c_f_pointer(sdmt_doubleptr_c(seg_name), iptr, dimension_format)
 

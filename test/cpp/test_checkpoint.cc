@@ -14,15 +14,15 @@ TEST(RecoveryTest, Int1D) {
     // initialize sdmt module
     SDMT::init("./config_cpp_test.xml", false);
 
-    // request a sdmt segment
+    // request a sdmt snapshot
     // define 1 dimensional integer array
     // the size of array is 1024
-    SDMT::register_segment("sdmttest_int1d", SDMT_INT, SDMT_ARRAY, {1024});
+    SDMT::register_snapshot("sdmttest_int1d", SDMT_INT, SDMT_ARRAY, {1024});
 
-    // get data segment
+    // get data snapshot
     int* ptr = SDMT::intptr("sdmttest_int1d");
 
-    // write values to segment memory
+    // write values to snapshot memory
     for (int i = 0; i < 1024; i++) {
         ptr[i] = i * i;
     }
@@ -33,7 +33,7 @@ TEST(RecoveryTest, Int1D) {
     // generate checkpoint
     SDMT::checkpoint(1);
 
-    // overwrite dummy values to segment memory
+    // overwrite dummy values to snapshot memory
     for (int i = 0; i < 1024; i++) {
         ptr[i] = 0;
     }
