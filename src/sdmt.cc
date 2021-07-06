@@ -10,6 +10,9 @@ Contact: sdmt@kdb.snu.ac.kr
 #include "sdmt.h"
 #include "tinyxml2.h"
 
+#include "huffman.h"
+#include "rle.h"
+
 #include <fti.h>
 #include <iostream>
 #include <fstream>
@@ -196,6 +199,111 @@ SDMT_Code SDMT::change_snapshot_(
     } else {
         return SDMT_ERR_FAILED_ALLOCATION;
     }
+}
+
+SDMT_Code SDMT::compress_snapshot_lossy_(
+        std::string name,
+        SDMT_VT cvt,
+        SDMT_DT cdt,
+        std::vector<int> dim,
+        int scale) {
+
+    auto ptr = intptr_(name);
+    int n_dim = dim.front();
+    int tmp;
+
+    if (cvt == SDMT_INT){
+        for (int i = 0; i < n_dim; i++) {
+            tmp = ptr[i]/(10^scale);
+            ptr[i] = tmp*(10^scale);
+        }
+        return SDMT_SUCCESS;
+    }
+    else{
+        return SDMT_ERR_WRONG_VALUE_TYPE;
+    }
+}
+
+SDMT_Code SDMT::compress_snapshot_huf_(
+        std::string name,
+        SDMT_VT cvt,
+        SDMT_DT cdt,
+        std::vector<int> dim) {
+
+    auto ptr = intptr_(name);
+    int h_dim = dim.front();
+
+    huffman h(ptr, h_dim);
+
+    h.create_pq();
+    h.create_huffman_tree();
+    h.calculate_huffman_codes();
+    int c_dim = h.coding_save();
+
+    std::vector<int> cdim(1);
+    cdim.assign(1, c_dim);
+
+    change_snapshot_(name, cvt, cdt, cdim);
+}
+
+SDMT_Code SDMT::compress_snapshot_rle_(
+        std::string name,
+        SDMT_VT cvt,
+        SDMT_DT cdt,
+        std::vector<int> dim) {
+
+    auto ptr = intptr_(name);
+    int h_dim = dim.front();
+
+    rle r(ptr, h_dim);
+    int c_dim = r.compress();
+
+    std::vector<int> cdim(1);
+    cdim.assign(1, c_dim);
+
+    change_snapshot_(name, cvt, cdt, cdim);
+
+}
+
+SDMT_Code SDMT::decompress_snapshot_huf_(
+        std::string name,
+        SDMT_VT cvt,
+        SDMT_DT cdt,
+        std::vector<int> dim) {
+
+    auto itr = m_snapshot_map.find(name);
+    auto ptr = intptr_(name);
+    int h_dim = itr->second.m_dimension.front();
+
+    huffman h(ptr, h_dim);
+
+    h.recreate_huffman_tree();
+    int c_dim = h.decoding_save();
+
+    std::vector<int> cdim(1);
+    cdim.assign(1, c_dim);
+
+    change_snapshot_(name, cvt, cdt, cdim);
+}
+
+
+SDMT_Code SDMT::decompress_snapshot_rle_(
+        std::string name,
+        SDMT_VT cvt,
+        SDMT_DT cdt,
+        std::vector<int> dim) {
+
+    auto itr = m_snapshot_map.find(name);
+    auto ptr = intptr_(name);
+    int h_dim = itr->second.m_dimension.front();
+
+    rle r(ptr, h_dim);
+    int c_dim = r.decompress();
+
+    std::vector<int> cdim(1);
+    cdim.assign(1, c_dim);
+
+    change_snapshot_(name, cvt, cdt, cdim);
 }
 
 SDMT_Code SDMT::register_int_parameter_(

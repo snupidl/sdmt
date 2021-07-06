@@ -34,6 +34,36 @@ SDMT_Code sdmt_register_snapshot(char* name, SDMT_VT& vt, SDMT_DT& dt, std::vect
 	return SDMT::register_snapshot(name, vt, dt, dim);
 }
 
+SDMT_Code sdmt_change_snapshot(char* name, SDMT_VT& cvt, SDMT_DT& cdt, std::vector<int>& cdim) {
+//	cout << "[SDMT] [C API] change_snapshot" << endl;
+	return SDMT::change_snapshot(name, cvt, cdt, cdim);
+}
+
+SDMT_Code sdmt_compress_snapshot_lossy(char* name, SDMT_VT& vt, SDMT_DT& dt, std::vector<int>& dim, int& scale) {
+//	cout << "[SDMT] [C API] compress_snapshot_lossy" << endl;
+	return SDMT::compress_snapshot_lossy(name, vt, dt, dim, scale);
+}
+
+SDMT_Code sdmt_compress_snapshot_huf(char* name, SDMT_VT& vt, SDMT_DT& dt, std::vector<int>& dim) {
+//	cout << "[SDMT] [C API] compress_snapshot_huf" << endl;
+	return SDMT::compress_snapshot_huf(name, vt, dt, dim);
+}
+
+SDMT_Code sdmt_compress_snapshot_rle(char* name, SDMT_VT& vt, SDMT_DT& dt, std::vector<int>& dim) {
+//	cout << "[SDMT] [C API] compress_snapshot_rle" << endl;
+	return SDMT::compress_snapshot_rle(name, vt, dt, dim);
+}
+
+SDMT_Code sdmt_decompress_snapshot_huf(char* name, SDMT_VT& vt, SDMT_DT& dt, std::vector<int>& dim) {
+//	cout << "[SDMT] [C API] decompress_snapshot_huf" << endl;
+	return SDMT::decompress_snapshot_huf(name, vt, dt, dim);
+}
+
+SDMT_Code sdmt_decompress_snapshot_rle(char* name, SDMT_VT& vt, SDMT_DT& dt, std::vector<int>& dim) {
+//	cout << "[SDMT] [C API] decompress_snapshot_rle" << endl;
+	return SDMT::decompress_snapshot_rle(name, vt, dt, dim);
+}
+
 SDMT_Code sdmt_register_int_parameter(char* name, int& value){
 //	cout << "[SDMT] [C API] register_int_parameter" << endl;
 	return SDMT::register_int_parameter(name, value);
@@ -178,6 +208,61 @@ extern "C" {
 			dim_.push_back((dim_format)[i]);
 		}
 		return sdmt_register_snapshot(name, *vt, *dt, dim_);
+    }
+
+    sdmt_code sdmt_change_snapshot_c_(char* name,
+            SDMT_VT* cvt, SDMT_DT* cdt, int* dim_numpara, int dim_format[]) {
+		std::vector<int> dim_;
+		for(int i = 0; i< *dim_numpara; ++i){
+			dim_.push_back((dim_format)[i]);
+		}
+		return sdmt_change_snapshot(name, *cvt, *cdt, dim_);
+    }
+
+    sdmt_code sdmt_compress_snapshot_lossy_c_(char* name,
+            SDMT_VT* vt, SDMT_DT* dt, int* dim_numpara, int dim_format[], int scale) {
+		std::vector<int> dim_;
+		for(int i = 0; i< *dim_numpara; ++i){
+			dim_.push_back((dim_format)[i]);
+		}
+		return sdmt_compress_snapshot_lossy(name, *vt, *dt, dim_, scale);
+    }
+
+    sdmt_code sdmt_compress_snapshot_huf_c_(char* name,
+            SDMT_VT* vt, SDMT_DT* dt, int* dim_numpara, int dim_format[]) {
+		std::vector<int> dim_;
+		for(int i = 0; i< *dim_numpara; ++i){
+			dim_.push_back((dim_format)[i]);
+		}
+		return sdmt_compress_snapshot_huf(name, *vt, *dt, dim_);
+    }
+
+    sdmt_code sdmt_compress_snapshot_rle_c_(char* name,
+            SDMT_VT* vt, SDMT_DT* dt, int* dim_numpara, int dim_format[]) {
+		std::vector<int> dim_;
+		for(int i = 0; i< *dim_numpara; ++i){
+			dim_.push_back((dim_format)[i]);
+		}
+		return sdmt_compress_snapshot_rle(name, *vt, *dt, dim_);
+    }
+
+    sdmt_code sdmt_decompress_snapshot_huf_c_(char* name,
+            SDMT_VT* vt, SDMT_DT* dt, int* dim_numpara, int dim_format[]) {
+		std::vector<int> dim_;
+		for(int i = 0; i< *dim_numpara; ++i){
+			dim_.push_back((dim_format)[i]);
+		}
+		return sdmt_decompress_snapshot_huf(name, *vt, *dt, dim_);
+    }
+
+
+    sdmt_code sdmt_decompress_snapshot_rle_c_(char* name,
+            SDMT_VT* vt, SDMT_DT* dt, int* dim_numpara, int dim_format[]) {
+		std::vector<int> dim_;
+		for(int i = 0; i< *dim_numpara; ++i){
+			dim_.push_back((dim_format)[i]);
+		}
+		return sdmt_decompress_snapshot_rle(name, *vt, *dt, dim_);
     }
 
 	sdmt_code sdmt_register_int_parameter_c_(char* name, int* value) {

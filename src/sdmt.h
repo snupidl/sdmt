@@ -202,12 +202,84 @@ class SDMT
      * @param value value of the parameter
      * @return status code
      */
-	static SDMT_Code change_snapshot(std::string name,
+    static SDMT_Code change_snapshot(std::string name,
                                 SDMT_VT cvt,
                                 SDMT_DT cdt,
                                 std::vector<int> cdim)
     {return get_manager().change_snapshot_(name, cvt, cdt, cdim); }
-   
+
+    /**
+     * @brief [static]compress a Snapshot by way of lossy compression
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @param scale degree of scale to compress
+     * @return status code
+     */
+    static SDMT_Code compress_snapshot_lossy(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim,
+				int scale)
+    { return get_manager().compress_snapshot_lossy_(name, vt, dt, dim, scale); }
+
+    /**
+     * @brief [static]compress a Snapshot by way of huffman
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @return status code
+     */
+    static SDMT_Code compress_snapshot_huf(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim)
+    { return get_manager().compress_snapshot_huf_(name, vt, dt, dim); }
+
+    /**
+     * @brief [static]compress a Snapshot by way of RLE
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @return status code
+     */
+    static SDMT_Code compress_snapshot_rle(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim)
+    { return get_manager().compress_snapshot_rle_(name, vt, dt, dim); }
+
+    /**
+     * @brief [static]decompress a Snapshot by way of huffman
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @return status code
+     */
+    static SDMT_Code decompress_snapshot_huf(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim)
+    { return get_manager().decompress_snapshot_huf_(name, vt, dt, dim); }
+
+    /**
+     * @brief [static]decompress a Snapshot by way of RLE
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @return status code
+     */
+    static SDMT_Code decompress_snapshot_rle(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim)
+    { return get_manager().decompress_snapshot_rle_(name, vt, dt, dim); }
+  
     /**
      * @brief [static]register a int type parameter to be adjusted
      * @param name name of the parameter
@@ -403,10 +475,77 @@ class SDMT
      * @param value value of the parameter
      * @return status code
      */
-	SDMT_Code change_snapshot_(std::string name,
+    SDMT_Code change_snapshot_(std::string name,
                             SDMT_VT cvt,
                             SDMT_DT cdt,
                             std::vector<int> cdim);
+    /**
+     * @brief [static]compress a Snapshot by way of lossy compression
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @param scale degree of scale to compress
+     * @return status code
+     */
+    SDMT_Code compress_snapshot_lossy_(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim,
+				int scale);
+
+    /**
+     * @brief [static]compress a Snapshot by way of huffman
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @return status code
+     */
+    SDMT_Code compress_snapshot_huf_(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim);
+
+    /**
+     * @brief [static]compress a Snapshot by way of RLE
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @return status code
+     */
+    SDMT_Code compress_snapshot_rle_(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim);
+
+    /**
+     * @brief [static]decompress a Snapshot by way of huffman
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @return status code
+     */
+    SDMT_Code decompress_snapshot_huf_(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim);
+
+    /**
+     * @brief [static]decompress a Snapshot by way of RLE
+     * @param name name of the Snapshot
+     * @param vt value type
+     * @param dt data type
+     * @param dim size of each dimension
+     * @return status code
+     */
+    SDMT_Code decompress_snapshot_rle_(std::string name,
+                                SDMT_VT vt,
+                                SDMT_DT dt,
+                                std::vector<int> dim);
+  
 
     /**
      * @brief register a int type parameter to be adjusted
