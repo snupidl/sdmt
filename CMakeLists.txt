@@ -153,6 +153,7 @@ INSTALL(FILES python/sdmt/sdmt_graph_tool_select_PS.py
         DESTINATION /usr/local/sdmt/sdmt_graph_tool/py_codes/)
 INSTALL(FILES jar/sdmt_graph_tool_united_code_extract.jar
         DESTINATION /usr/local/sdmt/sdmt_graph_tool/java/)
+INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/example/graph_tool_pseudocodes DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/graph_tool_pseudocodes)
 # sdmt_graph_tool end
 
 ###############################################################################

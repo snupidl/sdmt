@@ -30,3 +30,6 @@ CTestTestfile.cmake
 
 # doxygen
 doxygen_log.txt
+
+# fti make
+thirdparty/fti/
