@@ -1,0 +1,15 @@
+//triangle_count
+
+int triangle_num = 0;
+
+for(list e in all_edge_list){
+	for (list v_both in get_both_vertex_from(e.src)){
+		for (list u_both in get_both_vertex_from(e.dst)){
+			if(v_both.value==u_both.value){
+				triangle_num = triangle_num + 1;	
+			}
+		}
+	}
+}
+
+triangle_num = triangle_num/3.0;

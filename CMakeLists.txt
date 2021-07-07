@@ -111,6 +111,50 @@ ENABLE_TESTING()
 ADD_SUBDIRECTORY(test)
 ADD_SUBDIRECTORY(example)
 
+# sdmt_graph_tool
+SET(CMAKE_CXX_STANDARD 17)
+set(Boost_USE_STATIC_LIBS        ON)
+set(Boost_USE_MULTITHREADED      ON)
+SET (sdmt_graph_tool
+	src/sdmt_graph_tool/analyzer.h
+	src/sdmt_graph_tool/communication.h
+	src/sdmt_graph_tool/global_file_IO.h
+       	src/sdmt_graph_tool/global_file_IO.cpp
+	src/sdmt_graph_tool/global_graph.h
+	src/sdmt_graph_tool/global_graph_stat.h
+	src/sdmt_graph_tool/GPSPE_main.cpp
+	src/sdmt_graph_tool/graph_class.h
+	src/sdmt_graph_tool/graph_stat_tools.h
+	src/sdmt_graph_tool/partitioning_strategies.h
+	src/sdmt_graph_tool/TextTable.h
+	src/sdmt_graph_tool/tools.h
+)
+find_library(
+	MPI_CXX
+	NAMES libmpi.so
+	HINTS /usr/local/lib
+	REQUIRED
+)
+find_package(Boost REQUIRED COMPONENTS system iostreams serialization filesystem program_options)
+include_directories(${Boost_INCLUDE_DIR})
+
+#find_package(MPI REQUIRED)
+#include_directories(thirdparty/openmpi/include)
+include_directories("/usr/local/include")
+
+add_executable(GPSPE ${sdmt_graph_tool})
+target_link_libraries(GPSPE ${MPI_CXX} ${Boost_LIBRARIES})
+
+INSTALL(FILES models/sdmt_graph_tool_xgboost_model
+	DESTINATION /usr/local/sdmt/sdmt_graph_tool/models/)
+INSTALL(FILES models/sdmt_graph_tool_xgboost_scaler
+        DESTINATION /usr/local/sdmt/sdmt_graph_tool/models/)
+INSTALL(FILES python/sdmt/sdmt_graph_tool_select_PS.py
+        DESTINATION /usr/local/sdmt/sdmt_graph_tool/py_codes/)
+INSTALL(FILES jar/sdmt_graph_tool_united_code_extract.jar
+        DESTINATION /usr/local/sdmt/sdmt_graph_tool/java/)
+# sdmt_graph_tool end
+
 ###############################################################################
 # Summary
 ###############################################################################

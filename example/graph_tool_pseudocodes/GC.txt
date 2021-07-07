@@ -1,0 +1,18 @@
+// Name Coloring
+// initiaite
+for(list v in all_vertex_list){
+    v.value = -1;
+}
+
+for(list v in all_vertex_list){
+    set temp_set;
+    for (list v_in in get_in_vertex_to(v)){
+        tesmp_set = temp_set + v_in.value;
+    }
+    for (list v_out in get_out_vertex_from(v)){
+        tesmp_set = temp_set + v_out.value;
+    }
+    v.value = function.find_min_color_in_set(temp_set);
+    Global.apply(v, 8);
+}
+

@@ -5,7 +5,11 @@ ADD_SUBDIRECTORY(fortran)
 #    DESTINATION "${CMAKR_CURRENT_BINARY_DIR}/python" 
 #    FILES_MATCHING PATTERN "*.py" )
 
-add_custom_target(copy-files ALL
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/test/python
-    ${CMAKE_CURRENT_BINARY_DIR}/python)
+#add_custom_target(copy-files ALL
+#COMMAND ${CMAKE_COMMAND} -E copy_directory
+    # ${CMAKE_SOURCE_DIR}/test/python
+    #${CMAKE_CURRENT_SOURCE_DIR}/python
+    #${CMAKE_CURRENT_BINARY_DIR}/python)
+
+INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/python DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/python)
+

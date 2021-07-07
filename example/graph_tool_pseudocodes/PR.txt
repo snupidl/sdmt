@@ -1,0 +1,27 @@
+// PageRank
+int iterator_num = 10;
+float dampling_factor = 0.85;
+float temp_value;
+for(list v in all_vertex_list){
+    v.value = 1.0 / all_vertex_num ;
+}
+for(iterator_num) {
+    for(list v in all_vertex_list){
+        temp_value = 0;
+        for (list v_in in get_in_vertex_to(v)){
+            temp_value = temp_value 
+                + v_in.value/v_in.out_edge_num;
+        }
+        v.value = (1-dampling_factor)/all_vertex_num 
+            + dampling_factor * temp_value;
+		Global.apply(v, 8);
+    }
+}
+
+
+
+
+
+
+
+

@@ -38,6 +38,15 @@ when a system fault occurs or parameter reset is required.
  $ make && make install
 ```
 
+* build and install openmpi library
+```
+ $ cd /path/to/sdmt/thirdparty/openmpi-4.0.3
+ $ gunzip -c openmpi-4.0.3.tar.gz | tar xf -
+ $ cd openmpi-4.0.3
+ $ ./configure --prefix=/usr/local
+ $ sudo make all install
+```
+
 * build and install sdmt
 ```
  $ cd /path/to/sdmt

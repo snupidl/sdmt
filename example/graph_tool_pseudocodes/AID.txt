@@ -1,0 +1,9 @@
+//getindegree.txt
+for(list v in all_vertex_list){
+	v.value = 0;
+}
+for(list v in all_vertex_list){
+	for (list v_in in get_in_vertex_to(v)){
+    	v.value = v.value + 1;
+    }
+}

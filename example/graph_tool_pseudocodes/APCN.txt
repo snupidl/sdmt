@@ -1,0 +1,12 @@
+int count = 0;
+for(list v in all_vertex_list){
+	for(list u in all_vertex_list){
+		for (list v_both in get_both_vertex_from(v)){
+			for (list u_both in get_both_vertex_from(u)){
+				if(v_both.value==u_both.value){
+					count = count + 1;	
+				}
+			}
+		}
+	}
+}
