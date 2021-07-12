@@ -145,6 +145,7 @@ include_directories("/usr/local/include")
 add_executable(GPSPE ${sdmt_graph_tool})
 target_link_libraries(GPSPE ${MPI_CXX} ${Boost_LIBRARIES})
 
+INSTALL(TARGETS GPSPE DESTINATION bin)
 INSTALL(FILES models/sdmt_graph_tool_xgboost_model
 	DESTINATION /usr/local/sdmt/sdmt_graph_tool/models/)
 INSTALL(FILES models/sdmt_graph_tool_xgboost_scaler
