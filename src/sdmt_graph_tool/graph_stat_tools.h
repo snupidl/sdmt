@@ -343,7 +343,7 @@ void get_graph_stat(string graph_data_path, bool direct_true_or_undirect_false, 
     if(world_rank==0 && print_on==true){
         cout<< "GRAPH STAT, GRAPH DATA: "<<graph_data_path<<", STATS:"<<endl;
         cout<< t << "\n";
-	    cout<< "Histogram of in-degree: \n" << indegree_histogram <<endl;
+	cout<< "Histogram of in-degree: \n" << indegree_histogram <<endl;
         cout<< "Histogram of out-degree: \n" << outdegree_histogram <<endl;
     }
 
@@ -676,6 +676,10 @@ void get_ps_rank(string graph_data_path, string algo_pseudocode_path, string alg
                                     + algo_feature.string()  + string(" 1> /dev/null");
         // /mirror/mpiu/HPC_GPSPE/real_hpc_code/code_feature_extractor/United_Code_extract_HPC.jar
         system(java_call_string.c_str());
+	string del_temp = std::string("rm ./") +   algo_file.stem().string() + string("_0_intermediate.txt");
+	system(del_temp.c_str());
+	string del_temp2 = std::string("rm ./elapsedTime_all_case.txt");
+	system(del_temp2.c_str());
         // 4) get ps rank
         string python_call_string = std::string("python3 ") + py_file_location + string(" ") + data_feature.string()
                                     + std::string(" ")+ algo_feature.string()

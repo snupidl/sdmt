@@ -49,9 +49,9 @@ int main(int argc, char *argv[]){
     // input arguments parsing
     po::options_description global("Global options");
     global.add_options()
-        ("command", po::value<std::string>(), "command to execute")
-        ("subargs", po::value<std::vector<std::string> >(), "Arguments for command")
-        ("help,h", "produce help message")
+	("help", "print usage")
+        ("command", po::value<std::string>(), "command to execute, stat: extract graph statistics, ps: recommend partitioning strategy")
+	("subargs", po::value<std::vector<std::string> >(), "Arguments for command")
         ;
 
     po::positional_options_description pos;
@@ -67,38 +67,60 @@ int main(int argc, char *argv[]){
         run();
 
     po::store(parsed, vm);
-
-    std::string cmd = vm["command"].as<std::string>();
+    std::string cmd = "";
+    if(vm.count("command")){
+	cmd = vm["command"].as<std::string>();
+	/*
+	if(world_rank==0){
+		cout << cmd <<endl;
+	}
+	*/
+    }
     if (cmd == "stat")
     {
-        // ls command has the following options:
+        // stat command has the following options:
         po::options_description stat_desc("stat options");
         stat_desc.add_options()
-            ("print,p", "print the statistics of graph on the console")
+            ("print", "print the statistics of graph on the console")
             ("dumpfolder", po::value<std::string>(), "dump the stat infomation and other logs to the dumpfolder")
-            ("input,i", po::value<std::string>(), "path to input graph file")
+            ("input", po::value<std::string>(), "path to input graph file")
             ("direction", po::value<std::string>(), "the direction of the input graph file, 'directed' ot 'undirected'")
+	    ("help", "print usage")
             ;
 
         // Collect all the unrecognized options from the first pass. This will include the
         // (positional) command name, so we need to erase that.
         std::vector<std::string> opts = po::collect_unrecognized(parsed.options, po::include_positional);
-        opts.erase(opts.begin());
+        //opts.erase(opts.begin());
 
         // Parse again...
         po::store(po::command_line_parser(opts).options(stat_desc).run(), vm);
-
+	
         if(vm.count("help")) { 
-            std::cout << global << std::endl; 
-            std::cout << stat_desc << std::endl; 
-            return 1; 
+	    if(world_rank==0){
+                std::cout << global << std::endl; 
+                std::cout << stat_desc << std::endl; 
+	    }
+	    MPI_Barrier(MPI_COMM_WORLD);
+    	    MPI_Finalize();
+            return 0; 
         }
-        std::string input_graph_path = vm["input"].as<std::string>();
-        std::string dump_path = vm["dumpfolder"].as<std::string>();
-        std::string directed = vm["direction"].as<std::string>();
+	
+        std::string input_graph_path = "";
+	if(vm.count("input")){
+	    input_graph_path = vm["input"].as<std::string>();
+	}
         bool dump  = vm.count("dumpfolder");
+	std::string dump_path = "";
+	if(dump){
+	    dump_path = vm["dumpfolder"].as<std::string>();
+	}
         bool print = vm.count("print");
         bool direction = true;
+	std::string directed = "directed";
+	if(vm.count("direction")){
+	      directed =  vm["direction"].as<std::string>();
+	}
         if(directed.compare("undirected")==0){
             direction = false;
         }
@@ -110,12 +132,13 @@ int main(int argc, char *argv[]){
         // ls command has the following options:
         po::options_description ps_desc("partitioning strategies options");
         ps_desc.add_options()
-            ("print,p", "print the rank of partitioning strategies")
-            ("input_graph,ig", po::value<std::string>(), "path to the input graph file")
+            ("print", "print the rank of partitioning strategies")
+            ("input_graph", po::value<std::string>(), "path to the input graph file")
             ("direction", po::value<std::string>(), "the direction of the input graph file, 'directed' ot 'undirected'")
-            ("input_algo,ia", po::value<std::string>(), "path to the input algorithm pseudocode file")
-            ("dumpfolder,df", po::value<std::string>(), "dump the stat infomation and other logs to the dumpfolder")
-            ("logfolder,lf", po::value<std::string>(), "location that contain the stat infomation dump file / usually same with dumpfolder")
+            ("input_algo", po::value<std::string>(), "path to the input algorithm pseudocode file")
+            ("dumpfolder", po::value<std::string>(), "dump the stat infomation and other logs to the dumpfolder")
+            ("logfolder", po::value<std::string>(), "location that contain the stat infomation dump file / usually same with dumpfolder")
+	    ("help", "print usage")
             //("modelfolder,mf", po::value<std::string>(), "location that contain the XGBoost model")
             //("pyfolder,pf", po::value<std::string>(), "location that contain the python code(containing the model)")
             //("algofeatureextractor,afe", po::value<std::string>(), "location of the algorithm feature extractor(JAR file)")
@@ -124,15 +147,18 @@ int main(int argc, char *argv[]){
         // Collect all the unrecognized options from the first pass. This will include the
         // (positional) command name, so we need to erase that.
         std::vector<std::string> opts = po::collect_unrecognized(parsed.options, po::include_positional);
-        opts.erase(opts.begin());
 
         // Parse again...
         po::store(po::command_line_parser(opts).options(ps_desc).run(), vm);
 
         if(vm.count("help")) { 
-            std::cout << global << std::endl; 
-            std::cout << ps_desc << std::endl; 
-            return 1; 
+	    if(world_rank==0){
+                std::cout << global << std::endl; 
+                std::cout << ps_desc << std::endl; 
+	    }
+	    MPI_Barrier(MPI_COMM_WORLD);
+	    MPI_Finalize();
+            return 0; 
         }
         std::string input_graph_path = vm["input_graph"].as<std::string>();
         std::string input_algo_path = vm["input_algo"].as<std::string>();
@@ -161,9 +187,13 @@ int main(int argc, char *argv[]){
                  dump_path, log_folder, model_file, scaler_file, py_code);
     }
     else{
-        if(vm.count("help")) { 
-            std::cout << global << std::endl; 
-            return 1; 
+        if(vm.count("help")) {
+	    if(world_rank==0){
+	        std::cout<< global << std::endl;
+	    }
+	    MPI_Barrier(MPI_COMM_WORLD);
+	    MPI_Finalize();
+            return 0; 
         }
     }
     
